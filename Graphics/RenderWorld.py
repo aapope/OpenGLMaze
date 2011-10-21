@@ -154,4 +154,4 @@ class RenderWorld:
         glDisable(GL_TEXTURE_2D)
 
 if __name__ == '__main__':
-    RENDER = RenderWorld('lots.xml')
+    RENDER = RenderWorld('OpenGLMaze/WorldGeneration/lots.xml')
