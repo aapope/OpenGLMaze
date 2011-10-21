@@ -10,7 +10,10 @@ from WorldGeneration import Key
 from WorldGeneration import LoadWorld
 import Image
 
-
+# TODO: Set up sorting blocks by distance, and drawing them in that order, or choosing only the ones you can see to actually render. 
+#       Lib3ds to load different objects
+#       Speed up the rendering process so the game runs more smoothly
+#       Nicer ground? Reflections? Shadows?
 class RenderWorld:
     '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
     WINDOW_WIDTH = 400
@@ -22,7 +25,7 @@ class RenderWorld:
         self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
-        self.blocks = LoadWorld.load(file_name)
+        self.objects = LoadWorld.load(file_name)
 
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
@@ -67,28 +70,34 @@ class RenderWorld:
         glEnable(GL_LIGHT2)
 
     def display(self, x=0, y=0):
-        '''Called for every refresh; redraws the floor and blocks and based on the camera angle'''
+        '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
-        #Transparent blocks!
+        #Transparent objects!
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        for block in self.blocks:
-            color = block.get_color()
-            pos = block.get_pos()
+        for object in self.objects:
+
+            color = object.get_color()
+            pos = object.get_pos()
             glPushMatrix()
-            #Set the blocks shininess, ambient, diffuse, and specular reflections. The blocks are slightly transparent.
+            #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
             glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
             glTranslate(pos[0],pos[1],pos[2])
-            glutSolidCube(2)
+            if object.get_type() == 'block':
+                glutSolidCube(2)
+            elif object.get_type() == 'key':
+                glutSolidTeapot(2)
+            else:
+                glutSolidSphere(2, 40, 40)
             glPopMatrix()
         glDisable(GL_BLEND)
 
