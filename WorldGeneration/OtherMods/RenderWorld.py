@@ -100,19 +100,14 @@ class RenderWorld:
 
 
             elif obj.get_type() == "key":
+                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
                 glTranslate(pos[0],pos[1],pos[2])
-                glutSolidTorus(.1, .4, 10, 50)
+                #glutSolidTorus(.05, .25, 3, 3)
+                glutSolidCone(.1, 2.0, 30, 4)
 
 
             glPopMatrix()
         glDisable(GL_BLEND)
-
-
-
-
-
-
-
 
         glFlush()
 
