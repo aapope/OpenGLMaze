@@ -4,7 +4,7 @@ __date__ = "21 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-from OpenGlMaze.Player import Camera
+from Player import Camera
 from Block import Block
 from LoadBlocks import LoadBlocks
 import Image

@@ -1,4 +1,4 @@
 Each group has their own module folder to work with. Make sure each module has an __init__.py program to facilitate imports. When importing a class from another folder, use this format:
-from OpenGLMaze.Folder_it's_in import Class_to_import
+from Folder_it's_in import Class_to_import
 
 Before committing, make sure everything is running by running main.py in the root folder. Read the documentation in that file for more info

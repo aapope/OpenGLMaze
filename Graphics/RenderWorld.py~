@@ -4,7 +4,7 @@ __date__ = "21 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-from OpenGlMaze.Player import Camera
+from OpenGLMaze.Player import Camera
 from Block import Block
 from LoadBlocks import LoadBlocks
 import Image
@@ -154,4 +154,4 @@ class RenderWorld:
         glDisable(GL_TEXTURE_2D)
 
 if __name__ == '__main__':
-    RENDER = RenderWorld('lots.xml')
+    RENDER = RenderWorld('OpenGLMaze/WorldGeneration/lots.xml')
