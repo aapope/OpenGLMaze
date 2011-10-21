@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+<WORLD>
+
+  <BLOCK>
+    <X> </X>
+    <Y> </Y>
+    <Z> </Z>
+    <R> </R>
+    <G> </G>
+    <B> </B>    
+  </BLOCK>
+
+  <KEY>
+    <X> </X>
+    <Y> </Y>
+    <Z> </Z>
+  </KEY>
+
+</WORLD> 
