@@ -1,9 +1,0 @@
-program:
-	python main.py
-doc:
-	pydoc -w ./
-	mv *html Doc/
-	rm *pyc
-	rm Blockworld/*pyc
-generate:
-	python generate.py

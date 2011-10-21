@@ -5,8 +5,9 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from Player import Camera
-from Block import Block
-from LoadBlocks import LoadBlocks
+from WorldGeneration import Block
+from WorldGeneration import Key
+from WorldGeneration import LoadWorld
 import Image
 
 
@@ -21,12 +22,10 @@ class RenderWorld:
         self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
-        self.blocks = LoadBlocks.load(file_name)
-#        glMaterialfv(GL_FRONT, GL_SPECULAR, [1, 1, 1, 1])
-#        glMaterialfv(GL_FRONT, GL_SHININESS, [50])
+        self.blocks = LoadWorld.load(file_name)
 
         glClearColor(.529,.8078,.980,0)
-
+        glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
         glutKeyboardFunc(self.keyPressed)
         glutMainLoop()
@@ -117,7 +116,7 @@ class RenderWorld:
             self.camera.height(.1)
         elif key == 'c':
             self.camera.height(-.1)
-        self.display()
+#        self.display()
 
     def renderLightSource(self):
         '''Resets the light sources to the right position'''
@@ -154,4 +153,4 @@ class RenderWorld:
         glDisable(GL_TEXTURE_2D)
 
 if __name__ == '__main__':
-    RENDER = RenderWorld('OpenGLMaze/WorldGeneration/lots.xml')
+    RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')
