@@ -130,7 +130,7 @@ class RenderWorld:
         '''Makes a floor of size size and places an image (texture) on it'''
         glEnable(GL_TEXTURE_2D)
         size = 50
-        image = Image.open("Blockworld/checkerboard.bmp")
+        image = Image.open("Graphics/checkerboard.bmp")
 	
         ix = image.size[0]
         iy = image.size[1]
