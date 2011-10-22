@@ -4,8 +4,7 @@ __date__ = "20 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-#from Sound 
-import GameSounds
+from Sound import GameSounds
 import math
 
 class Camera:
@@ -32,18 +31,13 @@ class Camera:
         self.keys["d"] = False
         self.aware = 5
         self.soundboard = GameSounds()
-        self.chan1 = self.soundboard.mixer.Channel(0) #footsteps
-        self.chan2 = self.soundboard.mixer.Channel(1) #collision
-        self.chan3 = self.soundboard.mixer.Channel(2) #pick-up
-        self.chan4 = self.soundboard.mixer.Channel(3) #fanfare
-        self.chan5 = self.soundboard.mixer.Channel(4) #background Music
-        self.chan6 = self.soundboard.mixer.Channel(5) #zombie moan
-        self.chan1.queue("Sound/footsteps.wav")
-        self.chan2.queue("Sound/crashsound.wav")
-        self.chan3.queue("")
-        self.chan4.queue("Sound/fanfare.wav")
-        self.chan5.queue("Sound/music.wav")
-        self.chan6.queue("Sound/zombie.mp3")
+#        self.soundboard.soundChannel(0, self.soundboard.toSound("Sound/footsteps.wav"))
+#        self.soundboard.soundChannel(1, self.soundboard.toSound("Sound/crashsound.wav"))
+#        self.soundboard.soundChannel(2, self.soundboard.toSound(""))
+#        self.soundboard.soundChannel(3, self.soundboard.toSound("Sound/fanfare.wav"))
+#        self.soundboard.soundChannel(4, self.soundboard.toSound("Sound/music.wav"))
+#        self.soundboard.soundChannel(5, self.soundboard.toSound("Sound/zombie.wav"))
+
 
         
     def renderCamera(self):

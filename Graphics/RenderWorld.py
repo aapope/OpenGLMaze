@@ -49,7 +49,7 @@ class RenderWorld:
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
         self.soundboard = GameSounds()
-        self.soundboard.loadMusic("Sound/outfile.wav")
+        self.soundboard.loadMusic("Sound/music.wav")
         self.soundboard.playMusic()
         glutMainLoop()
 
