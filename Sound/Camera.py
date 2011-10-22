@@ -84,7 +84,6 @@ class Camera:
 		print "Pressed key: ", key
 		if key == 'a':
 			self.transX += -.1
-			self.soundboard.playSound()
 		if key == 'd':
 			self.transX += .1
 		if key == 'q':
