@@ -3,9 +3,9 @@ import ImageTk, Image, os
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREEN = (255,0,0)
-BLOCK_SIZE = .1
-BLOCK_Z = 0
-KEY_Z = 0
+BLOCK_SIZE = 2
+BLOCK_Y = -.5
+KEY_Y = -.5
 
 
 class ReadBMP():
@@ -18,7 +18,6 @@ class ReadBMP():
         f.write(xml)
         print "writing " + f_out_name
         f.close()
-
 
     def make_xml(self, f):
         xml = "<WORLD>\n"
@@ -36,11 +35,11 @@ class ReadBMP():
         if color == WHITE:
             return ""
         elif color == BLACK:
-            return self.make_block_xml(x*BLOCK_SIZE, y*BLOCK_SIZE, 
-                                  BLOCK_Z, color[0], color[1], color[2])
+            return self.make_block_xml(x*BLOCK_SIZE, BLOCK_Y,
+                                  y*BLOCK_SIZE, color[0], color[1], color[2])
         elif color == GREEN:
-            return self.make_key_xml(x*BLOCK_SIZE, y*BLOCK_SIZE, 
-                                  KEY_Z, color[0], color[1], color[2])
+            return self.make_key_xml(x*BLOCK_SIZE, KEY_Y,
+                                  y*BLOCK_SIZE, color[0], color[1], color[2])
 
     def make_block_xml(self, x, y, z, r, g, b):
         string = "\t<BLOCK>\n"
