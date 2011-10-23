@@ -31,6 +31,8 @@ class RenderWorld:
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
         glutKeyboardFunc(self.keyPressed)
+        glutSetCursor(GLUT_CURSOR_NONE)
+        glutPassiveMotionFunc(self.mouseMove)
         glutMainLoop()
 
     def set_up_graphics(self):
@@ -105,6 +107,22 @@ class RenderWorld:
         glDisable(GL_BLEND)
 
         glFlush()
+
+    def mouseMove(self, x, y):
+        '''Called when the move is moved'''
+        factor = 1
+        padding = 5
+        tmp_x = (self.camera.mouse_x - x)/factor
+        tmp_y = (self.camera.mouse_y - y)/factor
+        self.camera.rotate(tmp_y, tmp_x, 0)
+        if x <= 0+padding or x >= self.WINDOW_WIDTH-padding:
+            x = self.WINDOW_WIDTH/2
+            glutWarpPointer(x, y)
+        if y <= 0+padding or y >= self.WINDOW_HEIGHT-padding:
+            y = self.WINDOW_HEIGHT/2
+            glutWarpPointer(x, y)
+        self.camera.mouse_x = x
+        self.camera.mouse_y = y
 
     def keyPressed(self, key, x, y):
         '''Called when a key is pressed'''
