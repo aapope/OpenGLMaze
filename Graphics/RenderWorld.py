@@ -9,6 +9,7 @@ from WorldGeneration import Block
 from WorldGeneration import Key
 from WorldGeneration import LoadWorld
 import Image
+from Obj2 import Model
 
 # TODO: Set up sorting blocks by distance, and drawing them in that order, or choosing only the ones you can see to actually render. 
 #       Lib3ds to load different objects
@@ -19,9 +20,8 @@ class RenderWorld:
     WINDOW_WIDTH = 400
     WINDOW_HEIGHT = 400
     
-    
     def __init__(self, file_name):
-        '''Sets everything up: camera, modes, lighting, and the list of blocks'''
+        '''Sets everything up: camera, modes, lighting, and the list of blocks'''        
         self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
@@ -73,7 +73,6 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
-        
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
@@ -95,10 +94,14 @@ class RenderWorld:
             if object.get_type() == 'block':
                 glutSolidCube(2)
             elif object.get_type() == 'key':
-                glutSolidTeapot(2)
+                #glutSolidTeapot(2)
+                pass
             else:
                 glutSolidSphere(2, 40, 40)
             glPopMatrix()
+
+        self.makefence()
+
         glDisable(GL_BLEND)
 
         glFlush()
@@ -160,6 +163,10 @@ class RenderWorld:
         glTexCoord2f(0.0, 1.0) ; glVertex(-size,-.5,size)
         glEnd()
         glDisable(GL_TEXTURE_2D)
+
+    def makefence(self):
+        self.fence=Model('Graphics/skyscraper.obj')
+        self.fence.draw()
 
 if __name__ == '__main__':
     RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')

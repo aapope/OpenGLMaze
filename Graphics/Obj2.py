@@ -1,6 +1,6 @@
 from OpenGL.GL import *
-from gameobjects.vector3 import *
-
+from math3D import *
+#this code was borrowed from http://ubuntuforums.org/showthread.php?t=1037392
 
 FILENAME="fence.obj"
 
@@ -40,14 +40,9 @@ class Model:
 	def makeNormals(self):
 		normals = []
 		for triangle in self.triangles:
-			vectorone=Vector3(triangle[1])
-			vectorzero=Vector3(triangle[0])
-			arm1= Vector3(triangle[1])-Vector3(triangle[0])
-			#arm1 = sub3(triangle[1],triangle[0])
-			arm2 = Vector3(triangle[2])-Vector3(triangle[0])
-			#arm2 = vector3(triangle[2],triangle[0])
-
-			normals.append(Vector3.normalise(Vector3.cross(arm1,arm2)))
+			arm1 = sub3(triangle[1],triangle[0])
+			arm2 = sub3(triangle[2],triangle[0])
+			normals.append(normalize3(cross3(arm1,arm2)))
 		self.normals = normals
 	
 	def draw(self):
