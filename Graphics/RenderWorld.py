@@ -79,7 +79,7 @@ class RenderWorld:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         self.camera.move()
-        self.camera.hitTest(self.objects)
+#        self.camera.hitTest(self.objects)
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
