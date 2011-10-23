@@ -7,4 +7,4 @@ if __name__ == '__main__':
     try:
         BLOCK = RenderWorld(sys.argv[1])
     except:
-        BLOCK = RenderWorld('keys_and_blocks.xml')
+        BLOCK = RenderWorld('testWorld.xml')
