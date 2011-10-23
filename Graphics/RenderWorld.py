@@ -9,25 +9,32 @@ from WorldGeneration import Block
 from WorldGeneration import Key
 from WorldGeneration import LoadWorld
 import Image
+from Obj2 import Model
 
-
+# TODO: Set up sorting blocks by distance, and drawing them in that order, or choosing only the ones you can see to actually render. 
+#       Lib3ds to load different objects
+#       Speed up the rendering process so the game runs more smoothly
+#       Nicer ground? Reflections? Shadows?
 class RenderWorld:
     '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
     WINDOW_WIDTH = 400
     WINDOW_HEIGHT = 400
     
-    
     def __init__(self, file_name):
-        '''Sets everything up: camera, modes, lighting, and the list of blocks'''
+        '''Sets everything up: camera, modes, lighting, and the list of blocks'''        
         self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
-        self.blocks = LoadWorld.load(file_name)
+        self.objects = LoadWorld.load(file_name)
 
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
+        glutIgnoreKeyRepeat(GLUT_KEY_REPEAT_OFF)
         glutKeyboardFunc(self.keyPressed)
+        glutKeyboardUpFunc(self.keyUp)
+        glutSetCursor(GLUT_CURSOR_NONE)
+        glutPassiveMotionFunc(self.mouseMove)
         glutMainLoop()
 
     def set_up_graphics(self):
@@ -67,44 +74,64 @@ class RenderWorld:
         glEnable(GL_LIGHT2)
 
     def display(self, x=0, y=0):
-        '''Called for every refresh; redraws the floor and blocks and based on the camera angle'''
+        '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
-        
+        self.camera.move()
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
-        #Transparent blocks!
+        #Transparent objects!
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        for block in self.blocks:
-            color = block.get_color()
-            pos = block.get_pos()
+        for object in self.objects:
+
+            color = object.get_color()
+            pos = object.get_pos()
             glPushMatrix()
-            #Set the blocks shininess, ambient, diffuse, and specular reflections. The blocks are slightly transparent.
+            #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
             glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
             glTranslate(pos[0],pos[1],pos[2])
-            glutSolidCube(2)
+            if object.get_type() == 'block':
+                glutSolidCube(2)
+            elif object.get_type() == 'key':
+                #glutSolidTeapot(2)
+                pass
+            else:
+                glutSolidSphere(2, 40, 40)
             glPopMatrix()
+
+        self.makefence()
+
         glDisable(GL_BLEND)
 
         glFlush()
 
+    def mouseMove(self, x, y):
+        '''Called when the move is moved'''
+        factor = 1
+        padding = 5
+        tmp_x = (self.camera.mouse_x - x)/factor
+        tmp_y = (self.camera.mouse_y - y)/factor
+        self.camera.rotate(tmp_y, tmp_x, 0)
+        if x <= 0+padding or x >= self.WINDOW_WIDTH-padding:
+            x = self.WINDOW_WIDTH/2
+            glutWarpPointer(x, y)
+        if y <= 0+padding or y >= self.WINDOW_HEIGHT-padding:
+            y = self.WINDOW_HEIGHT/2
+            glutWarpPointer(x, y)
+        self.camera.mouse_x = x
+        self.camera.mouse_y = y
+
     def keyPressed(self, key, x, y):
         '''Called when a key is pressed'''
-        if key == 'a':
-            self.camera.strafe(-.1)
-        elif key == 'd':
-            self.camera.strafe(.1)
-        elif key == 'w':
-            self.camera.walk(-.1)
-        elif key == 's':
-            self.camera.walk(.1)
-        elif key == 'j':
+        if key in self.camera.keys:
+            self.camera.keys[key] = True
+        if key == 'j':
             self.camera.rotate(0,3,0)
         elif key == 'l':
             self.camera.rotate(0,-3,0)
@@ -118,6 +145,11 @@ class RenderWorld:
             self.camera.height(-.1)
 #        self.display()
 
+    def keyUp(self, key, x, y):
+        '''Called when a key is released'''
+        if key in self.camera.keys:
+            self.camera.keys[key] = False
+    
     def renderLightSource(self):
         '''Resets the light sources to the right position'''
         glLightfv(GL_LIGHT0, GL_POSITION, self.diffuse_pos1)
@@ -151,6 +183,10 @@ class RenderWorld:
         glTexCoord2f(0.0, 1.0) ; glVertex(-size,-.5,size)
         glEnd()
         glDisable(GL_TEXTURE_2D)
+
+    def makefence(self):
+        self.fence=Model('Graphics/skyscraper.obj')
+        self.fence.draw()
 
 if __name__ == '__main__':
     RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')
