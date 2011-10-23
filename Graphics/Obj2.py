@@ -2,7 +2,7 @@ from OpenGL.GL import *
 from math3D import *
 #this code was borrowed from http://ubuntuforums.org/showthread.php?t=1037392
 
-FILENAME="fence.obj"
+FILENAME="skyscraper.obj"
 
 class Model:
 	triangles = []
@@ -28,8 +28,8 @@ class Model:
 			if len(line)==0 or line.startswith("#"):
 				continue
 			data = line.split(" ")
-			if data[0]=="v":
-				vertices.append((float(data[1]),float(data[2]),float(data[3])))
+			if data[0]=="v":				
+				vertices.append((float(data[1])*.2,float(data[2])*.2,float(data[3])*.2))
 			if data[0]=="f":
 				vertex1 = vertices[int(data[1].split("/")[0])-1]
 				vertex2 = vertices[int(data[2].split("/")[0])-1]
