@@ -36,6 +36,7 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 		self.triangles = triangles
+		print len(triangles)
 	
 	def makeNormals(self):
 		normals = []
