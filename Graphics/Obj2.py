@@ -2,7 +2,7 @@ from OpenGL.GL import *
 from math3D import *
 #this code was borrowed from http://ubuntuforums.org/showthread.php?t=1037392
 
-FILENAME="fence.obj"
+FILENAME="skyscraper.obj"
 
 class Model:
 	triangles = []
