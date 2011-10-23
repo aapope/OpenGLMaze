@@ -14,10 +14,9 @@ class ReadBMP():
         f = Image.open(filename)
         xml = self.make_xml(f)
 
-        f = open(f_out_name, "w")
+        f = open(f_out_name, "wb")
         f.write(xml)
         print "writing " + f_out_name
-
         f.close()
 
 
