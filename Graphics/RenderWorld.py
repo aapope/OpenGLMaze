@@ -78,6 +78,7 @@ class RenderWorld:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         self.camera.move()
+        self.camera.hitTest(self.objects)
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
@@ -114,7 +115,7 @@ class RenderWorld:
     def mouseMove(self, x, y):
         '''Called when the move is moved'''
         factor = 1
-        padding = 5
+        padding = 10
         tmp_x = (self.camera.mouse_x - x)/factor
         tmp_y = (self.camera.mouse_y - y)/factor
         self.camera.rotate(tmp_y, tmp_x, 0)
@@ -129,7 +130,7 @@ class RenderWorld:
 
     def keyPressed(self, key, x, y):
         '''Called when a key is pressed'''
-        if key in self.camera.keys:
+        if key.lower() in self.camera.keys:
             self.camera.keys[key] = True
         if key == 'j':
             self.camera.rotate(0,3,0)
@@ -147,7 +148,7 @@ class RenderWorld:
 
     def keyUp(self, key, x, y):
         '''Called when a key is released'''
-        if key in self.camera.keys:
+        if key.lower() in self.camera.keys:
             self.camera.keys[key] = False
     
     def renderLightSource(self):

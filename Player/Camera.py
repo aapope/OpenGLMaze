@@ -9,7 +9,7 @@ import math
 class Camera:
     '''Stores and changes the camera position'''
 
-    SPEED = .1
+    SPEED = .2
 
     def __init__(self):
         '''Initializes everything to 0'''
@@ -26,6 +26,7 @@ class Camera:
         self.keys["a"] = False
         self.keys["s"] = False
         self.keys["d"] = False
+        self.aware = 5
         
     def renderCamera(self):
         '''Translates and rotates the camera to the correct position'''
@@ -67,3 +68,21 @@ class Camera:
     def height(self, amt):
         '''Goes up or down. Always along the y axis'''
         self.pos_Y += amt
+
+    def check_collisions(self, objects):
+        for obj in objects:
+            x2, y2, z2 = obj.get_pos()
+            d = self.get_distance(x2, y2, z2)
+            if d < self.aware:
+                self.hitTest(obj)
+
+    def hitTest(self, obj):
+        pass          
+            
+    def get_distance(self, x2, y2, z2):
+        '''Returns the distance from given point'''
+        tmp_x = (self.pos_X - x2)**2
+        tmp_y = (self.pos_Y - y2)**2
+        tmp_z = (self.pos_Z - z2)**2
+        return math.sqrt(tmp_x+tmp_y+tmp_z)
+
