@@ -10,6 +10,7 @@ class Camera:
     '''Stores and changes the camera position'''
 
     SPEED = .2
+    WIDTH = 2
 
     def __init__(self):
         '''Initializes everything to 0'''
@@ -37,13 +38,21 @@ class Camera:
 
     def move(self):
         if self.keys['a']:
-            self.strafe(-self.SPEED)
+            x, z = self.strafe(-self.SPEED)
+            self.pos_Z += z
+            self.pos_X += x
         if self.keys['d']:
-            self.strafe(self.SPEED)
+            x, z = self.strafe(self.SPEED)
+            self.pos_Z += z
+            self.pos_X += x
         if self.keys['w']:
-            self.walk(-self.SPEED)
+            x, z = self.walk(-self.SPEED)
+            self.pos_Z += z
+            self.pos_X += x
         if self.keys['s']:
-            self.walk(self.SPEED)
+            x, z = self.walk(self.SPEED)
+            self.pos_Z += z
+            self.pos_X += x
         
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
@@ -53,15 +62,17 @@ class Camera:
 
     def strafe(self, amt):
         '''Strafes left or right, bassed on the angle'''
-        self.pos_Z += math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Y*math.pi/180)*amt
-        self.pos_X += math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*amt
+        tmp_Z = math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Y*math.pi/180)*amt
+        tmp_X = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*amt
+        return (tmp_X, tmp_Z)
         #Use to allow for change in height based on angle
         #self.pos_Y += math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Z*math.pi/180)*amt
 
     def walk(self, amt):
         '''Walks forward and back based on the angle you're facing'''
-        self.pos_Z += math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*amt
-        self.pos_X += math.cos(self.rot_X*math.pi/180)*math.sin(self.rot_Y*math.pi/180)*amt
+        tmp_Z = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*amt
+        tmp_X = math.cos(self.rot_X*math.pi/180)*math.sin(self.rot_Y*math.pi/180)*amt
+        return (tmp_X, tmp_Z)
         #Use to allow for change in height based on angle
         #self.pos_Y += math.cos(self.rot_Z*math.pi/180)*math.sin(-self.rot_X*math.pi/180)*amt
 
@@ -72,13 +83,37 @@ class Camera:
     def check_collisions(self, objects):
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
+            tmp_x, tmp_y, tmp_z = self.project_move()
             d = self.get_distance(x2, y2, z2)
             if d < self.aware:
-                self.hitTest(obj)
+                self.hitTest(obj, tmp_x, tmp_y, tmp_z)
 
-    def hitTest(self, obj):
-        pass          
-            
+    def project_move(self):
+        tmp_X = self.pos_X
+        tmp_Y = self.pos_Y
+        tmp_Z = self.pos_Z
+        if self.keys['a']:
+            x, z = self.strafe(-self.SPEED)
+            self.tmp_Z += z
+            self.tmp_X += x
+        if self.keys['d']:
+            x, z = self.strafe(self.SPEED)
+            self.tmp_Z += z
+            self.tmp_X += x
+        if self.keys['w']:
+            x, z = self.walk(-self.SPEED)
+            self.tmp_Z += z
+            self.tmp_X += x
+        if self.keys['s']:
+            x, z = self.walk(self.SPEED)
+            self.tmp_Z += z
+            self.tmp_X += x
+        return (tmp_X, tmp_Y, tmp_Z)
+
+    def hitTest(self, obj, x, y, z):
+        #w = obj.width
+        w = 2
+    
     def get_distance(self, x2, y2, z2):
         '''Returns the distance from given point'''
         tmp_x = (self.pos_X - x2)**2
