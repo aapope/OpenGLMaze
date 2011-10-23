@@ -33,6 +33,7 @@ class RenderWorld:
         glutKeyboardFunc(self.keyPressed)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
+        self.fence=Model('Graphics/humanoid_quad.obj')
         glutMainLoop()
 
     def set_up_graphics(self):
@@ -82,7 +83,10 @@ class RenderWorld:
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        for object in self.objects:
+        self.sort_by_dist()
+
+        for object in self.objects[:]:
+
 
             color = object.get_color()
             pos = object.get_pos()
@@ -146,7 +150,8 @@ class RenderWorld:
             self.camera.height(.1)
         elif key == 'c':
             self.camera.height(-.1)
-#        self.display()
+        elif key == 'x':
+            exit(0)
 
     def renderLightSource(self):
         '''Resets the light sources to the right position'''
@@ -183,8 +188,17 @@ class RenderWorld:
         glDisable(GL_TEXTURE_2D)
 
     def makefence(self):
-        self.fence=Model('Graphics/skyscraper.obj')
-        self.fence.draw()
+
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [0, 0, 1, 1])
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, 1])
+        self.fence.rawDraw()
+
+    def sort_by_dist(self):
+        for obj in self.objects:
+            obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
+        self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
 
 if __name__ == '__main__':
     RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')
