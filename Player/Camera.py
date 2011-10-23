@@ -9,6 +9,8 @@ import math
 class Camera:
     '''Stores and changes the camera position'''
 
+    SPEED = .1
+
     def __init__(self):
         '''Initializes everything to 0'''
         self.pos_X = 0
@@ -19,13 +21,28 @@ class Camera:
         self.rot_Z = 0
         self.mouse_x = 0
         self.mouse_y = 0
-
+        self.keys = {}
+        self.keys["w"] = False
+        self.keys["a"] = False
+        self.keys["s"] = False
+        self.keys["d"] = False
+        
     def renderCamera(self):
         '''Translates and rotates the camera to the correct position'''
         glRotatef(-self.rot_X , 1.0, 0.0, 0.0)
         glRotatef(-self.rot_Y , 0.0, 1.0, 0.0)
         glRotatef(-self.rot_Z , 0.0, 0.0, 1.0)
         glTranslatef(-self.pos_X, -self.pos_Y, -self.pos_Z)
+
+    def move(self):
+        if self.keys['a']:
+            self.strafe(-self.SPEED)
+        if self.keys['d']:
+            self.strafe(self.SPEED)
+        if self.keys['w']:
+            self.walk(-self.SPEED)
+        if self.keys['s']:
+            self.walk(self.SPEED)
         
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
