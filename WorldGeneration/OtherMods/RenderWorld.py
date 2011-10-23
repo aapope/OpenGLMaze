@@ -82,17 +82,14 @@ class RenderWorld:
 
 
         for obj in self.objects:
-            color = obj.get_color()
-            pos = obj.get_pos()
-            glPushMatrix()
-            #print obj.get_type()
-            #if True:
-            if obj.get_type() == "block":
-                self.draw_block()
 
+            glPushMatrix()
+
+            if obj.get_type() == "block":
+                self.draw_block(obj)
 
             elif obj.get_type() == "key":
-                self.draw_key()
+                self.draw_key(obj)
 
             glPopMatrix()
         glDisable(GL_BLEND)
@@ -100,16 +97,20 @@ class RenderWorld:
         glFlush()
 
 
-    def draw_block(self):
+    def draw_block(self, obj):
                 #Set the blocks shininess, ambient, diffuse, and specular reflections. The blocks are slightly transparent.
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+        color = obj.get_color()
+        pos = obj.get_pos()
+        #glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+        #glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
         glTranslate(pos[0],pos[1],pos[2])
         glutSolidCube(2)
 
-    def draw_key:
+    def draw_key(self, obj):
+        color = obj.get_color()
+        pos = obj.get_pos()
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
         glTranslate(pos[0],pos[1],pos[2])
                 #glutSolidTorus(.05, .25, 3, 3)
