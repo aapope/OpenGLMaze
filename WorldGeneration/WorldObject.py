@@ -8,11 +8,12 @@ import math
 class WorldObject:
     '''Stores information about a block, including its position in space and its color'''
 
-    def __init__(self, position, color):
+    def __init__(self, position, color, obj_type = "generic"):
         '''Initializes the block's color and position. Takes two 3-tuples (xyz and rgb)'''
         self.position = ObjectPosition(position)
         self.color = ObjectColor(color)
         self.dist = 0
+        self.type = obj_type
         
     def get_pos(self):
         '''Returns a three-tuple: x, y, z'''
@@ -35,7 +36,7 @@ class WorldObject:
         return str(self.position)+' '+str(self.color)
 
     def get_type(self):
-        return "generic"
+        return self.type
 
     def get_dist(self, x, y, z):
         coords = self.position.get()

@@ -30,7 +30,9 @@ class RenderWorld:
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
+        glutIgnoreKeyRepeat(GLUT_KEY_REPEAT_OFF)
         glutKeyboardFunc(self.keyPressed)
+        glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
         self.fence=Model('Graphics/humanoid_quad.obj')
@@ -76,6 +78,7 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
+        self.camera.move()
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
@@ -130,15 +133,9 @@ class RenderWorld:
 
     def keyPressed(self, key, x, y):
         '''Called when a key is pressed'''
-        if key == 'a':
-            self.camera.strafe(-.1)
-        elif key == 'd':
-            self.camera.strafe(.1)
-        elif key == 'w':
-            self.camera.walk(-.1)
-        elif key == 's':
-            self.camera.walk(.1)
-        elif key == 'j':
+        if key in self.camera.keys:
+            self.camera.keys[key] = True
+        if key == 'j':
             self.camera.rotate(0,3,0)
         elif key == 'l':
             self.camera.rotate(0,-3,0)
@@ -153,6 +150,11 @@ class RenderWorld:
         elif key == 'x':
             exit(0)
 
+    def keyUp(self, key, x, y):
+        '''Called when a key is released'''
+        if key in self.camera.keys:
+            self.camera.keys[key] = False
+    
     def renderLightSource(self):
         '''Resets the light sources to the right position'''
         glLightfv(GL_LIGHT0, GL_POSITION, self.diffuse_pos1)

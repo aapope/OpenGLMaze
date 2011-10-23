@@ -1,37 +1,47 @@
-import ImageTk, Image
+import ImageTk, Image, os
+
+WHITE = (255,255,255)
+BLACK = (0,0,0)
+GREEN = (255,0,0)
+BLOCK_SIZE = 50
+BLOCK_Z = 0
+KEY_Z = 0
+
 
 class ReadBMP():
     
-    self.WHITE = (255,255,255)
-    self.BLACK = (0,0,0)
-    self.GREEN = (255,0,0)
-    self.BLOCK_SIZE = 50
-    self.BLOCK_Z = 0
-    self.KEY_Z = 0
-
-    def __init__(self):      
-        f = Image.open("testWorld.bmp")
+    def __init__(self, filename, f_out_name):
+        f = Image.open(filename)
         xml = self.make_xml(f)
+
+        f = open(f_out_name, "w")
+        f.write(xml)
+        print "writing " + f_out_name
+
+        f.close()
+
 
     def make_xml(self, f):
         xml = ""
         for x in range(f.size[0]):
             for y in range(f.size[1]):
-               color = f.getpixel((i, j))                   #3-tuple of range 0-255
-               xml += handle_pixel(i, j, color)
+               color = f.getpixel((x, y))                   #3-tuple of range 0-255
+               xml += self.handle_pixel(x, y, color)
+
+        return xml
             
     def handle_pixel(self, x, y, color):
-        ''' Given x, y, and color, 
+        ''' Given x, y, and color, create an object based on which colors mean what.
         '''
 
-        if color == self.WHITE:
+        if color == WHITE:
             return ""
-        elif color == self.BLACK:
-            return make_block_xml(x*self.BLOCK_SIZE, y*self.BLOCK_SIZE, 
-                                  self.BLOCK_Z, color[0], color[1], color[2])
-        elif color == self.GREEN:
-            return make_key_xml(x*self.BLOCK_SIZE, y*self.BLOCK_SIZE, 
-                                  self.KEY_Z, color[0], color[1], color[2])
+        elif color == BLACK:
+            return self.make_block_xml(x*BLOCK_SIZE, y*BLOCK_SIZE, 
+                                  BLOCK_Z, color[0], color[1], color[2])
+        elif color == GREEN:
+            return self.make_key_xml(x*BLOCK_SIZE, y*BLOCK_SIZE, 
+                                  KEY_Z, color[0], color[1], color[2])
 
     def make_block_xml(self, x, y, z, r, g, b):
         string = "\t<BLOCK>\n"
@@ -57,4 +67,4 @@ class ReadBMP():
 
 
 if __name__ ==  "__main__":
-    rb = ReadBMP()
+    rb = ReadBMP("testWorld.bmp", "testWorld.xml")
