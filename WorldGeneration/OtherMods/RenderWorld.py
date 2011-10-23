@@ -88,28 +88,33 @@ class RenderWorld:
             #print obj.get_type()
             #if True:
             if obj.get_type() == "block":
-
-                #Set the blocks shininess, ambient, diffuse, and specular reflections. The blocks are slightly transparent.
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
-                glTranslate(pos[0],pos[1],pos[2])
-                glutSolidCube(2)
-
+                self.draw_block()
 
 
             elif obj.get_type() == "key":
-                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
-                glTranslate(pos[0],pos[1],pos[2])
-                #glutSolidTorus(.05, .25, 3, 3)
-                glutSolidCone(.1, 2.0, 30, 4)
-
+                self.draw_key()
 
             glPopMatrix()
         glDisable(GL_BLEND)
 
         glFlush()
+
+
+    def draw_block(self):
+                #Set the blocks shininess, ambient, diffuse, and specular reflections. The blocks are slightly transparent.
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+        glTranslate(pos[0],pos[1],pos[2])
+        glutSolidCube(2)
+
+    def draw_key:
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .7])
+        glTranslate(pos[0],pos[1],pos[2])
+                #glutSolidTorus(.05, .25, 3, 3)
+        glutSolidCone(.1, 2.0, 30, 4)
+
 
     def keyPressed(self, key, x, y):
         '''Called when a key is pressed'''
