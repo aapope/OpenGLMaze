@@ -19,7 +19,6 @@ class ReadBMP():
         print "writing " + f_out_name
         f.close()
 
-
     def make_xml(self, f):
         xml = "<WORLD>\n"
         for x in range(f.size[0]):
