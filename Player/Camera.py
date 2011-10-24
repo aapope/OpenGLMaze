@@ -142,10 +142,19 @@ class Camera:
             tmp_x, tmp_y, tmp_z = obj.get_pos()
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 if obj.get_type()=='zombie':
-                    glTranslate(self.start_pos[0],self.start_pos[1],self.start_pos[2])
-                print obj.get_type()
-                self.reverse_move()
-                self.collisionSound.play()
+                    # If a zombie is encountered, you are transported back to the start
+                    self.pos_X=self.start_pos[0]
+                    self.pos_Y=self.start_pos[1]
+                    self.pos_Z=self.start_pos[2]
+                elif obj.get_type()=='key':
+                    pass #make key invisible make the player have key
+                elif obj.get_type()=='door':# and player has key:
+                    pass #make door invisible
+                elif obj.get_type()=='chest':
+                    pass #????? Exit game? write you win?
+                else:
+                    self.reverse_move()
+                    self.collisionSound.play()
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
