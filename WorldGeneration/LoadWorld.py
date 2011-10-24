@@ -4,6 +4,7 @@ __date__ = "21 October 2011"
 
 from Block import Block
 from Key import Key
+from Door import Door
 from xml.dom.minidom import parse
 
 class LoadWorld:
@@ -15,7 +16,8 @@ class LoadWorld:
         dom1 = parse(f_name)
         block_list = LoadWorld.load_blocks(dom1)
         key_list = LoadWorld.load_keys(dom1)
-        object_list = block_list + key_list
+        door_list = LoadWorld.load_doors(dom1)
+        object_list = block_list + key_list + door_list
         return object_list
 
     @staticmethod
@@ -34,9 +36,13 @@ class LoadWorld:
             key_list.append(LoadWorld.add_object(key, "key"))
         return key_list
         
-
-    
-
+    @staticmethod
+    def load_doors(dom1):
+        door_list = []
+        xml_doors = dom1.getElementsByTagName('DOOR')
+        for door in xml_doors:
+            door_list.append(LoadWorld.add_object(door, "door"))
+        return door_list
 
     @staticmethod
     def add_object(top_node, obj_type):

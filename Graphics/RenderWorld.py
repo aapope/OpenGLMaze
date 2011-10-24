@@ -7,7 +7,9 @@ from OpenGL.GLUT import *
 from Player import Camera
 from WorldGeneration import Block
 from WorldGeneration import Key
+from WorldGeneration import Door
 from WorldGeneration import LoadWorld
+from Sound import GameSounds
 import Image
 from Obj2 import Model
 
@@ -25,6 +27,10 @@ class RenderWorld:
         self.set_up_graphics()
         self.makeLights()
         self.objects = LoadWorld.load(file_name)
+        stuff = ''
+        stuff = [stuff + 'yes' for obj in self.objects
+         if obj.get_type() == 'key']
+        print stuff
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
@@ -35,6 +41,9 @@ class RenderWorld:
         glutPassiveMotionFunc(self.mouseMove)
         self.door = Model('Graphics/bdoor2.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
+        self.soundboard = GameSounds()
+        self.soundboard.loadMusic("Sound/outfile.wav")
+        self.soundboard.playMusic()
         glutMainLoop()
 
     def set_up_graphics(self):
@@ -42,7 +51,7 @@ class RenderWorld:
         glutInit()
         glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)
         glutInitWindowSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
-        glutCreateWindow('Blockworld!')
+        glutCreateWindow('Mazeworld!')
         
         glMatrixMode(GL_PROJECTION)
         gluPerspective(45,1,.15,100)
@@ -104,6 +113,8 @@ class RenderWorld:
 #                glutSolidCube(2)
                 self.makeobj(obj.get_type())
             elif obj.get_type() == 'door':
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
@@ -188,9 +199,10 @@ class RenderWorld:
 
     def makeobj(self, kind):
         if kind == 'key':
+#            print 'key'
             self.key.rawDraw()
         elif kind == 'door':
-            print 'door'
+#            print 'door'
             self.door.rawDraw()
 
     def sort_by_dist(self):
