@@ -23,8 +23,8 @@ class LoadWorld:
         dom1 = parse(f_name)
         player_location = LoadWorld.get_player_location(dom1)
         object_list = LoadWorld.load_objects(dom1, ("block", "key", "door", "zombie", "chest"))
-        return object_list
-        #return (object_list, player_location)
+        #return object_list
+        return (object_list, player_location)
 
     @staticmethod
     def get_player_location(dom1):
