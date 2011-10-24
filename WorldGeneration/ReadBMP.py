@@ -122,7 +122,7 @@ class ReadBMP():
         string += "\t\t<GREEN>%s</GREEN>\n" % str(g)
         string += "\t\t<BLUE>%s</BLUE>\n" % str(b)
         string += "\t\t<ID>%s</ID>\n" % str(obj_id)
-        string += "\t</KEY>\n"
+        string += "\t</%s>\n" % obj_type
         return string
 
 if __name__ ==  "__main__":
