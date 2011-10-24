@@ -138,7 +138,6 @@ class Camera:
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
                 self.collisionSound.play()
-#                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''

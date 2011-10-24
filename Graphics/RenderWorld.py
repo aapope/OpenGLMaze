@@ -11,6 +11,7 @@ from WorldGeneration import Door
 from WorldGeneration import LoadWorld
 from Sound import GameSounds
 import Image
+import math
 from Obj2 import Model
 
 # TODO: Choosing only the ones you can see to actually render.
@@ -27,7 +28,7 @@ class RenderWorld:
         self.set_up_graphics()
         self.makeLights()
         self.objects, player_loc = LoadWorld.load(file_name)
-        self.camera = Camera(player_loc[0],-.5,player_loc[1])
+        self.camera = Camera(player_loc[0],0,player_loc[1])
     
         glClearColor(.529,.8078,.980,0)
 
@@ -107,9 +108,9 @@ class RenderWorld:
 
         self.sort_by_dist()
         
-        to_draw = self.get_visible(self.objects)
+        #to_draw = self.get_visible(self.objects)
 
-        for obj in to_draw:
+        for obj in self.objects:
             color = obj.get_color()
             pos = obj.get_pos()
             obj_type = obj.get_type()
@@ -224,14 +225,14 @@ class RenderWorld:
             obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
         self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
         
-    def get_visible(lst):
+    def get_visible(self, lst):
         to_use = []
         for item in lst:
             c = item.dist
-            x,y = self.camera.project_move_other()
+            x,z = self.camera.project_move_other()
             b = self.camera.get_camera_distance(x, -.5, z)
             a = item.get_dist(x, -.5, z)
-            angle = math.arccos((((b**2)+(c**2)-(a**2))/2*b*c))
+            angle = math.acos((((b**2)+(c**2)-(a**2))/2*b*c))
             if not angle < 90 and not angle > 0:
                 to_use.append(item)
         return to_use
