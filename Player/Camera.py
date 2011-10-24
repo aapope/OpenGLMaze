@@ -31,14 +31,11 @@ class Camera:
         self.keys["d"] = False
         self.aware = 5
         self.soundboard = GameSounds()
-#        self.soundboard.soundChannel(0, self.soundboard.toSound("Sound/footsteps.wav"))
-#        self.soundboard.soundChannel(1, self.soundboard.toSound("Sound/crashsound.wav"))
-#        self.soundboard.soundChannel(2, self.soundboard.toSound(""))
-#        self.soundboard.soundChannel(3, self.soundboard.toSound("Sound/fanfare.wav"))
-#        self.soundboard.soundChannel(4, self.soundboard.toSound("Sound/music.wav"))
-#        self.soundboard.soundChannel(5, self.soundboard.toSound("Sound/zombie.wav"))
-
-
+        
+        self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
+        self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
+        self.pickSound = self.soundboard.toSound("")
+        self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
     def renderCamera(self):
         '''Translates and rotates the camera to the correct position'''
@@ -93,7 +90,7 @@ class Camera:
         self.pos_Y += amt
 
     def check_collisions(self, objects):
-        #To play collision sound: self.soundboard.playSound()
+        #To play collision sound: self.chan2.play()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
@@ -136,7 +133,7 @@ class Camera:
             #d = self.get_distance(tmp_x, tmp_y, tmp_z, x, y, z)
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
-                self.chan2.play()
+#                self.collisionSound.play()
 #                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
                         
     def get_sides(self, side):
