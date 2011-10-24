@@ -5,7 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from Sound import GameSounds
-from Graphics import RenderWorld
+#from Graphics import RenderWorld
 import math
 
 class Camera:
@@ -32,7 +32,7 @@ class Camera:
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
-        self.start_pos = RenderWorld()
+        #self.start_pos = RenderWorld()
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
