@@ -143,6 +143,7 @@ class Camera:
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 if obj.get_type()=='zombie':
                     glTranslate(self.start_pos[0],self.start_pos[1],self.start_pos[2])
+                print obj.get_type()
                 self.reverse_move()
                 self.collisionSound.play()
                         
