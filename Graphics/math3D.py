@@ -1,4 +1,4 @@
-###From http://ubuntuforums.org/showthread.php?t=1037392
+'''3D Graphics operations from:  http://ubuntuforums.org/showthread.php?t=1037392'''
 
 from math import *
 

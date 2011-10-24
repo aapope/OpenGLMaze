@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from Sound import GameSounds
+from Graphics import RenderWorld
 import math
 
 class Camera:
@@ -31,12 +32,13 @@ class Camera:
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
-
+        self.start_pos = RenderWorld()
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.footSound.set_volume(0.1)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
+        self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
@@ -136,6 +138,8 @@ class Camera:
             z += z2
             tmp_x, tmp_y, tmp_z = obj.get_pos()
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
+                if obj.get_type()=='zombie':
+                    glTranslate(self.start_pos.player_loc[0],0,self.player_loc[1])
                 self.reverse_move()
                 self.collisionSound.play()
                         

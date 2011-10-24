@@ -35,7 +35,7 @@ class LoadWorld:
         '''
         player_location_nodes = dom1.getElementsByTagName("PLAYERLOCATION")
         if player_location_nodes:
-            location = add_object(player_location_nodes[0], "playerlocation")
+            location = LoadWorld.add_object(player_location_nodes[0], "playerlocation")
             return location
         else:                               #default location is 0,0,0
             return (0,0,0)
@@ -57,8 +57,8 @@ class LoadWorld:
         tags = {}
         for i in top_node.childNodes:
             if i.hasChildNodes():
-                tags[i.nodeName] = i.firstChild.nodeValue
-
+                tags[i.nodeName] = float(i.firstChild.nodeValue)
+                
         if obj_type == "block":
             return Block((tags['X'], tags['Y'], tags['Z']),
                          (tags['RED'], tags['GREEN'], tags['BLUE']))
@@ -71,7 +71,7 @@ class LoadWorld:
         elif obj_type == "zombie":
             return Zombie((tags['X'], tags['Y'], tags['Z']))
         elif obj_type == "playerlocation":
-            return (tags['X'], tags['z'])
+            return (tags['X'], tags['Z'])
         elif obj_type == "chest":
             return Chest((tags['X'], tags['Y'], tags['Z']))
         else:

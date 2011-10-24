@@ -44,6 +44,7 @@ class RenderWorld:
 
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
+        self.zombie = Model('Graphics/Zombie.obj', 'zombie')
         self.soundboard = GameSounds()
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
@@ -108,9 +109,9 @@ class RenderWorld:
 
         self.sort_by_dist()
         
-        #to_draw = self.get_visible(self.objects)
+        to_draw = self.get_visible(self.objects)
 
-        for obj in self.objects:
+        for obj in to_draw:#self.objects:
             color = obj.get_color()
             pos = obj.get_pos()
             obj_type = obj.get_type()
@@ -127,7 +128,7 @@ class RenderWorld:
 
             if obj_type == 'block':
                 glutSolidCube(2)
-            elif obj_type == 'key':
+            elif obj_type == 'key' or obj_type == 'zombie':
                 self.makeobj(obj.get_type())
             elif obj_type == 'door':
                 glRotate(obj.get_rotation(), 0, 1, 0)
@@ -219,6 +220,8 @@ class RenderWorld:
             self.key.rawDraw()
         elif kind == 'door':
             self.door.rawDraw()
+        elif kind == 'zombie':
+            self.zombie.rawDraw()
 
     def sort_by_dist(self):
         for obj in self.objects:
@@ -232,10 +235,9 @@ class RenderWorld:
             x,z = self.camera.project_move_other()
             b = self.camera.get_camera_distance(x, 0, z)
             a = item.get_dist(x, 0, z)
-            num = ((b**2)+(c**2)-(a**2))/2*b*c
-            print num
-            angle = math.acos(num)
-            if not angle < 90 and not angle > 0:
+            num = ((b**2)+(c**2)-(a**2))/(2*b*c)
+            angle = math.acos(num)/math.pi*180
+            if angle > 90:
                 to_use.append(item)
         return to_use
 
