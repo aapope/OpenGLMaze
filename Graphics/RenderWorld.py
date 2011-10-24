@@ -110,33 +110,35 @@ class RenderWorld:
         self.sort_by_dist()
         
         to_draw = self.get_visible(self.objects)
-
+        self.sort_by_dist()
+        
         for obj in to_draw:#self.objects:
-            color = obj.get_color()
-            pos = obj.get_pos()
-            obj_type = obj.get_type()
-
-            glPushMatrix()
+            if obj.dist < 15:
+                color = obj.get_color()
+                pos = obj.get_pos()
+                obj_type = obj.get_type()
+                
+                glPushMatrix()
 
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
-            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
 
-            glTranslate(pos[0], pos[1], pos[2])
+                glTranslate(pos[0], pos[1], pos[2])
 
-            if obj_type == 'block':
-                glutSolidCube(2)
-            elif obj_type == 'key' or obj_type == 'zombie':
-                self.makeobj(obj.get_type())
-            elif obj_type == 'door':
-                glRotate(obj.get_rotation(), 0, 1, 0)
-                self.makeobj(obj.get_type())
-            else:
-                glutSolidSphere(2, 40, 40)
+                if obj_type == 'block':
+                    glutSolidCube(2)
+                elif obj_type == 'key' or obj_type == 'zombie':
+                    self.makeobj(obj.get_type())
+                elif obj_type == 'door':
+                    glRotate(obj.get_rotation(), 0, 1, 0)
+                    self.makeobj(obj.get_type())
+                else:
+                    glutSolidSphere(2, 40, 40)
 
-            glPopMatrix()
+                glPopMatrix()
 
         glDisable(GL_BLEND)
 
