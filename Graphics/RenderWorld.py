@@ -103,7 +103,7 @@ class RenderWorld:
             glPushMatrix()
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
             glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [0,0,0,1])#[color[0], color[1], color[2], 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
             glTranslate(pos[0],pos[1],pos[2])
@@ -113,6 +113,7 @@ class RenderWorld:
 #                glutSolidCube(2)
                 self.makeobj(obj.get_type())
             elif obj.get_type() == 'door':
+                glRotate(obj.get_rotation(), 0, 1, 0)
                 #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
                 #glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
