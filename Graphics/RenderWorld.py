@@ -202,7 +202,7 @@ class RenderWorld:
 #            print 'key'
             self.key.rawDraw()
         elif kind == 'door':
-            print 'door'
+#            print 'door'
             self.door.rawDraw()
 
     def sort_by_dist(self):
