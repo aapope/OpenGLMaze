@@ -24,12 +24,14 @@ class Camera:
         self.rot_Z = 0
         self.mouse_x = 0
         self.mouse_y = 0
+
         self.keys = {}
         self.keys["w"] = False
         self.keys["a"] = False
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
+
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
@@ -94,12 +96,10 @@ class Camera:
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
-            print obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z)
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
                 pass
-                #break
 
     def project_move(self):
         tmp_X = self.pos_X
@@ -134,7 +134,7 @@ class Camera:
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
 #                self.collisionSound.play()
-#                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
+
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
