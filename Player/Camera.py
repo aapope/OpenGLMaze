@@ -32,7 +32,7 @@ class Camera:
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
-
+        self.start_pos = RenderWorld()
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
