@@ -18,25 +18,18 @@ from Obj2 import Model
 #       Nicer ground? Reflections? Shadows?
 class RenderWorld:
     '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
-    WINDOW_WIDTH = 700
-    WINDOW_HEIGHT = 700
-    MAP_SIZE = 50
-
+    WINDOW_WIDTH = 400
+    WINDOW_HEIGHT = 400
+    
     def __init__(self, file_name):
         '''Sets everything up: camera, modes, lighting, and the list of blocks'''        
         self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
         self.objects = LoadWorld.load(file_name)
-        print len(self.objects)
-        for i in range(len(self.objects)):
-            print self.objects[i]
-            print self.objects[i].get_pos()
-            self.objects[i].set_pos((self.objects[i].get_pos()[0]-self.MAP_SIZE,self.objects[i].get_pos()[1],self.objects[i].get_pos()[2]-self.MAP_SIZE))
-            print self.objects[i]
         stuff = ''
         stuff = [stuff + 'yes' for obj in self.objects
-         if obj.get_type() == 'door']
+         if obj.get_type() == 'key']
         print stuff
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
@@ -93,7 +86,6 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
-#        self.camera.rotate(-55,0,0)
         self.camera.move()
         self.camera.check_collisions(self.objects)
         self.camera.renderCamera()        
@@ -105,7 +97,7 @@ class RenderWorld:
 
         self.sort_by_dist()
 
-        for obj in self.objects:
+        for obj in self.objects[:]:
             color = obj.get_color()
             pos = obj.get_pos()
             glPushMatrix()
@@ -121,9 +113,8 @@ class RenderWorld:
 #                glutSolidCube(2)
                 self.makeobj(obj.get_type())
             elif obj.get_type() == 'door':
-                glRotate(obj.get_rotation(), 0, 1, 0)
-                #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
-                #glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
@@ -134,8 +125,8 @@ class RenderWorld:
 
     def mouseMove(self, x, y):
         '''Called when the move is moved'''
-        factor = .1
-        padding = 50
+        factor = 1
+        padding = 10
         tmp_x = (self.camera.mouse_x - x)/factor
         tmp_y = (self.camera.mouse_y - y)/factor
         self.camera.rotate(tmp_y, tmp_x, 0)
@@ -182,6 +173,7 @@ class RenderWorld:
     def makeFloor(self):
         '''Makes a floor of size size and places an image (texture) on it'''
         glEnable(GL_TEXTURE_2D)
+        size = 50
         image = Image.open("Graphics/checkerboard.bmp")
 	
         ix = image.size[0]
@@ -198,20 +190,21 @@ class RenderWorld:
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
         glBegin(GL_QUADS)
-        glTexCoord2f(0.0, 0.0) ; glVertex(-self.MAP_SIZE,-.5,-self.MAP_SIZE)
-        glTexCoord2f(1.0, 0.0) ; glVertex(self.MAP_SIZE,-.5,-self.MAP_SIZE)
-        glTexCoord2f(1.0, 1.0) ; glVertex(self.MAP_SIZE,-.5,self.MAP_SIZE)
-        glTexCoord2f(0.0, 1.0) ; glVertex(-self.MAP_SIZE,-.5,self.MAP_SIZE)
+        glTexCoord2f(0.0, 0.0) ; glVertex(-size,-.5,-size)
+        glTexCoord2f(1.0, 0.0) ; glVertex(size,-.5,-size)
+        glTexCoord2f(1.0, 1.0) ; glVertex(size,-.5,size)
+        glTexCoord2f(0.0, 1.0) ; glVertex(-size,-.5,size)
         glEnd()
         glDisable(GL_TEXTURE_2D)
 
     def makeobj(self, kind):
         if kind == 'key':
 #            print 'key'
-            self.key.rawDraw()
+            self.key.createList()
         elif kind == 'door':
 #            print 'door'
-            self.door.rawDraw()
+            self.door.createList()
+
 
     def sort_by_dist(self):
         for obj in self.objects:

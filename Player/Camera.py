@@ -128,8 +128,8 @@ class Camera:
             #d = self.get_distance(tmp_x, tmp_y, tmp_z, x, y, z)
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
-                #self.soundboard.playSound()
-                #print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
+                self.soundboard.playSound()
+#                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
