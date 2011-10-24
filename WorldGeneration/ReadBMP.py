@@ -126,4 +126,4 @@ class ReadBMP():
         return string
 
 if __name__ ==  "__main__":
-    rb = ReadBMP("testWorld.bmp", "testWorld.xml")
+    rb = ReadBMP("testMaze01.bmp", "testMaze01.xml")
