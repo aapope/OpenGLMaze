@@ -1119,6 +1119,16 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>40</X>
+		<Y>0</Y>
+		<Z>56</Z>
+	</ZOMBIE>
+	<ZOMBIE>
+		<X>40</X>
+		<Y>0</Y>
+		<Z>58</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>42</X>
 		<Y>0.5</Y>
@@ -1207,6 +1217,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>42</X>
+		<Y>0</Y>
+		<Z>58</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>44</X>
 		<Y>0.5</Y>
@@ -1287,6 +1302,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>44</X>
+		<Y>0</Y>
+		<Z>58</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>46</X>
 		<Y>0.5</Y>

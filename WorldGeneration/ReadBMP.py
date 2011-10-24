@@ -158,7 +158,7 @@ class ReadBMP():
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Y>%s</Y>\n" % str(y)
         string += "\t\t<Z>%s</Z>\n" % str(z)
-        string += "\t<\ZOMBIE>"
+        string += "\t</ZOMBIE>\n"
         return string
 
     def make_player_location_xml(self, x, z):
@@ -171,7 +171,7 @@ class ReadBMP():
         string = "\t<PLAYERLOCATION>\n"
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Z>%s</Z>\n" % str(z)
-        string += "\t<\PLAYERLOCATION>"
+        string += "\t</PLAYERLOCATION>\n"
         return string
 
     def make_chest_xml(self, x, z):
@@ -187,9 +187,9 @@ class ReadBMP():
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Y>%s</Y>\n" % str(0)   #y is baked in as 0
         string += "\t\t<Z>%s</Z>\n" % str(z)
-        string += "\t<\CHEST>"
+        string += "\t</CHEST>\n"
         return string
 
 
 if __name__ ==  "__main__":
-    rb = ReadBMP("testMaze02.bmp", "testMaze02.xml")
+    rb = ReadBMP("testAll.bmp", "testAll.xml")
