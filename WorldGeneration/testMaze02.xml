@@ -703,15 +703,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<DOOR>
-		<X>28</X>
-		<Y>0.5</Y>
-		<Z>36</Z>
-		<RED>201</RED>
-		<GREEN>21</GREEN>
-		<BLUE>254</BLUE>
-		<ID>0</ID>
-	</DOOR>
 	<BLOCK>
 		<X>30</X>
 		<Y>0.5</Y>
@@ -1328,15 +1319,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<KEY>
-		<X>46</X>
-		<Y>0.5</Y>
-		<Z>34</Z>
-		<RED>201</RED>
-		<GREEN>21</GREEN>
-		<BLUE>254</BLUE>
-		<ID>0</ID>
-	</KEY>
 	<BLOCK>
 		<X>46</X>
 		<Y>0.5</Y>
