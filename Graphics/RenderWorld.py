@@ -28,6 +28,12 @@ class RenderWorld:
         self.set_up_graphics()
         self.makeLights()
         self.objects = LoadWorld.load(file_name)
+        print len(self.objects)
+        for i in range(len(self.objects)):
+            print self.objects[i]
+            print self.objects[i].get_pos()
+            self.objects[i].set_pos((self.objects[i].get_pos()[0]-self.MAP_SIZE,self.objects[i].get_pos()[1],self.objects[i].get_pos()[2]-self.MAP_SIZE))
+            print self.objects[i]
         stuff = ''
         stuff = [stuff + 'yes' for obj in self.objects
          if obj.get_type() == 'door']
@@ -108,7 +114,7 @@ class RenderWorld:
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
-            glTranslate(pos[0]-self.MAP_SIZE,pos[1],pos[2]-self.MAP_SIZE)
+            glTranslate(pos[0],pos[1],pos[2])
             if obj.get_type() == 'block':
                 glutSolidCube(2)
             elif obj.get_type() == 'key':

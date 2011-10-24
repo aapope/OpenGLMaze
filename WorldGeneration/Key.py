@@ -23,7 +23,7 @@ class Key(WorldObject):
         #super(Key, self).__init__(self, position, color)
        WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
        self.id = key_id
-       self.width = 1
+       self.width = .5
         
     def get_id(self):
         return self.id
