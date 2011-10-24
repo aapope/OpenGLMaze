@@ -64,8 +64,7 @@ class Camera:
         
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
-        #if self.rot_Y + y < 100:
-        #   self.rot_X += x
+        self.rot_X += x
         self.rot_Y += y
         self.rot_Z += z
 
@@ -90,11 +89,11 @@ class Camera:
         self.pos_Y += amt
 
     def check_collisions(self, objects):
+        '''Checks for objects within aware distance and performs a hit test upon them'''
         #To play collision sound: self.chan2.play()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
-            print obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z)
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
@@ -130,11 +129,9 @@ class Camera:
             x += x2
             z += z2
             tmp_x, tmp_y, tmp_z = obj.get_pos()
-            #d = self.get_distance(tmp_x, tmp_y, tmp_z, x, y, z)
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
 #                self.collisionSound.play()
-#                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
@@ -182,11 +179,3 @@ class Camera:
         tmp_y = (self.pos_Y - y2)**2
         tmp_z = (self.pos_Z - z2)**2
         return math.sqrt(tmp_x+tmp_y+tmp_z)
-
-    def get_distance(self, x, y, z, x2, y2, z2):
-        '''Returns the distance from given point'''
-        tmp_x = (x - x2)**2
-        tmp_y = (y - y2)**2
-        tmp_z = (z - z2)**2
-        return math.sqrt(tmp_x+tmp_y+tmp_z)
-
