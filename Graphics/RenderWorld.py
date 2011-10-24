@@ -9,6 +9,7 @@ from WorldGeneration import Block
 from WorldGeneration import Key
 from WorldGeneration import Door
 from WorldGeneration import LoadWorld
+from Sound import GameSounds
 import Image
 from Obj2 import Model
 
@@ -40,6 +41,9 @@ class RenderWorld:
         glutPassiveMotionFunc(self.mouseMove)
         self.door = Model('Graphics/bdoor2.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
+        self.soundboard = GameSounds()
+        self.soundboard.loadMusic("Sound/outfile.wav")
+        self.soundboard.playMusic()
         glutMainLoop()
 
     def set_up_graphics(self):
@@ -47,7 +51,7 @@ class RenderWorld:
         glutInit()
         glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)
         glutInitWindowSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
-        glutCreateWindow('Blockworld!')
+        glutCreateWindow('Mazeworld!')
         
         glMatrixMode(GL_PROJECTION)
         gluPerspective(45,1,.15,100)
