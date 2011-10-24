@@ -14,6 +14,9 @@
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="WorldGeneration-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th>&nbsp;&nbsp;&nbsp;<a
@@ -63,50 +66,47 @@ WorldGeneration.ObjectPosition.ObjectPosition" class="py-name" href="#" onclick=
 <a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Module WorldGeneration.ObjectColor=WorldGeneration.ObjectColor-module.html,Class WorldGeneration.ObjectColor.ObjectColor=WorldGeneration.ObjectColor.ObjectColor-class.html"><a title="WorldGeneration.ObjectColor
 WorldGeneration.ObjectColor.ObjectColor" class="py-name" href="#" onclick="return doclink('link-2', 'ObjectColor', 'link-2');">ObjectColor</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name"><a title="WorldGeneration.ObjectColor
 WorldGeneration.ObjectColor.ObjectColor" class="py-name" href="#" onclick="return doclink('link-3', 'ObjectColor', 'link-2');">ObjectColor</a></tt> </tt>
-<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Module WorldGeneration.WorldObject=WorldGeneration.WorldObject-module.html,Class WorldGeneration.WorldObject.WorldObject=WorldGeneration.WorldObject.WorldObject-class.html"><a title="WorldGeneration.WorldObject
-WorldGeneration.WorldObject.WorldObject" class="py-name" href="#" onclick="return doclink('link-4', 'WorldObject', 'link-4');">WorldObject</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name"><a title="WorldGeneration.WorldObject
-WorldGeneration.WorldObject.WorldObject" class="py-name" href="#" onclick="return doclink('link-5', 'WorldObject', 'link-4');">WorldObject</a></tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Class WorldGeneration.WorldObject'.WorldObject=WorldGeneration.WorldObject%27.WorldObject-class.html"><a title="WorldGeneration.WorldObject'.WorldObject" class="py-name" href="#" onclick="return doclink('link-4', 'WorldObject', 'link-4');">WorldObject</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name"><a title="WorldGeneration.WorldObject'.WorldObject" class="py-name" href="#" onclick="return doclink('link-5', 'WorldObject', 'link-4');">WorldObject</a></tt> </tt>
 <a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
 <a name="Door"></a><div id="Door-def"><a name="L9"></a><tt class="py-lineno"> 9</tt> <a class="py-toggle" href="#" id="Door-toggle" onclick="return toggle('Door');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html">Door</a><tt class="py-op">(</tt><tt class="py-base-class">WorldObject</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="Door-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Door-expanded"><a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">    <tt class="py-docstring">'''Stores information about a door, including its position in space and its color'''</tt> </tt>
 <a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"> </tt>
 <a name="Door.__init__"></a><div id="Door.__init__-def"><a name="L12"></a><tt class="py-lineno">12</tt> <a class="py-toggle" href="#" id="Door.__init__-toggle" onclick="return toggle('Door.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">position</tt><tt class="py-op">,</tt> <tt class="py-param">color</tt><tt class="py-op">,</tt>  <tt class="py-param">door_id</tt><tt class="py-op">,</tt> <tt class="py-param">door_open</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt><tt class="py-op">,</tt> <tt class="py-param">obj_type</tt> <tt class="py-op">=</tt> <tt class="py-string">"door"</tt><tt class="py-op">,</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="Door.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.__init__-expanded"><a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
-<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-docstring">        @param position</tt> </tt>
-<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-docstring">        @type  position</tt> </tt>
-<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">        @param color</tt> </tt>
-<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">        @type  color</tt> </tt>
-<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">        @param door_id</tt> </tt>
-<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">        @type  door_id</tt> </tt>
-<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">        @param door_open</tt> </tt>
-<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">        @type  door_open</tt> </tt>
-<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">        @param obj_type</tt> </tt>
-<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">        @type  obj_type</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"><tt class="py-docstring">        @type  position  3-tuple (x, y, z)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"><tt class="py-docstring">        @param position  Specifying the object's position</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"><tt class="py-docstring">        @type  color     3-tuple (R, G, B)</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"><tt class="py-docstring">        @param color     Specifying the color values</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">        @type  door_id   Integer</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">        @param door_id   The door's id</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">        @type  door_open Boolean</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"><tt class="py-docstring">        @param door_open Specifies if the door is open (unlocked) or not</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"><tt class="py-docstring">        @type  obj_type  String</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line"><tt class="py-docstring">        @param obj_type  This WorldObject's type</tt> </tt>
 <a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
-<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
-<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"> </tt>
-<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-comment">#super(Key, self).__init__(self, position, color)</tt> </tt>
-<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt id="link-6" class="py-name"><a title="WorldGeneration.WorldObject
-WorldGeneration.WorldObject.WorldObject" class="py-name" href="#" onclick="return doclink('link-6', 'WorldObject', 'link-4');">WorldObject</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method WorldGeneration.Block.Block.__init__()=WorldGeneration.Block.Block-class.html#__init__,Method WorldGeneration.Door.Door.__init__()=WorldGeneration.Door.Door-class.html#__init__,Method WorldGeneration.Key.Key.__init__()=WorldGeneration.Key.Key-class.html#__init__,Method WorldGeneration.ObjectColor.ObjectColor.__init__()=WorldGeneration.ObjectColor.ObjectColor-class.html#__init__,Method WorldGeneration.ObjectPosition.ObjectPosition.__init__()=WorldGeneration.ObjectPosition.ObjectPosition-class.html#__init__,Method WorldGeneration.OtherMods.Camera.Camera.__init__()=WorldGeneration.OtherMods.Camera.Camera-class.html#__init__,Method WorldGeneration.OtherMods.GenerateField.GenerateField.__init__()=WorldGeneration.OtherMods.GenerateField.GenerateField-class.html#__init__,Method WorldGeneration.ReadBMP.ReadBMP.__init__()=WorldGeneration.ReadBMP.ReadBMP-class.html#__init__,Method WorldGeneration.WorldObject.WorldObject.__init__()=WorldGeneration.WorldObject.WorldObject-class.html#__init__,Method script-Door_py_.Door.__init__()=script-Door_py_.Door-class.html#__init__,Method script-_Door_py_.Door.__init__()=script-_Door_py_.Door-class.html#__init__"><a title="WorldGeneration.Block.Block.__init__
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">        <tt class="py-comment">#super(Key, self).__init__(self, position, color)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt id="link-6" class="py-name"><a title="WorldGeneration.WorldObject'.WorldObject" class="py-name" href="#" onclick="return doclink('link-6', 'WorldObject', 'link-4');">WorldObject</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Method WorldGeneration.Block'.Block.__init__()=WorldGeneration.Block%27.Block-class.html#__init__,Method WorldGeneration.Door.Door.__init__()=WorldGeneration.Door.Door-class.html#__init__,Method WorldGeneration.Key'.Key.__init__()=WorldGeneration.Key%27.Key-class.html#__init__,Method WorldGeneration.ObjectColor.ObjectColor.__init__()=WorldGeneration.ObjectColor.ObjectColor-class.html#__init__,Method WorldGeneration.ObjectPosition.ObjectPosition.__init__()=WorldGeneration.ObjectPosition.ObjectPosition-class.html#__init__,Method WorldGeneration.ReadBMP.ReadBMP.__init__()=WorldGeneration.ReadBMP.ReadBMP-class.html#__init__,Method WorldGeneration.WorldObject'.WorldObject.__init__()=WorldGeneration.WorldObject%27.WorldObject-class.html#__init__"><a title="WorldGeneration.Block'.Block.__init__
 WorldGeneration.Door.Door.__init__
-WorldGeneration.Key.Key.__init__
+WorldGeneration.Key'.Key.__init__
 WorldGeneration.ObjectColor.ObjectColor.__init__
 WorldGeneration.ObjectPosition.ObjectPosition.__init__
-WorldGeneration.OtherMods.Camera.Camera.__init__
-WorldGeneration.OtherMods.GenerateField.GenerateField.__init__
 WorldGeneration.ReadBMP.ReadBMP.__init__
-WorldGeneration.WorldObject.WorldObject.__init__
-script-Door_py_.Door.__init__
-script-_Door_py_.Door.__init__" class="py-name" href="#" onclick="return doclink('link-7', '__init__', 'link-7');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">position</tt><tt class="py-op">,</tt> <tt class="py-name">color</tt><tt class="py-op">,</tt> <tt class="py-name">obj_type</tt><tt class="py-op">)</tt>                <tt class="py-comment">#format from ibiblio website</tt> </tt>
-<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-name">obj_id</tt> </tt>
-<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">open</tt> <tt class="py-op">=</tt> <tt class="py-name">obj_open</tt> </tt>
-</div><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"> </tt>
-<a name="Door.get_id"></a><div id="Door.get_id-def"><a name="L32"></a><tt class="py-lineno">32</tt> <a class="py-toggle" href="#" id="Door.get_id-toggle" onclick="return toggle('Door.get_id');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#get_id">get_id</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="Door.get_id-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.get_id-expanded"><a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt> </tt>
-</div><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">         </tt>
-<a name="Door.is_open"></a><div id="Door.is_open-def"><a name="L35"></a><tt class="py-lineno">35</tt> <a class="py-toggle" href="#" id="Door.is_open-toggle" onclick="return toggle('Door.is_open');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#is_open">is_open</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="Door.is_open-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.is_open-expanded"><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">open</tt> </tt>
-</div></div><a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+WorldGeneration.WorldObject'.WorldObject.__init__" class="py-name" href="#" onclick="return doclink('link-7', '__init__', 'link-7');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">position</tt><tt class="py-op">,</tt> <tt class="py-name">color</tt><tt class="py-op">,</tt> <tt class="py-name">obj_type</tt><tt class="py-op">)</tt>                <tt class="py-comment">#format from ibiblio website</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt> <tt class="py-op">=</tt> <tt class="py-name">door_id</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method WorldGeneration.Door.Door.open()=WorldGeneration.Door.Door-class.html#open"><a title="WorldGeneration.Door.Door.open" class="py-name" href="#" onclick="return doclink('link-8', 'open', 'link-8');">open</a></tt> <tt class="py-op">=</tt> <tt class="py-name">door_open</tt> </tt>
+</div><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="Door.get_id"></a><div id="Door.get_id-def"><a name="L30"></a><tt class="py-lineno">30</tt> <a class="py-toggle" href="#" id="Door.get_id-toggle" onclick="return toggle('Door.get_id');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#get_id">get_id</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Door.get_id-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.get_id-expanded"><a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">id</tt> </tt>
+</div><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">         </tt>
+<a name="Door.is_open"></a><div id="Door.is_open-def"><a name="L33"></a><tt class="py-lineno">33</tt> <a class="py-toggle" href="#" id="Door.is_open-toggle" onclick="return toggle('Door.is_open');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#is_open">is_open</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Door.is_open-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.is_open-expanded"><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="WorldGeneration.Door.Door.open" class="py-name" href="#" onclick="return doclink('link-9', 'open', 'link-8');">open</a></tt> </tt>
+</div><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="Door.open"></a><div id="Door.open-def"><a name="L36"></a><tt class="py-lineno">36</tt> <a class="py-toggle" href="#" id="Door.open-toggle" onclick="return toggle('Door.open');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#open">open</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Door.open-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.open-expanded"><a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="WorldGeneration.Door.Door.open" class="py-name" href="#" onclick="return doclink('link-10', 'open', 'link-8');">open</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="Door.close"></a><div id="Door.close-def"><a name="L39"></a><tt class="py-lineno">39</tt> <a class="py-toggle" href="#" id="Door.close-toggle" onclick="return toggle('Door.close');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="WorldGeneration.Door.Door-class.html#close">close</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Door.close-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Door.close-expanded"><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="WorldGeneration.Door.Door.open" class="py-name" href="#" onclick="return doclink('link-11', 'open', 'link-8');">open</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+</div></div><a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -117,6 +117,9 @@ expandto(location.href);
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
   <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="WorldGeneration-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
 
   <!-- Tree link -->
       <th>&nbsp;&nbsp;&nbsp;<a
@@ -136,7 +139,7 @@ expandto(location.href);
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sun Oct 23 18:19:17 2011
+    Generated by Epydoc 3.0.1 on Sun Oct 23 19:29:08 2011
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
