@@ -1169,10 +1169,23 @@ def write_crashsound(w):
     
     write_part(notes)
 
+def write_picksound(w):
+    
+    notes = []
+
+    notes.append(((1.0/5.0), 'C5'))
+
+    write_part(notes)
+
+    notes = []
+
+    notes.append(((1.0/5.0), 'G5'))
+
+    write_part(notes)
 
 
 if __name__ == '__main__':
     '''Use this format!'''
     s = Wave()
-    write_crashsound(s)
+    write_picksound(s)
     s.save()
