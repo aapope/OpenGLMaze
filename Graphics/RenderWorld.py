@@ -27,8 +27,8 @@ class RenderWorld:
         '''Sets everything up: camera, modes, lighting, and the list of blocks'''
         self.set_up_graphics()
         self.makeLights()
-        self.objects, player_loc = LoadWorld.load(file_name)
-        self.camera = Camera(player_loc[0],0,player_loc[1])
+        self.objects, self.player_loc = LoadWorld.load(file_name)
+        self.camera = Camera(self.player_loc[0],0,self.player_loc[1])
     
         glClearColor(.529,.8078,.980,0)
 
@@ -230,9 +230,11 @@ class RenderWorld:
         for item in lst:
             c = item.dist
             x,z = self.camera.project_move_other()
-            b = self.camera.get_camera_distance(x, -.5, z)
-            a = item.get_dist(x, -.5, z)
-            angle = math.acos((((b**2)+(c**2)-(a**2))/2*b*c))
+            b = self.camera.get_camera_distance(x, 0, z)
+            a = item.get_dist(x, 0, z)
+            num = ((b**2)+(c**2)-(a**2))/2*b*c
+            print num
+            angle = math.acos(num)
             if not angle < 90 and not angle > 0:
                 to_use.append(item)
         return to_use
