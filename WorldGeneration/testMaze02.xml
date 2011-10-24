@@ -707,9 +707,9 @@
 		<X>28</X>
 		<Y>0.5</Y>
 		<Z>36</Z>
-		<RED>235</RED>
-		<GREEN>65</GREEN>
-		<BLUE>141</BLUE>
+		<RED>201</RED>
+		<GREEN>21</GREEN>
+		<BLUE>254</BLUE>
 		<ID>0</ID>
 	</DOOR>
 	<BLOCK>
@@ -1332,9 +1332,9 @@
 		<X>46</X>
 		<Y>0.5</Y>
 		<Z>34</Z>
-		<RED>175</RED>
-		<GREEN>203</GREEN>
-		<BLUE>181</BLUE>
+		<RED>201</RED>
+		<GREEN>21</GREEN>
+		<BLUE>254</BLUE>
 		<ID>0</ID>
 	</KEY>
 	<BLOCK>
