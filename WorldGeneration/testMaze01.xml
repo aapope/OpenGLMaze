@@ -600,6 +600,15 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<KEY>
+		<X>26</X>
+		<Y>0.5</Y>
+		<Z>30</Z>
+		<RED>255</RED>
+		<GREEN>0</GREEN>
+		<BLUE>0</BLUE>
+		<ID>0</ID>
+	</KEY>
 	<BLOCK>
 		<X>26</X>
 		<Y>0.5</Y>
@@ -1226,6 +1235,15 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<KEY>
+		<X>46</X>
+		<Y>0.5</Y>
+		<Z>2</Z>
+		<RED>255</RED>
+		<GREEN>0</GREEN>
+		<BLUE>0</BLUE>
+		<ID>0</ID>
+	</KEY>
 	<BLOCK>
 		<X>46</X>
 		<Y>0.5</Y>
@@ -1330,6 +1348,15 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<KEY>
+		<X>52</X>
+		<Y>0.5</Y>
+		<Z>6</Z>
+		<RED>255</RED>
+		<GREEN>0</GREEN>
+		<BLUE>0</BLUE>
+		<ID>0</ID>
+	</KEY>
 	<BLOCK>
 		<X>52</X>
 		<Y>0.5</Y>
