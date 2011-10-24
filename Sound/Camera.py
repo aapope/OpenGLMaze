@@ -73,6 +73,7 @@ class Camera:
     		glEnable(GL_LIGHT1)
 
 		self.loadTextures()
+		#plays the background music
 		self.soundboard.playMusic()
 		
     		glutDisplayFunc(self.display)
