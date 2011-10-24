@@ -47,6 +47,6 @@ class LoadWorld:
                          (tags['RED'], tags['GREEN'], tags['BLUE']))
         elif obj_type == "key":
             return Key((tags['X'], tags['Y'], tags['Z']),
-                       (tags['RED'], tags['GREEN'], tags['BLUE']))
+                       (tags['RED'], tags['GREEN'], tags['BLUE']),0)
         return block
 

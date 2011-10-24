@@ -41,7 +41,7 @@ class RenderWorld:
 
     def loadFiles(self):
         #Load door and key types and add them to the object list
-        
+        pass
 
     def set_up_graphics(self):
         '''Sets up the gl modes that are necessary'''

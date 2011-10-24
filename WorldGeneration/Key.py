@@ -21,8 +21,8 @@ class Key(WorldObject):
        @type  obj_type  String        '''
 
         #super(Key, self).__init__(self, position, color)
-        WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
-        self.id = key_id
+       WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
+       self.id = key_id
         
     def get_id(self):
         return self.id
