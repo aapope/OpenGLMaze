@@ -176,6 +176,15 @@ class Camera:
             self.pos_Z += z
             self.pos_X += x
     
+    def project_move_other(self):
+        tmp_X = self.pos_X
+        tmp_Y = self.pos_Y
+        tmp_Z = self.pos_Z
+        x, z = self.walk(self.SPEED)
+        tmp_Z += z
+        tmp_X += x
+        return (tmp_X, tmp_Z)
+
     def get_camera_distance(self, x2, y2, z2):
         '''Returns the distance from given point'''
         tmp_x = (self.pos_X - x2)**2

@@ -108,6 +108,8 @@ class RenderWorld:
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
         self.sort_by_dist()
+        
+        #to_draw = self.get_visible(self.objects)
 
         for obj in self.objects:
             color = obj.get_color()
@@ -221,6 +223,14 @@ class RenderWorld:
         for obj in self.objects:
             obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
         self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
+        
+    def get_visible(lst):
+        for item in lst:
+            c = item.dist
+            x,y = self.camera.project_move_other()
+            b = self.camera.get_camera_distance(x, -.5, z)
+            a = item.get_dist(x, -.5, z)
+            
 
 if __name__ == '__main__':
     RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')
