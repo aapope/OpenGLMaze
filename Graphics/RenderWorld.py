@@ -13,7 +13,7 @@ from Sound import GameSounds
 import Image
 from Obj2 import Model
 
-# TODO: Choosing only the ones you can see to actually render. 
+# TODO: Choosing only the ones you can see to actually render.
 #       Speed up the rendering process so the game runs more smoothly
 #       Nicer ground? Reflections? Shadows?
 class RenderWorld:
@@ -23,47 +23,44 @@ class RenderWorld:
     MAP_SIZE = 50
 
     def __init__(self, file_name):
-        '''Sets everything up: camera, modes, lighting, and the list of blocks'''        
+        '''Sets everything up: camera, modes, lighting, and the list of blocks'''
         self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
         self.objects = LoadWorld.load(file_name)
-        print len(self.objects)
-        for i in range(len(self.objects)):
-            print self.objects[i]
-            print self.objects[i].get_pos()
-            self.objects[i].set_pos((self.objects[i].get_pos()[0]-self.MAP_SIZE,self.objects[i].get_pos()[1],self.objects[i].get_pos()[2]-self.MAP_SIZE))
-            print self.objects[i]
-        stuff = ''
-        stuff = [stuff + 'yes' for obj in self.objects
-         if obj.get_type() == 'door']
-        print stuff
+
         glClearColor(.529,.8078,.980,0)
+
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
+
         glutIgnoreKeyRepeat(GLUT_KEY_REPEAT_OFF)
         glutKeyboardFunc(self.keyPressed)
         glutKeyboardUpFunc(self.keyUp)
+
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
+
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
-        self.soundboard = GameSounds()
-        self.soundboard.loadMusic("Sound/outfile.wav")
-        self.soundboard.playMusic()
+
+        # self.soundboard = GameSounds()
+        # self.soundboard.loadMusic("Sound/outfile.wav")
+        # self.soundboard.playMusic()
+
         glutMainLoop()
 
     def set_up_graphics(self):
         '''Sets up the gl modes that are necessary'''
         glutInit()
-        glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
         glutInitWindowSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         glutCreateWindow('Mazeworld!')
-        
+
         glMatrixMode(GL_PROJECTION)
         gluPerspective(45,1,.15,100)
         glMatrixMode(GL_MODELVIEW)
-        
+
         glEnable(GL_DEPTH_TEST)
 
     def makeLights(self):
@@ -71,10 +68,10 @@ class RenderWorld:
         self.diffuse_pos1 = (50,5,0,1)
         glLightfv(GL_LIGHT0, GL_DIFFUSE, (.5, .5, .5, 1))
         glLightfv(GL_LIGHT0, GL_POSITION, self.diffuse_pos1)
-        
+
         glLightfv(GL_LIGHT1, GL_AMBIENT, (.2, .2, .2, 1))
         glLightfv(GL_LIGHT1, GL_POSITION, (0, 0, 1, 0))
-        
+
         glLightfv(GL_LIGHT2, GL_SPECULAR, (.8, .8, .8, 1))
         glLightfv(GL_LIGHT2, GL_POSITION, self.diffuse_pos1)
 
@@ -93,44 +90,47 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
-#        self.camera.rotate(-55,0,0)
+
         self.camera.move()
         self.camera.check_collisions(self.objects)
-        self.camera.renderCamera()        
-        self.renderLightSource()        
+        self.camera.renderCamera()
+        self.renderLightSource()
         self.makeFloor()
-        #Transparent objects!
+
+        # Transparent objects!
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-
-        self.sort_by_dist()
 
         for obj in self.objects:
             color = obj.get_color()
             pos = obj.get_pos()
+            obj_type = obj.get_type()
+
             glPushMatrix()
+
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
             glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
-            glTranslate(pos[0],pos[1],pos[2])
-            if obj.get_type() == 'block':
+
+            glTranslate(pos[0], pos[1], pos[2])
+
+            if obj_type == 'block':
                 glutSolidCube(2)
-            elif obj.get_type() == 'key':
-#                glutSolidCube(2)
+            elif obj_type == 'key':
                 self.makeobj(obj.get_type())
-            elif obj.get_type() == 'door':
+            elif obj_type == 'door':
                 glRotate(obj.get_rotation(), 0, 1, 0)
-                #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
-                #glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
+
             glPopMatrix()
+
         glDisable(GL_BLEND)
 
-        glFlush()
+        glutSwapBuffers()
 
     def mouseMove(self, x, y):
         '''Called when the move is moved'''
@@ -171,19 +171,19 @@ class RenderWorld:
         '''Called when a key is released'''
         if key.lower() in self.camera.keys:
             self.camera.keys[key] = False
-    
+
     def renderLightSource(self):
         '''Resets the light sources to the right position'''
         glLightfv(GL_LIGHT0, GL_POSITION, self.diffuse_pos1)
         glLightfv(GL_LIGHT2, GL_POSITION, self.diffuse_pos2)
         glLightfv(GL_LIGHT3, GL_POSITION, self.diffuse_pos2)
         glLightfv(GL_LIGHT4, GL_POSITION, self.diffuse_pos2)
-        
+
     def makeFloor(self):
         '''Makes a floor of size size and places an image (texture) on it'''
         glEnable(GL_TEXTURE_2D)
         image = Image.open("Graphics/checkerboard.bmp")
-	
+
         ix = image.size[0]
         iy = image.size[1]
         image = image.tostring("raw", "RGBX", 0, -1)
@@ -207,10 +207,8 @@ class RenderWorld:
 
     def makeobj(self, kind):
         if kind == 'key':
-#            print 'key'
             self.key.rawDraw()
         elif kind == 'door':
-#            print 'door'
             self.door.rawDraw()
 
     def sort_by_dist(self):
