@@ -21,9 +21,14 @@ class GameSounds():
     def playSound(self):
         self.sounddata.play()
                             
-
     def loadMusic(self, filename):
         mixer.music.load(filename)
+    
+    def pauseMusic(self):
+    	mixer.music.pause()
+    	
+    def unpauseMusic(self):
+    	mixer.music.unpause()
 
     def playMusic(self):
         mixer.music.play(-1)
