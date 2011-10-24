@@ -11,8 +11,7 @@ from WorldGeneration import LoadWorld
 import Image
 from Obj2 import Model
 
-# TODO: Set up sorting blocks by distance, and drawing them in that order, or choosing only the ones you can see to actually render. 
-#       Lib3ds to load different objects
+# TODO: Choosing only the ones you can see to actually render. 
 #       Speed up the rendering process so the game runs more smoothly
 #       Nicer ground? Reflections? Shadows?
 class RenderWorld:
@@ -26,7 +25,6 @@ class RenderWorld:
         self.set_up_graphics()
         self.makeLights()
         self.objects = LoadWorld.load(file_name)
-        self.loadFiles()
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
@@ -35,13 +33,9 @@ class RenderWorld:
         glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
-#        self.door = Model('','door')
-        self.key = Model('Key/Key.obj', 'key')
+#        self.door = Model('Graphics/bunkerdoor.obj','door')
+        self.key = Model('Graphics/Key.obj', 'key')
         glutMainLoop()
-
-    def loadFiles(self):
-        #Load door and key types and add them to the object list
-        pass
 
     def set_up_graphics(self):
         '''Sets up the gl modes that are necessary'''
@@ -94,9 +88,9 @@ class RenderWorld:
 
         self.sort_by_dist()
 
-        for object in self.objects[:]:
-            color = object.get_color()
-            pos = object.get_pos()
+        for obj in self.objects[:]:
+            color = obj.get_color()
+            pos = obj.get_pos()
             glPushMatrix()
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
             glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
@@ -104,19 +98,16 @@ class RenderWorld:
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
             glTranslate(pos[0],pos[1],pos[2])
-            if object.get_type() == 'block':
+            if obj.get_type() == 'block':
                 glutSolidCube(2)
-            elif object.get_type() == 'key':
+            elif obj.get_type() == 'key':
 #                glutSolidCube(2)
-                self.makeobj(object.get_type())
-            elif object.get_type() == 'door':
-                self.makeobj(object.get_type())
+                self.makeobj(obj.get_type())
+            elif obj.get_type() == 'door':
+                self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
             glPopMatrix()
-
-        
-
         glDisable(GL_BLEND)
 
         glFlush()
