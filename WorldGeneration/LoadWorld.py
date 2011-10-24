@@ -57,8 +57,8 @@ class LoadWorld:
         tags = {}
         for i in top_node.childNodes:
             if i.hasChildNodes():
-                tags[i.nodeName] = i.firstChild.nodeValue
-
+                tags[i.nodeName] = float(i.firstChild.nodeValue)
+                
         if obj_type == "block":
             return Block((tags['X'], tags['Y'], tags['Z']),
                          (tags['RED'], tags['GREEN'], tags['BLUE']))
