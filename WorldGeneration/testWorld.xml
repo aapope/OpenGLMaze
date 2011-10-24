@@ -1351,12 +1351,12 @@
 		<GREEN>255</GREEN>
 		<BLUE>0</BLUE>
 	</KEY>
-	<KEY>
+	<DOOR>
 		<X>56</X>
 		<Y>0</Y>
 		<Z>34</Z>
 		<RED>0</RED>
 		<GREEN>255</GREEN>
 		<BLUE>0</BLUE>
-	</KEY>
+	</DOOR>
 </WORLD>
