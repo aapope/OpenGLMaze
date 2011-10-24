@@ -18,9 +18,10 @@ from Obj2 import Model
 #       Nicer ground? Reflections? Shadows?
 class RenderWorld:
     '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
-    WINDOW_WIDTH = 400
-    WINDOW_HEIGHT = 400
-    
+    WINDOW_WIDTH = 700
+    WINDOW_HEIGHT = 700
+    MAP_SIZE = 50
+
     def __init__(self, file_name):
         '''Sets everything up: camera, modes, lighting, and the list of blocks'''        
         self.camera = Camera()
@@ -86,6 +87,7 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
+#        self.camera.rotate(-55,0,0)
         self.camera.move()
         self.camera.check_collisions(self.objects)
         self.camera.renderCamera()        
@@ -106,7 +108,7 @@ class RenderWorld:
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
-            glTranslate(pos[0],pos[1],pos[2])
+            glTranslate(pos[0]-self.MAP_SIZE,pos[1],pos[2]-self.MAP_SIZE)
             if obj.get_type() == 'block':
                 glutSolidCube(2)
             elif obj.get_type() == 'key':
@@ -174,7 +176,6 @@ class RenderWorld:
     def makeFloor(self):
         '''Makes a floor of size size and places an image (texture) on it'''
         glEnable(GL_TEXTURE_2D)
-        size = 50
         image = Image.open("Graphics/checkerboard.bmp")
 	
         ix = image.size[0]
@@ -191,10 +192,10 @@ class RenderWorld:
         glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
         glBegin(GL_QUADS)
-        glTexCoord2f(0.0, 0.0) ; glVertex(-size,-.5,-size)
-        glTexCoord2f(1.0, 0.0) ; glVertex(size,-.5,-size)
-        glTexCoord2f(1.0, 1.0) ; glVertex(size,-.5,size)
-        glTexCoord2f(0.0, 1.0) ; glVertex(-size,-.5,size)
+        glTexCoord2f(0.0, 0.0) ; glVertex(-self.MAP_SIZE,-.5,-self.MAP_SIZE)
+        glTexCoord2f(1.0, 0.0) ; glVertex(self.MAP_SIZE,-.5,-self.MAP_SIZE)
+        glTexCoord2f(1.0, 1.0) ; glVertex(self.MAP_SIZE,-.5,self.MAP_SIZE)
+        glTexCoord2f(0.0, 1.0) ; glVertex(-self.MAP_SIZE,-.5,self.MAP_SIZE)
         glEnd()
         glDisable(GL_TEXTURE_2D)
 
