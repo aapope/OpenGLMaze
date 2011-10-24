@@ -160,12 +160,14 @@ class ReadBMP():
         string += "\t\t<Y>%s</Y>\n" % str(y)
         string += "\t\t<Z>%s</Z>\n" % str(z)
         string += "\t<\ZOMBIE>"
+        return string
 
     def make_player_location_xml(self, x, z):
         string = "\t<PLAYERLOCATION>\n"
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Z>%s</Z>\n" % str(z)
         string += "\t<\PLAYERLOCATION>"
+        return string
 
     def make_chest_xml(self, x, z):
         string = "\t<CHEST>\n"
@@ -173,6 +175,7 @@ class ReadBMP():
         string += "\t\t<Y>%s</Y>\n" % str(0)
         string += "\t\t<Z>%s</Z>\n" % str(z)
         string += "\t<\CHEST>"
+        return string
 
 
 if __name__ ==  "__main__":
