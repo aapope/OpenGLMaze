@@ -91,10 +91,12 @@ class Camera:
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
+            print obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z)
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
-                break
+                pass
+                #break
 
     def project_move(self):
         tmp_X = self.pos_X
