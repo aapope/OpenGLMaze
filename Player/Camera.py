@@ -4,8 +4,7 @@ __date__ = "20 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-#from Sound 
-import GameSounds
+from Sound import GameSounds
 import math
 
 class Camera:
