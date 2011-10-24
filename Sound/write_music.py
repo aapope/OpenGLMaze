@@ -1084,8 +1084,93 @@ def write_take_five(w):
 
     write_part(notes)
 
+def write_trumpet_fanfare(w):
+    
+    #Trumpet 1
+    notes = []
+    
+    notes.append(((1.0/12.0), 'A4'))
+    notes.append(((1.0/12.0), 'F#4'))
+    notes.append(((1.0/12.0), 'A4'))
+    notes.append(((1.0/12.0), 'D5'))
+    notes.append(((1.0/12.0), 'A5'))
+    notes.append(((1.0/12.0), 'D5'))
+    notes.append(((1.0/12.0), 'F#5'))
+    notes.append(((1.0/12.0), 'D5'))
+    notes.append(((1.0/12.0), 'F#5'))
+    notes.append(((1.0/12.0), 'A5'))
+    notes.append(((1.0/12.0), 'F#5'))
+    notes.append(((1.0/12.0), 'A5'))
+    notes.append((1.0, 'D6'))
+    notes.append(((1.0/3.0), 'A5'))
+    notes.append(((1.0/3.0), 'F#5'))
+    notes.append(((1.0/3.0), 'A5'))
+    notes.append((1.5, 'B5'))
+    
+    write_part(notes)
+    
+    #Trumpet 2
+    notes = []
+    
+    notes.append(((1.0/12.0), 'F#4'))
+    notes.append(((1.0/12.0), 'D3'))
+    notes.append(((1.0/12.0), 'F#4'))
+    notes.append(((1.0/12.0), 'A5'))
+    notes.append(((1.0/12.0), 'D3'))
+    notes.append(((1.0/12.0), 'A5'))
+    notes.append(((1.0/12.0), 'D4'))
+    notes.append(((1.0/12.0), 'A5'))
+    notes.append(((1.0/12.0), 'D4'))
+    notes.append(((1.0/12.0), 'F#5'))
+    notes.append(((1.0/12.0), 'D4'))
+    notes.append(((1.0/12.0), 'F#5'))
+    notes.append((1.0, 'B5'))
+    notes.append(((1.0/3.0), 'F#5'))
+    notes.append(((1.0/3.0), 'D5'))
+    notes.append(((1.0/3.0), 'F#5'))
+    notes.append((1.5, 'G#5'))
+    
+    write_part(notes)
+    
+    #Trumpet 3
+    notes = []
+    
+    notes.append(((1.0/8.0), 'D3'))
+    notes.append(((1.0/12.0), 'F#4'))
+    notes.append(((1.0/12.0), 'D3'))
+    notes.append(((1.0/12.0), 'F#4'))
+    notes.append(((1.0/12.0), 'A4'))
+    notes.append(((1.0/12.0), 'F#4'))
+    notes.append(((1.0/12.0), 'A4'))
+    notes.append(((1.0/12.0), 'D4'))
+    notes.append(((1.0/12.0), 'A4'))
+    notes.append(((1.0/12.0), 'D4'))
+    notes.append((1, 'F#5'))
+    notes.append(((1.0/3.0), 'D4'))
+    notes.append(((1.0/3.0), 'A4'))
+    notes.append(((1.0/3.0), 'D4'))
+    notes.append((1.5, 'E5'))
+
+
+
+def write_crashsound(w):
+    
+    notes = []
+    
+    notes.append(((1.0/6.0), 'B4'))
+    
+    write_part(notes)
+    
+    notes = []
+    
+    notes.append(((1.0/6.0), 'A4'))
+    
+    write_part(notes)
+
+
+
 if __name__ == '__main__':
     '''Use this format!'''
     s = Wave()
-    write_take_five(s)
+    write_crashsound(s)
     s.save()
