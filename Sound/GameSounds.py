@@ -32,3 +32,11 @@ class GameSounds():
 
     def playMusic(self):
         mixer.music.play(-1)
+
+    def toSound(self, filename):
+        soundname = mixer.Sound(filename)
+        return soundname
+
+    def soundChannel(self, chan_num, soundname):
+        chan = mixer.Channel(chan_num)
+        chan.queue(soundname)
