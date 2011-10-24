@@ -53,9 +53,6 @@ class ReadBMP():
                       object type and some aspects of keys, doors
         '''
 
-        if color == WHITE:
-            return ""
-
         elif color == BLACK:
             return self.make_block_xml(x*BLOCK_SIZE, BLOCK_Y, 
                                   y*BLOCK_SIZE, color[0], color[1], color[2])
@@ -93,7 +90,6 @@ class ReadBMP():
             return self.make_player_location_xml(x*BLOCK_SIZE, y*BLOCK_SIZE)
         else:
             return ""
-
 
     def make_block_xml(self, x, y, z, r, g, b):
         ''' Make the xml for a block, given the parameters
