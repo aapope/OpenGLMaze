@@ -50,6 +50,7 @@ class ReadBMP():
         @param color The red, green, blue values of the pixel-- determines the
                      object type and some aspects of keys, doors
         '''
+
         if color == WHITE:
             return ""
 
