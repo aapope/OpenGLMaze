@@ -22,8 +22,6 @@ class Door(WorldObject):
         @param obj_type  This WorldObject's type
         @type  obj_type  String
         '''
-
-
         #super(Key, self).__init__(self, position, color)
         WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
         self.id = obj_id
