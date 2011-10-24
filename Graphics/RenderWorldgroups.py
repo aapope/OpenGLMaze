@@ -30,7 +30,6 @@ class RenderWorld:
         stuff = ''
         stuff = [stuff + 'yes' for obj in self.objects
          if obj.get_type() == 'key']
-        print stuff
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
@@ -49,7 +48,7 @@ class RenderWorld:
     def set_up_graphics(self):
         '''Sets up the gl modes that are necessary'''
         glutInit()
-        glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH)
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
         glutInitWindowSize(self.WINDOW_WIDTH, self.WINDOW_HEIGHT)
         glutCreateWindow('Mazeworld!')
         
@@ -91,37 +90,41 @@ class RenderWorld:
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
+        
         #Transparent objects!
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        self.sort_by_dist()
+        # Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
 
         for obj in self.objects[:]:
             color = obj.get_color()
             pos = obj.get_pos()
             glPushMatrix()
-            #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
-            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+            
             glTranslate(pos[0],pos[1],pos[2])
-            if obj.get_type() == 'block':
-                glutSolidCube(2)
-            elif obj.get_type() == 'key':
-#                glutSolidCube(2)
-                self.makeobj(obj.get_type())
-            elif obj.get_type() == 'door':
+
+            obj_type = obj.get_type()
+            if obj_type == 'block':
+                glutSolidpCube(2)
+            elif obj_type == 'key':
+                self.makeobj(obj_type)
+            elif obj_type == 'door':
                 glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
                 glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
+                
             glPopMatrix()
         glDisable(GL_BLEND)
 
-        glFlush()
+        glutSwapBuffers()
 
     def mouseMove(self, x, y):
         '''Called when the move is moved'''
@@ -199,10 +202,8 @@ class RenderWorld:
 
     def makeobj(self, kind):
         if kind == 'key':
-#            print 'key'
             self.key.createList()
         elif kind == 'door':
-#            print 'door'
             self.door.createList()
 
 
