@@ -36,7 +36,7 @@ class Camera:
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
-        self.pickSound = self.soundboard.toSound("")
+        self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
     def renderCamera(self):
