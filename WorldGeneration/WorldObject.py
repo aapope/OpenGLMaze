@@ -10,8 +10,9 @@ class WorldObject:
 
     def __init__(self, position, color, obj_type = "generic"):
         '''Initializes the block's color and position. Takes two 3-tuples (xyz and rgb)'''
-        self.position = ObjectPosition(position)
-        self.color = ObjectColor(color)
+        
+        self.position = ObjectPosition((float(position[0]), float(position[1]), float(position[2])))
+        self.color = ObjectColor((float(color[0]), float(color[1]), float(color[2])))
         self.dist = 0
         self.type = obj_type
         self.width = 1
