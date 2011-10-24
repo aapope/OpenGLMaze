@@ -35,7 +35,7 @@ class RenderWorld:
         glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
-        self.fence=Model('Graphics/humanoid_quad.obj')
+        self.fence=Model('Key/Key.obj')
         glutMainLoop()
 
     def set_up_graphics(self):
