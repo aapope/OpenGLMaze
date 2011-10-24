@@ -35,7 +35,7 @@ class Camera:
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
-        self.footSound.set_volume(0.5)
+        self.footSound.set_volume(0.3)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
