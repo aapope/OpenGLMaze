@@ -34,17 +34,11 @@ class LoadWorld:
         @return:      The player's location as a 2-tuple (x,z)
         '''
         player_location_nodes = dom1.getElementsByTagName("PLAYERLOCATION")
-<<<<<<< HEAD
         if player_location_nodes:
             location = add_object(player_location_nodes[0], "playerlocation")
             return location
         else:                               #default location is 0,0,0
             return (0,0,0)
-=======
-        location = LoadWorld.add_object(player_location_nodes[0], "playerlocation")
-        return location
->>>>>>> 1ae34ca0a1accb6ac720195d6a23f5db855af5aa
-        
 
     @staticmethod
     def load_objects(dom1, obj_types):
