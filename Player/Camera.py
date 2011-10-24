@@ -4,6 +4,7 @@ __date__ = "20 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
+from Sound import GameSounds
 import math
 
 class Camera:
@@ -28,6 +29,9 @@ class Camera:
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
+        self.soundboard = GameSounds()
+        self.soundboard.loadSound("Sound/crashsound.wav")
+
         
     def renderCamera(self):
         '''Translates and rotates the camera to the correct position'''
@@ -81,6 +85,7 @@ class Camera:
         self.pos_Y += amt
 
     def check_collisions(self, objects):
+        #To play collision sound: self.soundboard.playSound()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
