@@ -34,6 +34,10 @@ class LoadWorld:
             key_list.append(LoadWorld.add_object(key, "key"))
         return key_list
         
+
+    
+
+
     @staticmethod
     def add_object(top_node, obj_type):
         '''Method called for each BLOCK, KEY, etc. tag in the xml document. Adds an object of that type to the list with the proper attributes.'''
@@ -47,6 +51,10 @@ class LoadWorld:
                          (tags['RED'], tags['GREEN'], tags['BLUE']))
         elif obj_type == "key":
             return Key((tags['X'], tags['Y'], tags['Z']),
-                       (tags['RED'], tags['GREEN'], tags['BLUE']),0)
-        return block
+                       (tags['RED'], tags['GREEN'], tags['BLUE']), tags['ID'])
+        elif obj_type == "door":
+            return Door((tags['X'], tags['Y'], tags['Z']),
+                       (tags['RED'], tags['GREEN'], tags['BLUE']), tags['ID'])
+        else:
+            return None
 
