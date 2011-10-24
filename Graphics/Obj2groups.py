@@ -45,7 +45,6 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 			if data[0]=="o" and not self.group_name=='':
-				print 'key'
 				self.groups.append(triangles)
 				self.group_name=data[2:]
 			else:
@@ -73,7 +72,6 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 			if data[0]=="o" and not self.group_name=='':
-				print 'door'
 				self.groups.append(triangles)
 				self.group_name=data[:]
 			else:

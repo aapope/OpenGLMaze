@@ -24,12 +24,14 @@ class Camera:
         self.rot_Z = 0
         self.mouse_x = 0
         self.mouse_y = 0
+
         self.keys = {}
         self.keys["w"] = False
         self.keys["a"] = False
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
+
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
@@ -49,18 +51,22 @@ class Camera:
             x, z = self.strafe(-self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         if self.keys['d']:
             x, z = self.strafe(self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         if self.keys['w']:
             x, z = self.walk(-self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         if self.keys['s']:
             x, z = self.walk(self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
@@ -98,7 +104,6 @@ class Camera:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
                 pass
-                #break
 
     def project_move(self):
         tmp_X = self.pos_X
@@ -131,7 +136,12 @@ class Camera:
             tmp_x, tmp_y, tmp_z = obj.get_pos()
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
+<<<<<<< HEAD
 #                self.collisionSound.play()
+=======
+                self.collisionSound.play()
+#                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
+>>>>>>> bc058d12af36fbedcefeee568570a5f1ee8905d6
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
