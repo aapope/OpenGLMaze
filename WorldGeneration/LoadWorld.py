@@ -5,6 +5,8 @@ __date__ = "21 October 2011"
 from Block import Block
 from Key import Key
 from Door import Door
+from Zombie import Zombie
+from Chest import Chest
 from xml.dom.minidom import parse
 import string
 
@@ -20,7 +22,7 @@ class LoadWorld:
         '''
         dom1 = parse(f_name)
         player_location = LoadWorld.get_player_location(dom1)
-        object_list = LoadWorld.load_objects(dom1, ("block", "key", "door", "zombie"))
+        object_list = LoadWorld.load_objects(dom1, ("block", "key", "door", "zombie", "chest"))
         return object_list
         #return (object_list, player_location)
 
@@ -32,8 +34,16 @@ class LoadWorld:
         @return:      The player's location as a 2-tuple (x,z)
         '''
         player_location_nodes = dom1.getElementsByTagName("PLAYERLOCATION")
+<<<<<<< HEAD
+        if player_location_nodes:
+            location = add_object(player_location_nodes[0], "playerlocation")
+            return location
+        else:                               #default location is 0,0,0
+            return (0,0,0)
+=======
         location = LoadWorld.add_object(player_location_nodes[0], "playerlocation")
         return location
+>>>>>>> 1ae34ca0a1accb6ac720195d6a23f5db855af5aa
         
 
     @staticmethod
@@ -65,9 +75,11 @@ class LoadWorld:
             return Door((tags['X'], tags['Y'], tags['Z']),
                        (tags['RED'], tags['GREEN'], tags['BLUE']), tags['ID'])
         elif obj_type == "zombie":
-            return Zombie(tags['X'], tags['Y'], tags['Z'])
+            return Zombie((tags['X'], tags['Y'], tags['Z']))
         elif obj_type == "playerlocation":
             return (tags['X'], tags['z'])
+        elif obj_type == "chest":
+            return Chest((tags['X'], tags['Y'], tags['Z']))
         else:
             return None
 
