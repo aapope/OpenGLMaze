@@ -126,8 +126,8 @@ class RenderWorld:
 
     def mouseMove(self, x, y):
         '''Called when the move is moved'''
-        factor = 1
-        padding = 10
+        factor = .1
+        padding = 50
         tmp_x = (self.camera.mouse_x - x)/factor
         tmp_y = (self.camera.mouse_y - y)/factor
         self.camera.rotate(tmp_y, tmp_x, 0)
