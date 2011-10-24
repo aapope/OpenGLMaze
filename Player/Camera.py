@@ -14,11 +14,11 @@ class Camera:
     ROTATE = 1
     WIDTH = 1
 
-    def __init__(self):
+    def __init__(self, x=0, y=0, z=0):
         '''Initializes everything to 0'''
-        self.pos_X = 0
-        self.pos_Y = 0
-        self.pos_Z = 0
+        self.pos_X = x
+        self.pos_Y = y
+        self.pos_Z = z
         self.rot_X = 0
         self.rot_Y = 0
         self.rot_Z = 0
@@ -70,8 +70,7 @@ class Camera:
         
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
-        #if self.rot_Y + y < 100:
-        #   self.rot_X += x
+        self.rot_X += x
         self.rot_Y += y
         self.rot_Z += z
 
@@ -96,6 +95,7 @@ class Camera:
         self.pos_Y += amt
 
     def check_collisions(self, objects):
+        '''Checks for objects within aware distance and performs a hit test upon them'''
         #To play collision sound: self.chan2.play()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
@@ -134,11 +134,14 @@ class Camera:
             x += x2
             z += z2
             tmp_x, tmp_y, tmp_z = obj.get_pos()
-            #d = self.get_distance(tmp_x, tmp_y, tmp_z, x, y, z)
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
+<<<<<<< HEAD
+#                self.collisionSound.play()
+=======
                 self.collisionSound.play()
 #                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
+>>>>>>> bc058d12af36fbedcefeee568570a5f1ee8905d6
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
@@ -180,17 +183,18 @@ class Camera:
             self.pos_Z += z
             self.pos_X += x
     
+    def project_move_other(self):
+        tmp_X = self.pos_X
+        tmp_Y = self.pos_Y
+        tmp_Z = self.pos_Z
+        x, z = self.walk(self.SPEED)
+        tmp_Z += z
+        tmp_X += x
+        return (tmp_X, tmp_Z)
+
     def get_camera_distance(self, x2, y2, z2):
         '''Returns the distance from given point'''
         tmp_x = (self.pos_X - x2)**2
         tmp_y = (self.pos_Y - y2)**2
         tmp_z = (self.pos_Z - z2)**2
         return math.sqrt(tmp_x+tmp_y+tmp_z)
-
-    def get_distance(self, x, y, z, x2, y2, z2):
-        '''Returns the distance from given point'''
-        tmp_x = (x - x2)**2
-        tmp_y = (y - y2)**2
-        tmp_z = (z - z2)**2
-        return math.sqrt(tmp_x+tmp_y+tmp_z)
-

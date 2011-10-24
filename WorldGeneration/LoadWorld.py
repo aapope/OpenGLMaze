@@ -32,7 +32,7 @@ class LoadWorld:
         @return:      The player's location as a 2-tuple (x,z)
         '''
         player_location_nodes = dom1.getElementsByTagName("PLAYERLOCATION")
-        location = add_object(player_location_nodes[0], "playerlocation")
+        location = LoadWorld.add_object(player_location_nodes[0], "playerlocation")
         return location
         
 
