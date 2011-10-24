@@ -7,3 +7,6 @@ doc:
 	rm WorldGenerator/*pyc
 generate:
 	python generate.py
+clean:
+	rm *.pyc
+	rm OtherMods/*.pyc
