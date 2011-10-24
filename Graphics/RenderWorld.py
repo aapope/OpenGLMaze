@@ -21,7 +21,7 @@ class RenderWorld:
     '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
     WINDOW_WIDTH = 700
     WINDOW_HEIGHT = 700
-    MAP_SIZE = 50
+    MAP_SIZE =100
 
     def __init__(self, file_name):
         '''Sets everything up: camera, modes, lighting, and the list of blocks'''
