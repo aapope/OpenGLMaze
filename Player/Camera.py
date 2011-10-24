@@ -4,7 +4,8 @@ __date__ = "20 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-from Sound import GameSounds
+#from Sound 
+import GameSounds
 import math
 
 class Camera:
@@ -31,7 +32,18 @@ class Camera:
         self.keys["d"] = False
         self.aware = 5
         self.soundboard = GameSounds()
-        self.soundboard.loadSound("Sound/crashsound.wav")
+        self.chan1 = self.soundboard.mixer.Channel(0) #footsteps
+        self.chan2 = self.soundboard.mixer.Channel(1) #collision
+        self.chan3 = self.soundboard.mixer.Channel(2) #pick-up
+        self.chan4 = self.soundboard.mixer.Channel(3) #fanfare
+        self.chan5 = self.soundboard.mixer.Channel(4) #background Music
+        self.chan6 = self.soundboard.mixer.Channel(5) #zombie moan
+        self.chan1.queue("Sound/footsteps.wav")
+        self.chan2.queue("Sound/crashsound.wav")
+        self.chan3.queue("")
+        self.chan4.queue("Sound/fanfare.wav")
+        self.chan5.queue("Sound/music.wav")
+        self.chan6.queue("Sound/zombie.mp3")
 
         
     def renderCamera(self):
@@ -130,7 +142,7 @@ class Camera:
             #d = self.get_distance(tmp_x, tmp_y, tmp_z, x, y, z)
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 self.reverse_move()
-                self.soundboard.playSound()
+                self.chan2.play()
 #                print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
                         
     def get_sides(self, side):
