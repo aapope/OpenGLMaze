@@ -24,8 +24,8 @@ class Door(WorldObject):
         '''
         #super(Key, self).__init__(self, position, color)
         WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
-        self.id = obj_id
-        self.open = obj_open
+        self.id = door_id
+        self.open = door_open
 
     def get_id(self):
         return self.id
