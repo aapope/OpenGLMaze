@@ -108,9 +108,9 @@ class RenderWorld:
 
         self.sort_by_dist()
         
-        #to_draw = self.get_visible(self.objects)
+        to_draw = self.get_visible(self.objects)
 
-        for obj in self.objects:
+        for obj in to_draw:#self.objects:
             color = obj.get_color()
             pos = obj.get_pos()
             obj_type = obj.get_type()
@@ -232,10 +232,9 @@ class RenderWorld:
             x,z = self.camera.project_move_other()
             b = self.camera.get_camera_distance(x, 0, z)
             a = item.get_dist(x, 0, z)
-            num = ((b**2)+(c**2)-(a**2))/2*b*c
-            print num
-            angle = math.acos(num)
-            if not angle < 90 and not angle > 0:
+            num = ((b**2)+(c**2)-(a**2))/(2*b*c)
+            angle = math.acos(num)/math.pi*180
+            if angle > 90:
                 to_use.append(item)
         return to_use
 
