@@ -68,7 +68,7 @@ class ReadBMP():
             else:
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
                 self.id_colors[obj_id] = color
-            print "Made a key of id " + str(obj_id) + " and color " + str(color)
+            #print "Made a key of id " + str(obj_id) + " and color " + str(color)
             return self.make_key_or_door_xml("KEY", x*BLOCK_SIZE, KEY_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], obj_id)
@@ -81,7 +81,7 @@ class ReadBMP():
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
                 self.id_colors[obj_id] = color
 
-            print "Made a door of id " + str(obj_id) + " and color " + str(color)
+            #print "Made a door of id " + str(obj_id) + " and color " + str(color)
             return self.make_key_or_door_xml("DOOR", x*BLOCK_SIZE, DOOR_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], obj_id)
