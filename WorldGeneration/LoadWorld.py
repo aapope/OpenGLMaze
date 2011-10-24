@@ -6,6 +6,7 @@ from Block import Block
 from Key import Key
 from Door import Door
 from xml.dom.minidom import parse
+import string
 
 class LoadWorld:
     '''A class containing static methods for loading blockworld xml files'''
@@ -14,35 +15,19 @@ class LoadWorld:
     def load(f_name):
         '''Call this static method to load a list of blocks, keys, etc from an xml file (f_name). Returns a list of Blocks.'''
         dom1 = parse(f_name)
-        block_list = LoadWorld.load_blocks(dom1)
-        key_list = LoadWorld.load_keys(dom1)
-        door_list = LoadWorld.load_doors(dom1)
-        object_list = block_list + key_list + door_list
+        object_list = LoadWorld.load_objects(dom1, ("block", "key", "door", "zombie"))
         return object_list
 
     @staticmethod
-    def load_blocks(dom1):
-        block_list = []
-        xml_blocks = dom1.getElementsByTagName('BLOCK')
-        for block in xml_blocks:
-            block_list.append(LoadWorld.add_object(block, "block"))
-        return block_list
-        
-    @staticmethod
-    def load_keys(dom1):
-        key_list = []
-        xml_keys = dom1.getElementsByTagName('KEY')
-        for key in xml_keys:
-            key_list.append(LoadWorld.add_object(key, "key"))
-        return key_list
-        
-    @staticmethod
-    def load_doors(dom1):
-        door_list = []
-        xml_doors = dom1.getElementsByTagName('DOOR')
-        for door in xml_doors:
-            door_list.append(LoadWorld.add_object(door, "door"))
-        return door_list
+    def load_objects(dom1, obj_types):
+        objects = []
+
+        for obj_type in obj_types:
+
+            xml_objects = dom1.getElementsByTagName(string.upper(obj_type))
+            for obj in xml_objects:
+                objects.append(LoadWorld.add_object(obj, obj_type))
+        return objects
 
     @staticmethod
     def add_object(top_node, obj_type):
@@ -61,6 +46,8 @@ class LoadWorld:
         elif obj_type == "door":
             return Door((tags['X'], tags['Y'], tags['Z']),
                        (tags['RED'], tags['GREEN'], tags['BLUE']), tags['ID'])
+        elif obj_type == "zombie":
+            return Zombie(tags['X'], tags['Y'], tags['Z'])
         else:
             return None
 

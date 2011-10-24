@@ -1,0 +1,31 @@
+    @staticmethod
+    def load_blocks(dom1):
+        block_list = []
+        xml_blocks = dom1.getElementsByTagName('BLOCK')
+        for block in xml_blocks:
+            block_list.append(LoadWorld.add_object(block, "block"))
+        return block_list
+        
+    @staticmethod
+    def load_keys(dom1):
+        key_list = []
+        xml_keys = dom1.getElementsByTagName('KEY')
+        for key in xml_keys:
+            key_list.append(LoadWorld.add_object(key, "key"))
+        return key_list
+        
+    @staticmethod
+    def load_doors(dom1):
+        door_list = []
+        xml_doors = dom1.getElementsByTagName('DOOR')
+        for door in xml_doors:
+            door_list.append(LoadWorld.add_object(door, "door"))
+        return door_list
+
+    @staticmethod
+    def load_zombies(dom1):
+        zombie_list = []
+        xml_zombies = dom1.getElementsByTagName('ZOMBIE')
+        for zombie in xml_zombies:
+            zombie_list.append(LoadWorld.add_object(zombie, "zombie"))
+        return zombie_list

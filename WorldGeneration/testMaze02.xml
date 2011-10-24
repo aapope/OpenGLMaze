@@ -707,10 +707,10 @@
 		<X>28</X>
 		<Y>0.5</Y>
 		<Z>36</Z>
-		<RED>30</RED>
-		<GREEN>159</GREEN>
-		<BLUE>128</BLUE>
-		<ID>128</ID>
+		<RED>235</RED>
+		<GREEN>65</GREEN>
+		<BLUE>141</BLUE>
+		<ID>0</ID>
 	</DOOR>
 	<BLOCK>
 		<X>30</X>
@@ -1332,10 +1332,10 @@
 		<X>46</X>
 		<Y>0.5</Y>
 		<Z>34</Z>
-		<RED>8</RED>
-		<GREEN>162</GREEN>
-		<BLUE>28</BLUE>
-		<ID>28</ID>
+		<RED>175</RED>
+		<GREEN>203</GREEN>
+		<BLUE>181</BLUE>
+		<ID>0</ID>
 	</KEY>
 	<BLOCK>
 		<X>46</X>

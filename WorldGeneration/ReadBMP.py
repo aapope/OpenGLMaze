@@ -3,6 +3,7 @@ import ImageTk, Image, random
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREEN = (0,255,0)
+ZOMBIE_GRAY = (100,100,100)
 BLOCK_SIZE = 2
 BLOCK_Y = .5
 KEY_Y = .5
@@ -69,10 +70,10 @@ class ReadBMP():
             else:
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
                 id_colors[obj_id] = color
-            print "Made a key of id ", color[2]
+            print "Made a key of id ", obj_id
             return self.make_key_or_door_xml("KEY", x*BLOCK_SIZE, KEY_Y, 
                                      y*BLOCK_SIZE, color[0], 
-                                     color[1], color[2], color[2])
+                                     color[1], color[2], obj_id)
 
         elif color[0] == 0 and color[1] == 255: #if red value is 0 and green is 255, object is a door and the id is blue value
             obj_id = color[2]
@@ -82,11 +83,13 @@ class ReadBMP():
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
                 id_colors[obj_id] = color
 
-            print "Made a door of id ", color[2]
+            print "Made a door of id ", obj_id
             return self.make_key_or_door_xml("DOOR", x*BLOCK_SIZE, DOOR_Y, 
                                      y*BLOCK_SIZE, color[0], 
-                                     color[1], color[2], color[2])
+                                     color[1], color[2], obj_id)
 
+        elif color == ZOMBIE_GRAY:
+            return self.make_zombie_xml(x*BLOCK_SIZE, 0, y*BLOCK_SIZE)
         else:
             return ""
 
@@ -143,6 +146,15 @@ class ReadBMP():
         string += "\t\t<ID>%s</ID>\n" % str(obj_id)
         string += "\t</%s>\n" % obj_type
         return string
+
+
+    def make_zombie_xml(self, x, y, z):
+        string = "\t<ZOMBIE>\n"
+        string += "\t\t<X>%s</X>\n" % str(x)
+        string += "\t\t<Y>%s</Y>\n" % str(y)
+        string += "\t\t<Z>%s</Z>\n" % str(z)
+        string += "\t<\ZOMBIE>"
+
 
 if __name__ ==  "__main__":
     rb = ReadBMP("testMaze02.bmp", "testMaze02.xml")
