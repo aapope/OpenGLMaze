@@ -14,11 +14,11 @@ class Camera:
     ROTATE = 1
     WIDTH = 1
 
-    def __init__(self):
+    def __init__(self, x=0, y=0, z=0):
         '''Initializes everything to 0'''
-        self.pos_X = 0
-        self.pos_Y = 0
-        self.pos_Z = 0
+        self.pos_X = x
+        self.pos_Y = y
+        self.pos_Z = z
         self.rot_X = 0
         self.rot_Y = 0
         self.rot_Z = 0
@@ -183,6 +183,15 @@ class Camera:
             self.pos_Z += z
             self.pos_X += x
     
+    def project_move_other(self):
+        tmp_X = self.pos_X
+        tmp_Y = self.pos_Y
+        tmp_Z = self.pos_Z
+        x, z = self.walk(self.SPEED)
+        tmp_Z += z
+        tmp_X += x
+        return (tmp_X, tmp_Z)
+
     def get_camera_distance(self, x2, y2, z2):
         '''Returns the distance from given point'''
         tmp_x = (self.pos_X - x2)**2

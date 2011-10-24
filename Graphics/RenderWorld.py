@@ -24,11 +24,11 @@ class RenderWorld:
 
     def __init__(self, file_name):
         '''Sets everything up: camera, modes, lighting, and the list of blocks'''
-        self.camera = Camera()
         self.set_up_graphics()
         self.makeLights()
-        self.objects = LoadWorld.load(file_name)
-
+        self.objects, player_loc = LoadWorld.load(file_name)
+        self.camera = Camera(player_loc[0],-.5,player_loc[1])
+    
         glClearColor(.529,.8078,.980,0)
 
         glutIdleFunc(self.display)
@@ -104,7 +104,11 @@ class RenderWorld:
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        for obj in self.objects:
+        self.sort_by_dist()
+        
+        to_draw = self.get_visible(self.objects)
+
+        for obj in to_draw:
             color = obj.get_color()
             pos = obj.get_pos()
             obj_type = obj.get_type()
@@ -218,6 +222,18 @@ class RenderWorld:
         for obj in self.objects:
             obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
         self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
+        
+    def get_visible(lst):
+        to_use = []
+        for item in lst:
+            c = item.dist
+            x,y = self.camera.project_move_other()
+            b = self.camera.get_camera_distance(x, -.5, z)
+            a = item.get_dist(x, -.5, z)
+            angle = math.arccos((((b**2)+(c**2)-(a**2))/2*b*c))
+            if not angle < 90 and not angle > 0:
+                to_use.append(item)
+        return to_use
 
 if __name__ == '__main__':
     RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')
