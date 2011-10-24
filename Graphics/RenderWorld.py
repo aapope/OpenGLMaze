@@ -33,7 +33,7 @@ class RenderWorld:
         glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
-#        self.door = Model('Graphics/bunkerdoor.obj','door')
+        self.door = Model('Graphics/bdoor2.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
         glutMainLoop()
 
@@ -190,6 +190,7 @@ class RenderWorld:
         if kind == 'key':
             self.key.rawDraw()
         elif kind == 'door':
+            print 'door'
             self.door.rawDraw()
 
     def sort_by_dist(self):
