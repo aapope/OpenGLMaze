@@ -1,4 +1,4 @@
-import ImageTk, Image, os
+import ImageTk, Image, random
 
 WHITE = (255,255,255)
 BLACK = (0,0,0)
@@ -40,9 +40,15 @@ class ReadBMP():
         elif color == BLACK:
             return self.make_block_xml(x*BLOCK_SIZE, BLOCK_Y, 
                                   y*BLOCK_SIZE, color[0], color[1], color[2])
+
+        #elif color[0] == 255: 
+
         elif color == GREEN:
+            key_id = random.random(
             return self.make_key_xml(x*BLOCK_SIZE, KEY_Y, 
-                                  y*BLOCK_SIZE, color[0], color[1], color[2])
+                                     y*BLOCK_SIZE, color[0], 
+                                     color[1], color[2], key_id)
+
 
         else:
             return ""
@@ -59,7 +65,7 @@ class ReadBMP():
         string += "\t</BLOCK>\n"
         return string
 
-    def make_key_xml(self, x, y, z, r, g, b):
+    def make_key_xml(self, x, y, z, r, g, b, key_id):
         string = "\t<KEY>\n"
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Y>%s</Y>\n" % str(y)
@@ -67,6 +73,7 @@ class ReadBMP():
         string += "\t\t<RED>%s</RED>\n" % str(r)
         string += "\t\t<GREEN>%s</GREEN>\n" % str(g)
         string += "\t\t<BLUE>%s</BLUE>\n" % str(b)
+        string += "\t\t<ID>%s</ID>\n" % str(key_id)
         string += "\t</KEY>\n"
         return string
 

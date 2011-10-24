@@ -12,9 +12,7 @@
 <td colspan=2><tt>Stores&nbsp;information&nbsp;about&nbsp;an&nbsp;object,&nbsp;including&nbsp;its&nbsp;position&nbsp;in&nbsp;space&nbsp;and&nbsp;its&nbsp;color<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="Block-__init__"><strong>__init__</strong></a>(self, position, color)</dt><dd><tt>Initializes&nbsp;the&nbsp;key's&nbsp;color&nbsp;and&nbsp;position.&nbsp;Takes&nbsp;two&nbsp;3-tuples&nbsp;(xyz&nbsp;and&nbsp;rgb)</tt></dd></dl>
-
-<dl><dt><a name="Block-get_type"><strong>get_type</strong></a>(self)</dt></dl>
+<dl><dt><a name="Block-__init__"><strong>__init__</strong></a>(self, position, color, obj_type<font color="#909090">='block'</font>)</dt><dd><tt>Initializes&nbsp;the&nbsp;key's&nbsp;color&nbsp;and&nbsp;position.&nbsp;Takes&nbsp;two&nbsp;3-tuples&nbsp;(xyz&nbsp;and&nbsp;rgb)</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="WorldGeneration.WorldObject.html#WorldObject">WorldGeneration.WorldObject.WorldObject</a>:<br>
@@ -22,7 +20,11 @@ Methods inherited from <a href="WorldGeneration.WorldObject.html#WorldObject">Wo
 
 <dl><dt><a name="Block-get_color"><strong>get_color</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;three-tuple:&nbsp;r,&nbsp;g,&nbsp;b</tt></dd></dl>
 
+<dl><dt><a name="Block-get_dist"><strong>get_dist</strong></a>(self, x, y, z)</dt></dl>
+
 <dl><dt><a name="Block-get_pos"><strong>get_pos</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;three-tuple:&nbsp;x,&nbsp;y,&nbsp;z</tt></dd></dl>
+
+<dl><dt><a name="Block-get_type"><strong>get_type</strong></a>(self)</dt></dl>
 
 <dl><dt><a name="Block-set_color"><strong>set_color</strong></a>(self, color)</dt><dd><tt>Sets&nbsp;the&nbsp;color&nbsp;with&nbsp;a&nbsp;three-tuple:&nbsp;r,&nbsp;g,&nbsp;b</tt></dd></dl>
 
