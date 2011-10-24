@@ -263,7 +263,7 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<DOOR>
+	<KEY>
 		<X>12</X>
 		<Y>0.5</Y>
 		<Z>40</Z>
@@ -800,7 +800,7 @@
 		<GREEN>255</GREEN>
 		<BLUE>0</BLUE>
 		<ID>0</ID>
-	</KEY>
+	</DOOR>
 	<BLOCK>
 		<X>36</X>
 		<Y>0.5</Y>
@@ -969,7 +969,7 @@
 		<GREEN>255</GREEN>
 		<BLUE>0</BLUE>
 		<ID>0</ID>
-	</KEY>
+	</DOOR>
 	<BLOCK>
 		<X>38</X>
 		<Y>0.5</Y>

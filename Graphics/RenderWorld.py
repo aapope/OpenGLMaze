@@ -29,7 +29,7 @@ class RenderWorld:
         self.objects = LoadWorld.load(file_name)
         stuff = ''
         stuff = [stuff + 'yes' for obj in self.objects
-         if obj.get_type() == 'key']
+         if obj.get_type() == 'door']
         print stuff
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
@@ -39,7 +39,7 @@ class RenderWorld:
         glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
-        self.door = Model('Graphics/bdoor2.obj','door')
+        self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
         self.soundboard = GameSounds()
         self.soundboard.loadMusic("Sound/outfile.wav")
@@ -103,7 +103,7 @@ class RenderWorld:
             glPushMatrix()
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
             glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [0,0,0,1])#[color[0], color[1], color[2], 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
             glTranslate(pos[0],pos[1],pos[2])
