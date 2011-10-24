@@ -29,7 +29,7 @@ class RenderWorld:
         self.objects = LoadWorld.load(file_name)
         stuff = ''
         stuff = [stuff + 'yes' for obj in self.objects
-         if obj.get_type() == 'key']
+         if obj.get_type() == 'door']
         print stuff
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
@@ -39,7 +39,7 @@ class RenderWorld:
         glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
-        self.door = Model('Graphics/bdoor2.obj','door')
+        self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
         self.soundboard = GameSounds()
         self.soundboard.loadMusic("Sound/outfile.wav")
@@ -113,8 +113,9 @@ class RenderWorld:
 #                glutSolidCube(2)
                 self.makeobj(obj.get_type())
             elif obj.get_type() == 'door':
-                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+                glRotate(obj.get_rotation(), 0, 1, 0)
+                #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
+                #glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)

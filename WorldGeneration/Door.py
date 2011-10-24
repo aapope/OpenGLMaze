@@ -27,6 +27,7 @@ class Door(WorldObject):
         self.id = door_id
         self.rotation = rotation
         self.open = door_open
+        self.width = 2
 
     def get_id(self):
         '''

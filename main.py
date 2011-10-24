@@ -7,4 +7,4 @@ if __name__ == '__main__':
     try:
         RENDER = RenderWorld(sys.argv[1])
     except:
-        RENDER = RenderWorld('WorldGeneration/testWorld.xml')
+        RENDER = RenderWorld('WorldGeneration/testMaze01.xml')

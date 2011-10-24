@@ -14,6 +14,7 @@ class WorldObject:
         self.color = ObjectColor(color)
         self.dist = 0
         self.type = obj_type
+        self.width = 1
         
     def get_pos(self):
         '''Returns a three-tuple: x, y, z
@@ -54,5 +55,5 @@ class WorldObject:
         self.dist = math.sqrt((coords[0]-x)**2 + (coords[1]-y)**2 + (coords[2]-z)**2)
         return self.dist
 
-    def get_data(self):
-        return None
+    def width(self):
+        return self.width
