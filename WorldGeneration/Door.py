@@ -54,3 +54,8 @@ class Door(WorldObject):
         '''
         return self.rotation
 
+    def set_rotation(self, rotation):
+        '''
+        '''
+        self.rotation = rotation
+
