@@ -16,23 +16,34 @@ class WorldObject:
         self.type = obj_type
         
     def get_pos(self):
-        '''Returns a three-tuple: x, y, z'''
+        '''Returns a three-tuple: x, y, z
+        '''
         return self.position.get()
 
     def set_pos(self, position):
-        '''Sets the position with a three-tuple: x, y, z'''
+        '''Sets the position with a three-tuple: x, y, z
+        @type  position: 3-tuple
+        @param position: The new position
+        '''
         self.position.set(position)
 
     def get_color(self):
-        '''Returns a three-tuple: r, g, b'''
+        '''Returns a three-tuple: r, g, b
+        @return: A 3-tuple of the r,g,b values
+        '''
         return self.color.get()
 
     def set_color(self, color):
-        '''Sets the color with a three-tuple: r, g, b'''
+        '''Sets the color with a three-tuple: r, g, b
+        @type  color: 3-tuple
+        @param color: The color in 3-tuple form (r, g, b)
+        '''
         self.color.set(color)
         
     def __str__(self):
-        '''Returns x y z r g b'''
+        '''Returns x y z r g b
+        @return: String representation as x,y,z,r,g,b
+        '''
         return str(self.position)+' '+str(self.color)
 
     def get_type(self):
