@@ -51,18 +51,22 @@ class Camera:
             x, z = self.strafe(-self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         if self.keys['d']:
             x, z = self.strafe(self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         if self.keys['w']:
             x, z = self.walk(-self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         if self.keys['s']:
             x, z = self.walk(self.SPEED)
             self.pos_Z += z
             self.pos_X += x
+            self.footSound.play()
         
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
