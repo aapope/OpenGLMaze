@@ -9,7 +9,7 @@ import math
 class Camera:
     '''Stores and changes the camera position'''
 
-    SPEED = .2
+    SPEED = 1
     WIDTH = 2
 
     def __init__(self):
