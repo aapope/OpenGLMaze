@@ -9,14 +9,32 @@ from xml.dom.minidom import parse
 import string
 
 class LoadWorld:
-    '''A class containing static methods for loading blockworld xml files'''
+    '''A class containing static methods for loading xml files'''
 
     @staticmethod
     def load(f_name):
-        '''Call this static method to load a list of blocks, keys, etc from an xml file (f_name). Returns a list of Blocks.'''
+        '''Call this static method to load a list of blocks, keys, etc from an xml file (f_name). Returns a list of Blocks.
+        @type  f_name: String
+        @param f_name: The name of the xml file to read
+        @return:       A 2-tuple: the list of objects and the player location (itself a 2-tuple)
+        '''
         dom1 = parse(f_name)
+        player_location = LoadWorld.get_player_location(dom1)
         object_list = LoadWorld.load_objects(dom1, ("block", "key", "door", "zombie"))
         return object_list
+        #return (object_list, player_location)
+
+    @staticmethod
+    def get_player_location(dom1):
+        '''
+        @type   dom1: Mini XML Document Object Model
+        @param  dom1: The DOM we're reading from
+        @return:      The player's location as a 2-tuple (x,z)
+        '''
+        player_location_nodes = dom1.getElementsByTagName("PLAYERLOCATION")
+        location = LoadWorld.add_object(player_location_nodes[0], "playerlocation")
+        return location
+        
 
     @staticmethod
     def load_objects(dom1, obj_types):
@@ -48,6 +66,8 @@ class LoadWorld:
                        (tags['RED'], tags['GREEN'], tags['BLUE']), tags['ID'])
         elif obj_type == "zombie":
             return Zombie(tags['X'], tags['Y'], tags['Z'])
+        elif obj_type == "playerlocation":
+            return (tags['X'], tags['z'])
         else:
             return None
 

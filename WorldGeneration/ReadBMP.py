@@ -4,6 +4,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREEN = (0,255,0)
 ZOMBIE_GRAY = (100,100,100)
+BLUE = (0,0,255)
 BLOCK_SIZE = 2
 BLOCK_Y = .5
 KEY_Y = .5
@@ -30,6 +31,7 @@ class ReadBMP():
         @type  f: Image        
         @param f: The map of the world to be created
         '''
+        self.id_colors = {}
         xml = "<WORLD>\n"
         for x in range(f.size[0]):
             for y in range(f.size[1]):
@@ -51,9 +53,6 @@ class ReadBMP():
                       object type and some aspects of keys, doors
         '''
 
-        id_colors = {} #used to make keys and doors match colors if they have the same ID
-
-
         if color == WHITE:
             return ""
 
@@ -62,34 +61,36 @@ class ReadBMP():
                                   y*BLOCK_SIZE, color[0], color[1], color[2])
 
         elif color[0] == 255 and color[1] == 0 : #if red value is 255 and green is 0, object is a key and the id is blue value
-            print "Made a key of id ", color[2]
 
             obj_id = color[2]
-            if obj_id in id_colors:
-                color = id_colors[obj_id]
+            if obj_id in self.id_colors:
+                color = self.id_colors[obj_id]
             else:
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
-                id_colors[obj_id] = color
-            print "Made a key of id ", obj_id
+                self.id_colors[obj_id] = color
+            print "Made a key of id " + str(obj_id) + " and color " + str(color)
             return self.make_key_or_door_xml("KEY", x*BLOCK_SIZE, KEY_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], obj_id)
 
         elif color[0] == 0 and color[1] == 255: #if red value is 0 and green is 255, object is a door and the id is blue value
             obj_id = color[2]
-            if obj_id in id_colors:                      #TODO: make this code less redundant
-                color = id_colors[obj_id]
+            if obj_id in self.id_colors:                      #TODO: make this code less redundant
+                color = self.id_colors[obj_id]
             else:
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
-                id_colors[obj_id] = color
+                self.id_colors[obj_id] = color
 
-            print "Made a door of id ", obj_id
+            print "Made a door of id " + str(obj_id) + " and color " + str(color)
             return self.make_key_or_door_xml("DOOR", x*BLOCK_SIZE, DOOR_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], obj_id)
 
         elif color == ZOMBIE_GRAY:
             return self.make_zombie_xml(x*BLOCK_SIZE, 0, y*BLOCK_SIZE)
+
+        elif color == BLUE:
+            return self.make_player_location_xml(x*BLOCK_SIZE, y*BLOCK_SIZE)
         else:
             return ""
 
@@ -154,6 +155,12 @@ class ReadBMP():
         string += "\t\t<Y>%s</Y>\n" % str(y)
         string += "\t\t<Z>%s</Z>\n" % str(z)
         string += "\t<\ZOMBIE>"
+
+    def make_player_location_xml(self, x, z):
+        string = "\t<PLAYERLOCATION>\n"
+        string += "\t\t<X>%s</X>\n" % str(x)
+        string += "\t\t<Z>%s</Z>\n" % str(z)
+        string += "\t<\PLAYERLOCATION>"
 
 
 if __name__ ==  "__main__":
