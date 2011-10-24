@@ -49,6 +49,10 @@ class ReadBMP():
         @param color: The red, green, blue values of the pixel-- determines the
                       object type and some aspects of keys, doors
         '''
+
+        id_colors = {} #used to make keys and doors match colors if they have the same ID
+
+
         if color == WHITE:
             return ""
 
@@ -58,11 +62,26 @@ class ReadBMP():
 
         elif color[0] == 255 and color[1] == 0 : #if red value is 255 and green is 0, object is a key and the id is blue value
             print "Made a key of id ", color[2]
+
+            obj_id = color[2]
+            if obj_id in id_colors:
+                color = id_colors[obj_id]
+            else:
+                color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
+                id_colors[obj_id] = color
+            print "Made a key of id ", color[2]
             return self.make_key_or_door_xml("KEY", x*BLOCK_SIZE, KEY_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], color[2])
 
         elif color[0] == 0 and color[1] == 255: #if red value is 0 and green is 255, object is a door and the id is blue value
+            obj_id = color[2]
+            if obj_id in id_colors:                      #TODO: make this code less redundant
+                color = id_colors[obj_id]
+            else:
+                color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
+                id_colors[obj_id] = color
+
             print "Made a door of id ", color[2]
             return self.make_key_or_door_xml("DOOR", x*BLOCK_SIZE, DOOR_Y, 
                                      y*BLOCK_SIZE, color[0], 
@@ -70,6 +89,7 @@ class ReadBMP():
 
         else:
             return ""
+
 
     def make_block_xml(self, x, y, z, r, g, b):
         ''' Make the xml for a block, given the parameters
@@ -125,4 +145,4 @@ class ReadBMP():
         return string
 
 if __name__ ==  "__main__":
-    rb = ReadBMP("testMaze01.bmp", "testMaze01.xml")
+    rb = ReadBMP("testMaze02.bmp", "testMaze02.xml")
