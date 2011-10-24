@@ -26,7 +26,7 @@ class RenderWorld:
         self.set_up_graphics()
         self.makeLights()
         self.objects = LoadWorld.load(file_name)
-
+        self.loadFiles()
         glClearColor(.529,.8078,.980,0)
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
@@ -35,8 +35,13 @@ class RenderWorld:
         glutKeyboardUpFunc(self.keyUp)
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
-        self.fence=Model('Graphics/humanoid_quad.obj')
+#        self.door = Model('','door')
+        self.key = Model('Key/Key.obj', 'key')
         glutMainLoop()
+
+    def loadFiles(self):
+        #Load door and key types and add them to the object list
+        
 
     def set_up_graphics(self):
         '''Sets up the gl modes that are necessary'''
@@ -79,7 +84,7 @@ class RenderWorld:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         self.camera.move()
-#        self.camera.hitTest(self.objects)
+        self.camera.check_collisions(self.objects)
         self.camera.renderCamera()        
         self.renderLightSource()        
         self.makeFloor()
@@ -90,8 +95,6 @@ class RenderWorld:
         self.sort_by_dist()
 
         for object in self.objects[:]:
-
-
             color = object.get_color()
             pos = object.get_pos()
             glPushMatrix()
@@ -104,13 +107,14 @@ class RenderWorld:
             if object.get_type() == 'block':
                 glutSolidCube(2)
             elif object.get_type() == 'key':
-                #glutSolidTeapot(2)
-                pass
+                self.makeobj(object.get_type())
+            elif object.get_type() == 'door':
+                self.makeobj(object.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
             glPopMatrix()
 
-        self.makefence()
+        
 
         glDisable(GL_BLEND)
 
@@ -190,13 +194,19 @@ class RenderWorld:
         glEnd()
         glDisable(GL_TEXTURE_2D)
 
-    def makefence(self):
-
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [0, 0, 1, 1])
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
-        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, 1])
-        self.fence.rawDraw()
+    def makeobj(self, kind):
+        if kind == 'key':
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [0, 0, 1, 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, 1])
+            self.key.rawDraw()
+        elif kind == 'door':
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [0, 0, 1, 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, 1])
+            self.door.rawDraw()
 
     def sort_by_dist(self):
         for obj in self.objects:

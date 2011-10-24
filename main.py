@@ -7,4 +7,4 @@ if __name__ == '__main__':
     try:
         RENDER = RenderWorld(sys.argv[1])
     except:
-        RENDER = RenderWorld('WorldGeneration/keys_and_blocks.xml')
+        RENDER = RenderWorld('WorldGeneration/testWorld.xml')

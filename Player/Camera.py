@@ -84,7 +84,8 @@ class Camera:
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
-            d = self.get_distance(x2, y2, z2)
+            d = self.get_camera_distance(x2, y2, z2)
+            #print d
             if d < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
 
@@ -94,30 +95,76 @@ class Camera:
         tmp_Z = self.pos_Z
         if self.keys['a']:
             x, z = self.strafe(-self.SPEED)
-            self.tmp_Z += z
-            self.tmp_X += x
+            tmp_Z += z
+            tmp_X += x
         if self.keys['d']:
             x, z = self.strafe(self.SPEED)
-            self.tmp_Z += z
-            self.tmp_X += x
+            tmp_Z += z
+            tmp_X += x
         if self.keys['w']:
             x, z = self.walk(-self.SPEED)
-            self.tmp_Z += z
-            self.tmp_X += x
+            tmp_Z += z
+            tmp_X += x
         if self.keys['s']:
             x, z = self.walk(self.SPEED)
-            self.tmp_Z += z
-            self.tmp_X += x
+            tmp_Z += z
+            tmp_X += x
         return (tmp_X, tmp_Y, tmp_Z)
 
     def hitTest(self, obj, x, y, z):
         #w = obj.width
-        w = 2
+        w = 10
+        for i in range(1,5):
+            x2, z2 = self.get_sides(i)
+            x += x2
+            z += z2
+            tmp_x, tmp_y, tmp_z = obj.get_pos()
+            d = self.get_distance(tmp_x, tmp_y, tmp_z, x, y, z)
+            if d < w/2:
+                #print "HIT! Obj: " + str(obj) + " Distance: " + str(d)
+                pass
+        
+        
+    def get_sides(self, side):
+        '''Returns points of given side of bounding box'''
+        tmp_X = 0
+        tmp_Z = 0
+        
+        if side == 1:
+            tmp_Z = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*(-self.WIDTH/2)
+            tmp_X = math.cos(self.rot_X*math.pi/180)*math.sin(self.rot_Y*math.pi/180)*(-self.WIDTH/2)
+        if side == 2:
+            tmp_Z = math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Y*math.pi/180)*(self.WIDTH/2)
+            tmp_X = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*(self.WIDTH/2)
+        if side == 3:
+            tmp_Z = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*(-self.WIDTH/2)
+            tmp_X = math.cos(self.rot_X*math.pi/180)*math.sin(self.rot_Y*math.pi/180)*(-self.WIDTH/2)
+        if side == 4:
+            tmp_Z = math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Y*math.pi/180)*(self.WIDTH/2)
+            tmp_X = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*(self.WIDTH/2)
+
+        return (tmp_X, tmp_Z)
+        #Use to allow for change in height based on angle
+        #self.pos_Y += math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Z*math.pi/180)*amt
+
+    def walk(self, amt):
+        '''Walks forward and back based on the angle you're facing'''
+        tmp_Z = math.cos(self.rot_X*math.pi/180)*math.cos(self.rot_Y*math.pi/180)*amt
+        tmp_X = math.cos(self.rot_X*math.pi/180)*math.sin(self.rot_Y*math.pi/180)*amt
+        return (tmp_X, tmp_Z)
+
     
-    def get_distance(self, x2, y2, z2):
+    def get_camera_distance(self, x2, y2, z2):
         '''Returns the distance from given point'''
         tmp_x = (self.pos_X - x2)**2
         tmp_y = (self.pos_Y - y2)**2
         tmp_z = (self.pos_Z - z2)**2
+        return math.sqrt(tmp_x+tmp_y+tmp_z)
+
+    def get_distance(self, x, y, z, x2, y2, z2):
+        '''Returns the distance from given point'''
+        tmp_x = (x - x2)**2
+        tmp_y = (y - y2)**2
+        tmp_z = (z - z2)**2
         return math.sqrt(tmp_x+tmp_y+tmp_z)
 

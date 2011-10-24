@@ -42,3 +42,6 @@ class WorldObject:
         coords = self.position.get()
         self.dist = math.sqrt((coords[0]-x)**2 + (coords[1]-y)**2 + (coords[2]-z)**2)
         return self.dist
+
+    def get_data(self):
+        return None
