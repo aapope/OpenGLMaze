@@ -263,7 +263,7 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<KEY>
+	<DOOR>
 		<X>12</X>
 		<Y>0.5</Y>
 		<Z>40</Z>

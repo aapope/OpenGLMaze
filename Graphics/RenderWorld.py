@@ -113,8 +113,8 @@ class RenderWorld:
 #                glutSolidCube(2)
                 self.makeobj(obj.get_type())
             elif obj.get_type() == 'door':
-                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+                #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.7, .7, .7, 1])
+                #glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
                 self.makeobj(obj.get_type())
             else:
                 glutSolidSphere(2, 40, 40)
