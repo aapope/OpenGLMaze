@@ -16,9 +16,9 @@ class Camera:
 
     def __init__(self):
         '''Initializes everything to 0'''
-        self.pos_X = -2
+        self.pos_X = 0
         self.pos_Y = 0
-        self.pos_Z = -2
+        self.pos_Z = 0
         self.rot_X = 0
         self.rot_Y = 0
         self.rot_Z = 0
@@ -91,9 +91,10 @@ class Camera:
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
-            d = self.get_camera_distance(x2, y2, z2)
-            if d < self.aware:
+            if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
+            else:
+                break
 
     def project_move(self):
         tmp_X = self.pos_X
@@ -118,8 +119,7 @@ class Camera:
         return (tmp_X, tmp_Y, tmp_Z)
 
     def hitTest(self, obj, x, y, z):
-        #w = obj.width
-        w = 2
+        w = obj.width
         for i in range(1,5):
             x2, z2 = self.get_sides(i)
             x += x2

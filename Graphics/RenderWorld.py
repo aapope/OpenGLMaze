@@ -99,7 +99,7 @@ class RenderWorld:
 
         self.sort_by_dist()
 
-        for obj in self.objects[:]:
+        for obj in self.objects:
             color = obj.get_color()
             pos = obj.get_pos()
             glPushMatrix()
