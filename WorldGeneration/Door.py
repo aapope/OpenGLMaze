@@ -11,16 +11,16 @@ class Door(WorldObject):
 
     def __init__(self, position, color,  door_id, door_open = False, obj_type = "door",):
         '''
-        @param position  Specifying the object's position
         @type  position  3-tuple (x, y, z)
-        @param color     Specifying the color values
+        @param position  Specifying the object's position
         @type  color     3-tuple (R, G, B)
-        @param door_id   The door's id
+        @param color     Specifying the color values
         @type  door_id   Integer
-        @param door_open Specifies if the door is open (unlocked) or not
+        @param door_id   The door's id
         @type  door_open Boolean
-        @param obj_type  This WorldObject's type
+        @param door_open Specifies if the door is open (unlocked) or not
         @type  obj_type  String
+        @param obj_type  This WorldObject's type
         '''
         #super(Key, self).__init__(self, position, color)
         WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
