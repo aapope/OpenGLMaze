@@ -46,6 +46,7 @@ class RenderWorld:
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
         self.zombie = Model('Graphics/Zombie.obj', 'zombie')
+        self.chest = Model('Graphics/treasure.obj', 'chest')
         self.soundboard = GameSounds()
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
@@ -124,7 +125,7 @@ class RenderWorld:
 
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
                 glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
                 glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
                 glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
 
@@ -132,7 +133,7 @@ class RenderWorld:
 
                 if obj_type == 'block':
                     glutSolidCube(2)
-                elif obj_type == 'key' or obj_type == 'zombie':
+                elif obj_type == 'key' or obj_type == 'zombie' or obj_type == 'chest':
                     self.makeobj(obj.get_type())
                 elif obj_type == 'door':
                     glRotate(obj.get_rotation(), 0, 1, 0)
@@ -231,6 +232,8 @@ class RenderWorld:
             self.door.rawDraw()
         elif kind == 'zombie':
             self.zombie.rawDraw()
+        elif kind == 'chest':
+            self.chest.rawDraw()
 
     def sort_by_dist(self):
         for obj in self.objects:
