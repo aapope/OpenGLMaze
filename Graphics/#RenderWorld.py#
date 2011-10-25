@@ -35,18 +35,17 @@ class RenderWorld:
 
         glutIdleFunc(self.display)
         glutDisplayFunc(self.display)
-
         glutIgnoreKeyRepeat(GLUT_KEY_REPEAT_OFF)
         glutKeyboardFunc(self.keyPressed)
         glutKeyboardUpFunc(self.keyUp)
+
 
         glutSetCursor(GLUT_CURSOR_NONE)
         glutPassiveMotionFunc(self.mouseMove)
 
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
-        self.zombie = Model('Graphics/zombie.obj', 'zombie')
-        self.chest = Model('Graphics/treasure.obj', 'chest')
+        self.zombie = Model('Graphics/Zombie.obj', 'zombie')
         self.soundboard = GameSounds()
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
@@ -95,8 +94,7 @@ class RenderWorld:
         glEnable(GL_LIGHT2)
 
     def display(self, x=0, y=0):
-        '''Called for every refresh; redraws the floor and objects and
-        based on the camera angle'''
+        '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
@@ -125,7 +123,7 @@ class RenderWorld:
 
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
                 glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
                 glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
                 glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
 
@@ -133,7 +131,7 @@ class RenderWorld:
 
                 if obj_type == 'block':
                     glutSolidCube(2)
-                elif obj_type == 'key' or obj_type == 'zombie' or obj_type == 'chest':
+                elif obj_type == 'key' or obj_type == 'zombie':
                     self.makeobj(obj.get_type())
                 elif obj_type == 'door':
                     glRotate(obj.get_rotation(), 0, 1, 0)
@@ -143,8 +141,9 @@ class RenderWorld:
 
                 glPopMatrix()
 
-        Overlay.draw_overlay(self.camera, self.soundboard.paused)
         glDisable(GL_BLEND)
+        Overlay.draw_overlay(self.camera)
+        
         glutSwapBuffers()
 
     def mouseMove(self, x, y):
@@ -179,11 +178,6 @@ class RenderWorld:
             self.camera.height(.1)
         elif key == 'c':
             self.camera.height(-.1)
-        elif key == 'm':
-            if self.soundboard.paused:
-                self.soundboard.unpauseMusic()
-            else:
-                self.soundboard.pauseMusic()
         elif key == 'x':
             exit(0)
 
@@ -232,8 +226,6 @@ class RenderWorld:
             self.door.rawDraw()
         elif kind == 'zombie':
             self.zombie.rawDraw()
-        elif kind == 'chest':
-            self.chest.rawDraw()
 
     def sort_by_dist(self):
         for obj in self.objects:
