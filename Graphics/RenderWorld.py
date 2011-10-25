@@ -47,7 +47,7 @@ class RenderWorld:
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
         self.zombie = Model('Graphics/zombie.obj', 'zombie')
-        self.chest = Model('Graphics/Chest.obj', 'chest')
+        self.chest = Model('Graphics/treasure.obj', 'chest')
         self.soundboard = GameSounds()
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
