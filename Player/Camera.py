@@ -155,7 +155,7 @@ class Camera:
                         self.collisionSound.play()
                 elif obj.get_type()=='chest':
                     if not obj.get_has():
-                        obj.get_chest()
+                        obj.get_has()
                         self.points += obj.get_points()
                         self.treasureSound.play()
                 else:
