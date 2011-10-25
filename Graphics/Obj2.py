@@ -49,7 +49,6 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 		self.triangles = triangles
-		print len(triangles)
 
 	def loadZombieObj(self,filepath):
 		modelFile = open(filepath,"r")
@@ -68,27 +67,8 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 		self.triangles = triangles
-		print len(triangles)
 
 
-	def loadKeyObj(self,filepath):
-		modelFile = open(filepath,"r")
-		triangles = []
-		vertices = []
-		for line in modelFile.readlines():
-			line = line.strip()
-			if len(line)==0 or line.startswith("#"):
-				continue
-			data = line.split(" ")
-			if data[0]=="v":				
-				vertices.append((float(data[1])*.1,float(data[3])*.1-.4,float(data[2])*.1))
-			if data[0]=="f":
-				vertex1 = vertices[int(data[1].split("/")[0])-1]
-				vertex2 = vertices[int(data[2].split("/")[0])-1]
-				vertex3 = vertices[int(data[3].split("/")[0])-1]
-				triangles.append((vertex1,vertex2,vertex3))
-		self.triangles = triangles
-		print len(triangles)
 	def loadChestObj(self,filepath):
 		modelFile = open(filepath,"r")
 		triangles = []
@@ -107,7 +87,7 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 		self.triangles = triangles
-		print len(triangles)
+
 
 	def loadDoorObj(self,filepath):
 		modelFile = open(filepath,"r")
@@ -126,7 +106,7 @@ class Model:
 				vertex3 = vertices[int(data[3].split("/")[0])-1]
 				triangles.append((vertex1,vertex2,vertex3))
 		self.triangles = triangles
-		print len(triangles)
+
 
 
 	def makeNormals(self):

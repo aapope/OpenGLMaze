@@ -18,8 +18,8 @@ class Model:
 
 	def createList(self):
 		for i in range(len(self.groups)):
-			self.listname = glGenLists(1)
-			glNewList(self.listname, GL_COMPILE)
+#			self.listname = glGenLists(1)
+			glNewList(i, GL_COMPILE)
 			self.rawDraw()
 			glEndList()
 			self.Draw()
@@ -38,7 +38,7 @@ class Model:
 				continue
 			data = line.split(" ")
 			if data[0]=="v":				
-				vertices.append((float(data[1])*.1,float(data[3])*.1-.4,float(data[2])*.1))
+				vertices.append((float(data[1])*.1,float(data[3])*.1-.6,float(data[2])*.1))
 			if data[0]=="f":
 				vertex1 = vertices[int(data[1].split("/")[0])-1]
 				vertex2 = vertices[int(data[2].split("/")[0])-1]
@@ -47,10 +47,54 @@ class Model:
 			if data[0]=="o" and not self.group_name=='':
 				self.groups.append(triangles)
 				self.group_name=data[2:]
-			else:
+			elif self.group=='':
 				self.group_name=data[2:]
-		self.triangles=triangles
-#rotate and size door
+
+	def loadZombieObj(self,filepath):
+		modelFile = open(filepath,"r")
+		triangles = []
+		vertices = []
+		for line in modelFile.readlines():
+			line = line.strip()
+			if len(line)==0 or line.startswith("#"):
+				continue
+			data = line.split(" ")
+			if data[0]=="v":				
+				vertices.append((float(data[1])*.1,float(data[2])*.1-.5,float(data[3])*.1))
+			if data[0]=="f":
+				vertex1 = vertices[int(data[1].split("/")[0])-1]
+				vertex2 = vertices[int(data[2].split("/")[0])-1]
+				vertex3 = vertices[int(data[3].split("/")[0])-1]
+				triangles.append((vertex1,vertex2,vertex3))
+			if data[0]=="o" and not self.group_name=='':
+				self.groups.append(triangles)
+				self.group_name=data[2:]
+			elif self.group=='':
+				self.group_name=data[2:]
+
+	def loadChestObj(self,filepath):
+		modelFile = open(filepath,"r")
+		triangles = []
+		vertices = []
+		for line in modelFile.readlines():
+			line = line.strip()
+			if len(line)==0 or line.startswith("#"):
+				continue
+			data = line.split(" ")
+			if data[0]=="v":				
+				print '*'+data[1]+'*', '*'+data[2]+'*', '*'+data[3]+'*'
+				vertices.append((float(data[1]),float(data[2])-.5,float(data[3])))
+			if data[0]=="f":
+				vertex1 = vertices[int(data[1].split("/")[0])-1]
+				vertex2 = vertices[int(data[2].split("/")[0])-1]
+				vertex3 = vertices[int(data[3].split("/")[0])-1]
+				triangles.append((vertex1,vertex2,vertex3))
+			if data[0]=="o" and not self.group_name=='':
+				self.groups.append(triangles)
+				self.group_name=data[2:]
+			elif self.group=='':
+				self.group_name=data[2:]
+
 	def loadDoorObj(self,filepath):
 		modelFile = open(filepath,"r")
 		triangles = []
@@ -73,10 +117,9 @@ class Model:
 				triangles.append((vertex1,vertex2,vertex3))
 			if data[0]=="o" and not self.group_name=='':
 				self.groups.append(triangles)
-				self.group_name=data[:]
-			else:
-				self.group_name=data[:]		
-		self.triangles=triangles
+				self.group_name=data[2:]
+			elif self.group=='':
+				self.group_name=data[2:]
 
 	def makeNormals(self):
 		normals = []
@@ -87,7 +130,8 @@ class Model:
 				self.normals.append(normalize3(cross3(arm1,arm2)))
 
 	def Draw(self):
-		glCallList(self.listname)
+		for i in range(len(self.groups)):
+			glCallList(i)
 	
 	def rawDraw(self):
 		glBegin(GL_TRIANGLES)
