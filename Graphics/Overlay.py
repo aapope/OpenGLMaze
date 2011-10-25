@@ -3,20 +3,17 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-def draw_overlay(camera):
+def draw_overlay():
     """Draw the HUD."""
 
     print "Drawing HUD."
     _setup()
-
-    glTranslate(50, 50, 0)
-    glRotate(-camera.rot_Y, 0, 0, 1)
+    glColor4f(1.0, 0.0, 0.0, 1.0)
     glBegin(GL_QUADS)
-    glColor3f(0, 0, 0)
-    glVertex2f(0, -10)
-    glVertex2f(10, -15)
-    glVertex2f(0, 20)
-    glVertex2f(-10, -15)
+    glVertex2f(0, 50)
+    glVertex2f(100, 50)
+    glVertex2f(100, 100)
+    glVertex2f(0, 100)
     glEnd()
     _teardown()
 
