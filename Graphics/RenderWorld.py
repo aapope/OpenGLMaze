@@ -94,7 +94,8 @@ class RenderWorld:
         glEnable(GL_LIGHT2)
 
     def display(self, x=0, y=0):
-        '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
+        '''Called for every refresh; redraws the floor and objects and
+        based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
@@ -141,9 +142,8 @@ class RenderWorld:
 
                 glPopMatrix()
 
+        Overlay.draw_overlay(self.camera, self.soundboard.paused)
         glDisable(GL_BLEND)
-        Overlay.draw_overlay(self.camera)
-        
         glutSwapBuffers()
 
     def mouseMove(self, x, y):
@@ -178,6 +178,11 @@ class RenderWorld:
             self.camera.height(.1)
         elif key == 'c':
             self.camera.height(-.1)
+        elif key == 'm':
+            if self.soundboard.paused:
+                self.soundboard.unpauseMusic()
+            else:
+                self.soundboard.pauseMusic()
         elif key == 'x':
             exit(0)
 
