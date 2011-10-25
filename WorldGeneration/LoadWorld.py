@@ -49,6 +49,13 @@ class LoadWorld:
             xml_objects = dom1.getElementsByTagName(string.upper(obj_type))
             for obj in xml_objects:
                 objects.append(LoadWorld.add_object(obj, obj_type))
+
+        for key_obj in objects:
+            if key_obj.get_type() == 'key':
+                for door_obj in objects:
+                    if door_obj.get_type() == 'door' and key_obj.get_id() == door_obj.get_id():
+                        key_obj.set_door(door_obj)
+                        door_obj.set_key(key_obj)
         return objects
 
     @staticmethod

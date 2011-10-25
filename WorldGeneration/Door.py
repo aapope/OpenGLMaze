@@ -28,6 +28,7 @@ class Door(WorldObject):
         self.rotation = rotation
         self.open = door_open
         self.width = 2
+        self.key = None
 
     def get_id(self):
         '''
@@ -59,3 +60,8 @@ class Door(WorldObject):
         '''
         self.rotation = rotation
 
+    def get_key(self):
+        return self.key
+
+    def set_key(self, key):
+        self.key = key
