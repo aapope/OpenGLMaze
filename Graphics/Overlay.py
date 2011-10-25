@@ -45,7 +45,7 @@ def _draw_points(text):
 def draw_text(text):
     _setup()
     glColor3f(1,1,1)
-    glTranslate(500,670,0)
+    glTranslate(230,50,0)
     glScaled(.25,.25,0)
     for i in text:
         glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
