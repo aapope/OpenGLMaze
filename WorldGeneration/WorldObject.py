@@ -6,10 +6,10 @@ from ObjectColor import ObjectColor
 import math
 
 class WorldObject:
-    '''Stores information about a block, including its position in space and its color'''
+    '''Stores information about an object, including its position in space and its color'''
 
     def __init__(self, position, color, obj_type = "generic"):
-        '''Initializes the block's color and position. Takes two 3-tuples (xyz and rgb)'''
+        '''Initializes an object's color and position. Takes two 3-tuples (xyz and rgb)'''
         
         self.position = ObjectPosition((float(position[0]), float(position[1]), float(position[2])))
         self.color = ObjectColor((float(color[0]), float(color[1]), float(color[2])))

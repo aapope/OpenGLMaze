@@ -146,10 +146,20 @@ class Camera:
                     self.pos_X=self.start_pos[0]
                     self.pos_Y=self.start_pos[1]
                     self.pos_Z=self.start_pos[2]
+                #key and door disappearing are inefficient. It would be nice not to draw them
                 elif obj.get_type()=='key':
-                    pass #make key invisible make the player have key
-                elif obj.get_type()=='door':# and player has key:
-                    pass #make door invisible
+                    pos=obj.get_pos()
+                    x,y,z=pos
+                    y-=2
+                    pos=(x,y,z)
+                    obj.set_pos(pos)
+                    #make the player "have" the key
+                elif obj.get_type()=='door':# as a condition: and player has key:
+                    pos=obj.get_pos()
+                    x,y,z=pos
+                    y-=4
+                    pos=(x,y,z)
+                    obj.set_pos(pos)
                 elif obj.get_type()=='chest':
                     pass #????? Exit game? write you win?
                 else:
