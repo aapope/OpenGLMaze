@@ -58,9 +58,6 @@ class RenderWorld:
         self.soundboard.playMusic()
         
         self.zomstart = time()
-        self.dead_timeout = 0
-        self.key_timeout = 0
-        self.treasure_timeout = 0
 
         glutMainLoop()
 
@@ -106,8 +103,8 @@ class RenderWorld:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
-        self.camera.move()
-        self.camera.check_collisions(self.objects)
+        self.camera.move(self.objects)
+        #self.camera.check_collisions(self.objects)
         self.camera.renderCamera()
         self.renderLightSource()
         self.makeFloor()
@@ -182,12 +179,15 @@ class RenderWorld:
 #        Overlay.draw_text("Hello world")
 #        for i in "Hello world":
 #            glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
-        if self.key_timeout > 0:
+        if self.camera.key_timeout > 0:
             Overlay.draw_text("Got a key!")
-        if self.dead_timeout > 0:
+            self.camera.key_timeout -= 1
+        if self.camera.dead_timeout > 0:
             Overlay.draw_text("A zombie killed you!")
-        if self.treasure_timeout > 0:
+            self.camera.dead_timeout -= 1
+        if self.camera.treasure_timeout > 0:
             Overlay.draw_text("Got treasure!")
+            self.camera.treasure_timeout -= 1
         glDisable(GL_BLEND)
         glutSwapBuffers()
 
@@ -291,9 +291,9 @@ class RenderWorld:
             x,z = self.camera.project_move_other()
             b = self.camera.get_camera_distance(x, 0, z)
             a = item.get_dist(x, 0, z)
-            num = ((b**2)+(c**2)-(a**2))/(2*b*c)
             angle = 0
             try:
+                num = ((b**2)+(c**2)-(a**2))/(2*b*c)
                 angle = math.acos(num)/math.pi*180
             except:
                 pass

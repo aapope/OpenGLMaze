@@ -34,10 +34,13 @@ class Camera:
         self.keys["d"] = False
         self.aware = 5
         self.points = 0
+        self.dead_timeout = 0
+        self.key_timeout = 0
+        self.treasure_timeout = 0
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
-        self.footSound.set_volume(1.0)
+        self.footSound.set_volume(0.5)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
@@ -51,7 +54,8 @@ class Camera:
         glRotatef(-self.rot_Z , 0.0, 0.0, 1.0)
         glTranslatef(-self.pos_X, -self.pos_Y, -self.pos_Z)
 
-    def move(self):
+    def move(self, objects):
+        self.check_collisions(objects)
         if self.keys['a']:
             x, z = self.strafe(-self.SPEED)
             self.pos_Z += z
@@ -146,9 +150,11 @@ class Camera:
                     self.pos_X=self.start_pos[0]
                     self.pos_Y=self.start_pos[1]
                     self.pos_Z=self.start_pos[2]
+                    self.dead_timeout = 50
                 elif obj.get_type()=='key':
                     if not obj.get_has(): 
-                        obj.get_key()#get the key
+                        obj.get_key()
+                        self.key_timeout = 50
                         self.pickSound.play()
                         obj.get_door().open()
                 elif obj.get_type()=='door':
@@ -158,6 +164,7 @@ class Camera:
                 elif obj.get_type()=='chest':
                     if not obj.get_has():
                         obj.get_chest()
+                        self.treasure_timeout = 50
                         self.points += obj.get_points()
                         self.treasureSound.play()
                 else:
@@ -200,7 +207,7 @@ class Camera:
             self.pos_Z += z
             self.pos_X += x
         if self.keys['s']:
-            x, z = self.walk(-self.SPEED-self.SPEED/5)
+            x, z = self.walk(-self.SPEED)
             self.pos_Z += z
             self.pos_X += x
     
