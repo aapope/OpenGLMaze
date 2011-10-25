@@ -12,6 +12,7 @@ from WorldGeneration import LoadWorld
 from Sound import GameSounds
 import Image
 import math
+import Overlay
 from Obj2 import Model
 
 # TODO: Choosing only the ones you can see to actually render.
@@ -21,7 +22,7 @@ class RenderWorld:
     '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
     WINDOW_WIDTH = 700
     WINDOW_HEIGHT = 700
-    MAP_SIZE = 50
+    MAP_SIZE =100
 
     def __init__(self, file_name):
         '''Sets everything up: camera, modes, lighting, and the list of blocks'''
@@ -44,6 +45,8 @@ class RenderWorld:
 
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
+        self.zombie = Model('Graphics/zombie.obj', 'zombie')
+        self.chest = Model('Graphics/treasure.obj', 'chest')
         self.soundboard = GameSounds()
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
@@ -92,7 +95,8 @@ class RenderWorld:
         glEnable(GL_LIGHT2)
 
     def display(self, x=0, y=0):
-        '''Called for every refresh; redraws the floor and objects and based on the camera angle'''
+        '''Called for every refresh; redraws the floor and objects and
+        based on the camera angle'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
@@ -108,37 +112,59 @@ class RenderWorld:
 
         self.sort_by_dist()
         
-        #to_draw = self.get_visible(self.objects)
-
-        for obj in self.objects:
-            color = obj.get_color()
-            pos = obj.get_pos()
-            obj_type = obj.get_type()
-
-            glPushMatrix()
+        to_draw = self.get_visible(self.objects)
+        self.sort_by_dist()
+        
+        for obj in to_draw:#self.objects:
+            if obj.dist < 15:
+                color = obj.get_color()
+                pos = obj.get_pos()
+                obj_type = obj.get_type()
+                
+                glPushMatrix()
 
             #Set the objects shininess, ambient, diffuse, and specular reflections. The objects are slightly transparent.
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], 1])
-            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
-            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .7])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .8])
 
-            glTranslate(pos[0], pos[1], pos[2])
+                glTranslate(pos[0], pos[1], pos[2])
 
-            if obj_type == 'block':
-                glutSolidCube(2)
-            elif obj_type == 'key':
-                self.makeobj(obj.get_type())
-            elif obj_type == 'door':
-                glRotate(obj.get_rotation(), 0, 1, 0)
-                self.makeobj(obj.get_type())
-            else:
-                glutSolidSphere(2, 40, 40)
+                if obj_type == 'block':
+                    glutSolidCube(2)
+                elif obj_type == 'key':
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                    if not obj.get_has():
+                        self.makeobj(obj.get_type())
+                elif obj_type == 'zombie' or obj_type == 'chest':
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                    self.makeobj(obj.get_type())
+                elif obj_type == 'door':
+                    if obj.get_key().get_has():
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .2])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .2])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .2])
+                    else:
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                    glRotate(obj.get_rotation(), 0, 1, 0)
+                    self.makeobj(obj.get_type())
+                else:
+                    glutSolidSphere(2, 40, 40)
 
-            glPopMatrix()
+                glPopMatrix()
 
+        Overlay.draw_overlay(self.camera, self.soundboard.paused)
         glDisable(GL_BLEND)
-
         glutSwapBuffers()
 
     def mouseMove(self, x, y):
@@ -173,6 +199,11 @@ class RenderWorld:
             self.camera.height(.1)
         elif key == 'c':
             self.camera.height(-.1)
+        elif key == 'm':
+            if self.soundboard.paused:
+                self.soundboard.unpauseMusic()
+            else:
+                self.soundboard.pauseMusic()
         elif key == 'x':
             exit(0)
 
@@ -219,6 +250,10 @@ class RenderWorld:
             self.key.rawDraw()
         elif kind == 'door':
             self.door.rawDraw()
+        elif kind == 'zombie':
+            self.zombie.rawDraw()
+        elif kind == 'chest':
+            self.chest.rawDraw()
 
     def sort_by_dist(self):
         for obj in self.objects:
@@ -232,10 +267,13 @@ class RenderWorld:
             x,z = self.camera.project_move_other()
             b = self.camera.get_camera_distance(x, 0, z)
             a = item.get_dist(x, 0, z)
-            num = ((b**2)+(c**2)-(a**2))/2*b*c
-            print num
-            angle = math.acos(num)
-            if not angle < 90 and not angle > 0:
+            num = ((b**2)+(c**2)-(a**2))/(2*b*c)
+            angle = 0
+            try:
+                angle = math.acos(num)/math.pi*180
+            except:
+                pass
+            if angle > 90:
                 to_use.append(item)
         return to_use
 

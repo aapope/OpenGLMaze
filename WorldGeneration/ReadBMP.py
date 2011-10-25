@@ -20,11 +20,12 @@ class ReadBMP():
         @type  f_out_name: String
         @param f_out_name: The name of the .xml file to be written
         '''
+        print "Reading %s and writing to %s" % (filename, f_out_name)
+
         f = Image.open(filename)
         xml = self.make_xml(f)
         f = open(f_out_name, "wb")
         f.write(xml)
-        print "writing " + f_out_name
         f.close()
 
     def make_xml(self, f):
@@ -53,46 +54,36 @@ class ReadBMP():
         @param color: The red, green, blue values of the pixel-- determines the
                       object type and some aspects of keys, doors
         '''
-        if color != WHITE and color != BLACK:
-            print color
-        if color == WHITE:
-            return ""
-
-        elif color == BLACK:
+        if color == BLACK:
             return self.make_block_xml(x*BLOCK_SIZE, BLOCK_Y, 
                                   y*BLOCK_SIZE, color[0], color[1], color[2])
 
-        elif color[0] == 255 and color[1] == 0 : #if red value is 255 and green is 0, object is a key and the id is blue value
-
+        #if red value is 255 and green is 0, object is a key and the id is blue value
+        elif color[0] == 255 and color[1] == 0 : 
             obj_id = color[2]
             if obj_id in self.id_colors:
                 color = self.id_colors[obj_id]
             else:
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
                 self.id_colors[obj_id] = color
-            print "Made a key of id " + str(obj_id) + " and color " + str(color)
+            #print "Made a key of id " + str(obj_id) + " and color " + str(color)
             return self.make_key_or_door_xml("KEY", x*BLOCK_SIZE, KEY_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], obj_id)
 
         elif color[0] == 0 and color[1] == 255: #if red value is 0 and green is 255, object is a door and the id is blue value
-
             obj_id = color[2]
             if obj_id in self.id_colors:                      #TODO: make this code less redundant
                 color = self.id_colors[obj_id]
             else:
                 color = (random.randrange(1,255),random.randrange(1,255),random.randrange(1,255))
                 self.id_colors[obj_id] = color
-
-            print "Made a door of id " + str(obj_id) + " and color " + str(color)
+            #print "Made a door of id " + str(obj_id) + " and color " + str(color)
             return self.make_key_or_door_xml("DOOR", x*BLOCK_SIZE, DOOR_Y, 
                                      y*BLOCK_SIZE, color[0], 
                                      color[1], color[2], obj_id)
-
         elif color == ZOMBIE_GRAY:
-            print "made a zombie"
             return self.make_zombie_xml(x*BLOCK_SIZE, 0, y*BLOCK_SIZE)
-
         elif color == BLUE:
             return self.make_player_location_xml(x*BLOCK_SIZE, y*BLOCK_SIZE)
         elif color == YELLOW:
@@ -129,11 +120,11 @@ class ReadBMP():
     def make_key_or_door_xml(self, obj_type, x, y, z, r, g, b, obj_id):
         '''
         @type  x: int
-        @param x: The x-coordinate
+        @param x: The key/door's x-coordinate
         @type  y: int
-        @param y: The y-coordinate
+        @param y: The key/door's y-coordinate
         @type  z: int
-        @param z: The z-coordinate
+        @param z: The key/door's z-coordinate
         @type  r: int
         @param r: The red value (0-255)
         @type  g: int
@@ -155,28 +146,50 @@ class ReadBMP():
         return string
 
     def make_zombie_xml(self, x, y, z):
+        '''
+        @type  x: int
+        @param x: The x-coordinate
+        @type  y: int
+        @param y: The y-coordinate
+        @type  z: int
+        @param z: The z-coordinate
+        '''
         string = "\t<ZOMBIE>\n"
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Y>%s</Y>\n" % str(y)
         string += "\t\t<Z>%s</Z>\n" % str(z)
-        string += "\t<\ZOMBIE>"
+        string += "\t</ZOMBIE>\n"
         return string
 
     def make_player_location_xml(self, x, z):
+        '''
+        @type  x: int
+        @param x: The player's starting x-coordinate
+        @type  z: int
+        @param z: The player's starting z-coordinate
+        '''
         string = "\t<PLAYERLOCATION>\n"
         string += "\t\t<X>%s</X>\n" % str(x)
         string += "\t\t<Z>%s</Z>\n" % str(z)
-        string += "\t<\PLAYERLOCATION>"
+        string += "\t</PLAYERLOCATION>\n"
         return string
 
     def make_chest_xml(self, x, z):
+        '''
+        @type  x: int
+        @param x: The x-coordinate
+        @type  y: int
+        @param y: The y-coordinate
+        @type  z: int
+        @param z: The z-coordinate
+        '''
         string = "\t<CHEST>\n"
         string += "\t\t<X>%s</X>\n" % str(x)
-        string += "\t\t<Y>%s</Y>\n" % str(0)
+        string += "\t\t<Y>%s</Y>\n" % str(0)   #y is baked in as 0
         string += "\t\t<Z>%s</Z>\n" % str(z)
-        string += "\t<\CHEST>"
+        string += "\t</CHEST>\n"
         return string
 
 
 if __name__ ==  "__main__":
-    rb = ReadBMP("testMaze02.bmp", "testMaze02.xml")
+    rb = ReadBMP("realMaze1.bmp", "realMaze1.xml")

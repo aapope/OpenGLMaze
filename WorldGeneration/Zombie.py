@@ -20,7 +20,7 @@ class Zombie(WorldObject):
         '''
         WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
         #super(Block, self).__init__(self, position, color)        #format from lecture 
-
+        self.width = 2.5
 
     
 

@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from Sound import GameSounds
+#from Graphics import RenderWorld
 import math
 
 class Camera:
@@ -19,6 +20,7 @@ class Camera:
         self.pos_X = x
         self.pos_Y = y
         self.pos_Z = z
+        self.start_pos=(x,y,z)
         self.rot_X = 0
         self.rot_Y = 0
         self.rot_Z = 0
@@ -32,11 +34,14 @@ class Camera:
         self.keys["d"] = False
         self.aware = 5
 
+        #self.start_pos = RenderWorld()
+
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.footSound.set_volume(0.1)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
+        self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
@@ -136,8 +141,26 @@ class Camera:
             z += z2
             tmp_x, tmp_y, tmp_z = obj.get_pos()
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
-                self.reverse_move()
-                self.collisionSound.play()
+                if obj.get_type()=='zombie':
+                    # If a zombie is encountered, you are transported back to the start
+                    self.pos_X=self.start_pos[0]
+                    self.pos_Y=self.start_pos[1]
+                    self.pos_Z=self.start_pos[2]
+                elif obj.get_type()=='key':
+                    if not obj.get_has(): 
+                        obj.get_key()#get the key
+                        obj.get_door().open()
+                elif obj.get_type()=='door':
+                    if not obj.is_open():
+                        self.reverse_move()
+                        self.collisionSound.play()
+                elif obj.get_type()=='chest':
+                    if not obj.has_chest():
+                        obj.get_chest()
+                        #add obj.get_points() to the points!
+                else:
+                    self.reverse_move()
+                    self.collisionSound.play()
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
