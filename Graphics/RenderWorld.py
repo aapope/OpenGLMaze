@@ -10,6 +10,7 @@ from WorldGeneration import Key
 from WorldGeneration import Door
 from WorldGeneration import LoadWorld
 from Sound import GameSounds
+from time import time
 import Image
 import math
 import Overlay
@@ -51,10 +52,12 @@ class RenderWorld:
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
-        self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
+        self.zomSound = self.soundboard.toSound("Sound/zombie.wav")
         self.fanSound = self.soundboard.toSound("Sound/fanfare.wav")
         self.soundboard.loadMusic("Sound/music.wav")
         self.soundboard.playMusic()
+        
+        self.zomstart = time()
 
         glutMainLoop()
 
@@ -141,6 +144,19 @@ class RenderWorld:
                         glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
                         self.makeobj(obj.get_type())
                 elif obj_type == 'zombie':
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                    zomX, zomY, zomZ = obj.get_pos()
+                    currentTime =  time()
+                    
+                    #if obj.get_dist(zomX, zomY, zomZ) < 8.0 and currentTime - self.zomstart > 3.0:
+#                    self.zomstart = time()
+#                    self.zomSound.play()
+                    
+                    self.makeobj(obj.get_type())
+                elif obj_type == 'chest':
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
                     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
                     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])

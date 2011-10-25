@@ -37,10 +37,11 @@ class Camera:
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
-        self.footSound.set_volume(0.1)
+        self.footSound.set_volume(1.0)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
+        self.treasureSound = self.soundboard.toSound("Sound/cash.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
     def renderCamera(self):
@@ -100,7 +101,6 @@ class Camera:
 
     def check_collisions(self, objects):
         '''Checks for objects within aware distance and performs a hit test upon them'''
-        #To play collision sound: self.chan2.play()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
@@ -147,6 +147,7 @@ class Camera:
                 elif obj.get_type()=='key':
                     if not obj.get_has(): 
                         obj.get_key()#get the key
+                        self.pickSound.play()
                         obj.get_door().open()
                 elif obj.get_type()=='door':
                     if not obj.is_open():
@@ -156,6 +157,7 @@ class Camera:
                     if not obj.get_has():
                         obj.get_chest()
                         self.points += obj.get_points()
+                        self.treasureSound.play()
                 else:
                     self.reverse_move()
                     self.collisionSound.play()
