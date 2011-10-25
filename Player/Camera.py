@@ -149,6 +149,7 @@ class Camera:
                 elif obj.get_type()=='key':
                     if not obj.get_has(): 
                         obj.get_key()#get the key
+                        self.pickSound.play()
                         obj.get_door().open()
                 elif obj.get_type()=='door':
                     if not obj.is_open():
