@@ -33,9 +33,7 @@ class Camera:
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
-
-        #self.start_pos = RenderWorld()
-
+        self.points = 0
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
@@ -155,9 +153,9 @@ class Camera:
                         self.reverse_move()
                         self.collisionSound.play()
                 elif obj.get_type()=='chest':
-                    if not obj.has_chest():
+                    if not obj.get_has():
                         obj.get_chest()
-                        #add obj.get_points() to the points!
+                        self.points += obj.get_points()
                 else:
                     self.reverse_move()
                     self.collisionSound.play()
