@@ -36,6 +36,7 @@ def _draw_compass(camera):
     glEnd()
 
 def _draw_points(text):
+    '''Draw the points text'''
     glColor3f(1,1,1)
     glTranslate(500,670,0)
     glScaled(.25,.25,0)
@@ -43,6 +44,7 @@ def _draw_points(text):
         glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
 
 def draw_text(text):
+    '''Draw a message text'''
     _setup()
     glColor3f(1,1,1)
     glTranslate(230,50,0)

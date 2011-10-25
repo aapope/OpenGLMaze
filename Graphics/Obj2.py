@@ -27,12 +27,14 @@ class Model:
 		self.createList()
 
 	def createList(self):
+		'''Creates the list of triangles to draw'''
 		self.listname = glGenLists(1)
 		glNewList(self.listname,GL_COMPILE)
 		self.rawDraw()
 		glEndList()
 
 	def loadKeyObj(self,filepath):
+		'''Loads and reads the key obj file'''
 		modelFile = open(filepath,"r")
 		triangles = []
 		vertices = []
@@ -51,6 +53,7 @@ class Model:
 		self.triangles = triangles
 
 	def loadZombieObj(self,filepath):
+		'''Loads and reads the zombie obj file'''
 		modelFile = open(filepath,"r")
 		triangles = []
 		vertices = []
@@ -69,6 +72,7 @@ class Model:
 		self.triangles = triangles
 
 	def loadChestObj(self,filepath):
+		'''Loads and reads the chest obj file'''
 		modelFile = open(filepath,"r")
 		triangles = []
 		vertices = []
@@ -87,6 +91,7 @@ class Model:
 		self.triangles = triangles
 
 	def loadDoorObj(self,filepath):
+		'''Loads the door obj file'''
 		modelFile = open(filepath,"r")
 		triangles = []
 		vertices = []
@@ -105,6 +110,7 @@ class Model:
 		self.triangles = triangles
 
 	def makeNormals(self):
+		'''make the normals for the faces'''
 		normals = []
 		for triangle in self.triangles:
 			arm1 = sub3(triangle[1],triangle[0])
@@ -113,9 +119,11 @@ class Model:
 		self.normals = normals
 
 	def draw(self):
+		'''Draw the pre-formed list'''
 		glCallList(self.listname)
 
 	def rawDraw(self):
+		'''Draw the raw triangles. Slower.'''
 		glBegin(GL_TRIANGLES)
 		i = 0
 		for triangle in self.triangles:
@@ -125,7 +133,3 @@ class Model:
 			glVertex3f(triangle[2][0],triangle[2][1],triangle[2][2])
 			i+=1
 		glEnd()
-
-if __name__=='__main__':
-	model=Model(FILENAME)
-	model.draw()
