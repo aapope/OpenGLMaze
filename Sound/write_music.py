@@ -1187,5 +1187,5 @@ def write_picksound(w):
 if __name__ == '__main__':
     '''Use this format!'''
     s = Wave()
-    write_crashsound(s)
+    write_take_five(s)
     s.save()
