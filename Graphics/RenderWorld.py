@@ -52,7 +52,7 @@ class RenderWorld:
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
-        self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
+        self.zomSound = self.soundboard.toSound("Sound/zombie.wav")
         self.fanSound = self.soundboard.toSound("Sound/fanfare.wav")
         self.soundboard.loadMusic("Sound/music.wav")
         self.soundboard.playMusic()

@@ -43,6 +43,7 @@ class Camera:
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
+        self.treasureSound = self.soundboard.toSound("Sound/cash.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
     def renderCamera(self):
@@ -156,6 +157,7 @@ class Camera:
                 elif obj.get_type()=='chest':
                     if not obj.has_chest():
                         obj.get_chest()
+                        self.treasureSound.play()
                         #add obj.get_points() to the points!
                 else:
                     self.reverse_move()
