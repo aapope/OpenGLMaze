@@ -13,7 +13,7 @@ def draw_overlay(camera, paused, points):
     glPushMatrix()
     _draw_speaker(paused)
     glPopMatrix()
-    _draw_text("Points: "+str(points))
+    _draw_points("Points: "+str(points))
     _teardown()
 
 def _draw_compass(camera):
@@ -35,12 +35,21 @@ def _draw_compass(camera):
     glVertex2f(0, 15)
     glEnd()
 
-def _draw_text(text):
+def _draw_points(text):
     glColor3f(1,1,1)
     glTranslate(500,670,0)
     glScaled(.25,.25,0)
     for i in text:
         glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
+
+def draw_text(text):
+    _setup()
+    glColor3f(1,1,1)
+    glTranslate(500,670,0)
+    glScaled(.25,.25,0)
+    for i in text:
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
+    _teardown()
 
 def _draw_speaker(paused):
     glTranslate(700, 0, 0)

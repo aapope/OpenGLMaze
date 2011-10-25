@@ -58,6 +58,9 @@ class RenderWorld:
         self.soundboard.playMusic()
         
         self.zomstart = time()
+        self.dead_timeout = 0
+        self.key_timeout = 0
+        self.treasure_timeout = 0
 
         glutMainLoop()
 
@@ -183,6 +186,12 @@ class RenderWorld:
 #        Overlay.draw_text("Hello world")
 #        for i in "Hello world":
 #            glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
+        if self.key_timeout > 0:
+            Overlay.draw_text("Got a key!")
+        if self.dead_timeout > 0:
+            Overlay.draw_text("A zombie killed you!")
+        if self.treasure_timeout > 0:
+            Overlay.draw_text("Got treasure!")
         glDisable(GL_BLEND)
         glutSwapBuffers()
 

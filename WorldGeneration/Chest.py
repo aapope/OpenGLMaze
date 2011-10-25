@@ -29,6 +29,9 @@ class Chest(WorldObject):
         return self.points
     
     def get_has(self):
+        return self.has
+
+    def get_chest(self):
         self.has = True
 
     def has_chest(self):
