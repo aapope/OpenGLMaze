@@ -6,6 +6,7 @@ from OpenGL.GLUT import *
 def draw_overlay(camera):
     """Draw the HUD."""
 
+    print "Drawing HUD."
     _setup()
 
     glTranslate(50, 50, 0)
@@ -17,7 +18,6 @@ def draw_overlay(camera):
     glVertex2f(0, 20)
     glVertex2f(-10, -15)
     glEnd()
-
     _teardown()
 
 def draw_menu():
