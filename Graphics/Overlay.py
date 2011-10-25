@@ -3,14 +3,17 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-def draw_overlay(camera, paused):
+def draw_overlay(camera, paused, points):
     """Draw the HUD."""
 
     _setup()
     glPushMatrix()
     _draw_compass(camera)
     glPopMatrix()
+    glPushMatrix()
     _draw_speaker(paused)
+    glPopMatrix()
+    _draw_text("Points: "+str(points))
     _teardown()
 
 def _draw_compass(camera):
@@ -31,6 +34,13 @@ def _draw_compass(camera):
     glVertex2f(10, -15)
     glVertex2f(0, 15)
     glEnd()
+
+def _draw_text(text):
+    glColor3f(1,1,1)
+    glTranslate(500,670,0)
+    glScaled(.25,.25,0)
+    for i in text:
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
 
 def _draw_speaker(paused):
     glTranslate(700, 0, 0)

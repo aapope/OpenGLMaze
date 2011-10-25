@@ -136,12 +136,12 @@ class RenderWorld:
 
                 if obj_type == 'block':
                     glutSolidCube(2)
-                elif obj_type == 'key':
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                elif obj_type == 'key' or obj_type == 'chest':
                     if not obj.get_has():
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
                         self.makeobj(obj.get_type())
                 elif obj_type == 'zombie':
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
@@ -175,7 +175,10 @@ class RenderWorld:
 
                 glPopMatrix()
 
-        Overlay.draw_overlay(self.camera, self.soundboard.paused)
+        Overlay.draw_overlay(self.camera, self.soundboard.paused, self.camera.points)
+#        Overlay.draw_text("Hello world")
+#        for i in "Hello world":
+#            glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
         glDisable(GL_BLEND)
         glutSwapBuffers()
 
