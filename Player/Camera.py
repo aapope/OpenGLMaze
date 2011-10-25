@@ -146,13 +146,14 @@ class Camera:
                     self.pos_X=self.start_pos[0]
                     self.pos_Y=self.start_pos[1]
                     self.pos_Z=self.start_pos[2]
-                #key and door disappearing are inefficient. It would be nice not to draw them
+                #currnt key and door disappearing are inefficient. It would be nice not to draw them once they are hit
                 elif obj.get_type()=='key':
                     pos=obj.get_pos()
                     x,y,z=pos
                     y-=2
                     pos=(x,y,z)
                     obj.set_pos(pos)
+
                     #make the player "have" the key
                 elif obj.get_type()=='door':# as a condition: and player has key:
                     pos=obj.get_pos()
