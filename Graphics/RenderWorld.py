@@ -103,8 +103,8 @@ class RenderWorld:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
-        self.camera.move()
-        self.camera.check_collisions(self.objects)
+        self.camera.move(self.objects)
+        #self.camera.check_collisions(self.objects)
         self.camera.renderCamera()
         self.renderLightSource()
         self.makeFloor()
@@ -136,12 +136,12 @@ class RenderWorld:
 
                 if obj_type == 'block':
                     glutSolidCube(2)
-                elif obj_type == 'key':
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                elif obj_type == 'key' or obj_type == 'chest':
                     if not obj.get_has():
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
                         self.makeobj(obj.get_type())
                 elif obj_type == 'zombie':
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
@@ -149,11 +149,7 @@ class RenderWorld:
                     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
                     zomX, zomY, zomZ = obj.get_pos()
-                    currentTime =  time()
                     
-                    if obj.get_dist(zomX, zomY, zomZ) < 8.0 and currentTime - self.zomstart > 3.0:
-                        self.zomstart = time()
-                        self.zomSound.play()
                     
                     self.makeobj(obj.get_type())
                 elif obj_type == 'chest':
@@ -179,7 +175,19 @@ class RenderWorld:
 
                 glPopMatrix()
 
-        Overlay.draw_overlay(self.camera, self.soundboard.paused)
+        Overlay.draw_overlay(self.camera, self.soundboard.paused, self.camera.points)
+#        Overlay.draw_text("Hello world")
+#        for i in "Hello world":
+#            glutStrokeCharacter(GLUT_STROKE_ROMAN, ord(i))
+        if self.camera.key_timeout > 0:
+            Overlay.draw_text("Got a key!")
+            self.camera.key_timeout -= 1
+        if self.camera.dead_timeout > 0:
+            Overlay.draw_text("A zombie killed you!")
+            self.camera.dead_timeout -= 1
+        if self.camera.treasure_timeout > 0:
+            Overlay.draw_text("Got treasure!")
+            self.camera.treasure_timeout -= 1
         glDisable(GL_BLEND)
         glutSwapBuffers()
 
@@ -283,9 +291,9 @@ class RenderWorld:
             x,z = self.camera.project_move_other()
             b = self.camera.get_camera_distance(x, 0, z)
             a = item.get_dist(x, 0, z)
-            num = ((b**2)+(c**2)-(a**2))/(2*b*c)
             angle = 0
             try:
+                num = ((b**2)+(c**2)-(a**2))/(2*b*c)
                 angle = math.acos(num)/math.pi*180
             except:
                 pass

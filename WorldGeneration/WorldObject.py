@@ -15,7 +15,7 @@ class WorldObject:
         self.color = ObjectColor((float(color[0]), float(color[1]), float(color[2])))
         self.dist = 0
         self.type = obj_type
-        self.width = 1
+        self.width = 1.1
         
     def get_pos(self):
         '''Returns a three-tuple: x, y, z
