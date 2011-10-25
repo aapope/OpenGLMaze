@@ -14,6 +14,7 @@ class GameSounds():
     def __init__(self):
     	mixer.init()
         mixer.set_num_channels(8)
+        self.paused = False
 
     def loadSound(self, filename):
         self.sounddata = mixer.Sound(filename)
@@ -26,9 +27,11 @@ class GameSounds():
     
     def pauseMusic(self):
     	mixer.music.pause()
+        self.paused = True
     	
     def unpauseMusic(self):
     	mixer.music.unpause()
+        self.paused = False
 
     def playMusic(self):
         mixer.music.play(-1)

@@ -26,8 +26,9 @@ class Door(WorldObject):
         WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
         self.id = door_id
         self.rotation = rotation
-        self.open = door_open
-        self.width = 2
+        self.opened = door_open
+        self.width = 1.3
+        self.key = None
 
     def get_id(self):
         '''
@@ -38,15 +39,15 @@ class Door(WorldObject):
     def is_open(self):
         '''        
         @return: Whether or not the door is open        '''
-        return self.open
+        return self.opened
 
     def open(self):
         ''' Set the self.open boolean to true        '''
-        self.open = True
+        self.opened = True
 
     def close(self):
         ''' Set the self.open boolean to false        '''
-        self.open = False
+        self.opened = False
 
     def get_rotation(self):
         '''
@@ -59,3 +60,8 @@ class Door(WorldObject):
         '''
         self.rotation = rotation
 
+    def get_key(self):
+        return self.key
+
+    def set_key(self, key):
+        self.key = key

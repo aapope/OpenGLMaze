@@ -24,6 +24,20 @@ class Key(WorldObject):
        WorldObject.__init__(self, position, color, obj_type)                #format from ibiblio website
        self.id = key_id
        self.width = .5
-        
+       self.has = False
+       self.door = None
+
     def get_id(self):
         return self.id
+
+    def get_has(self):
+        return self.has
+    
+    def get_key(self):
+        self.has = True
+
+    def set_door(self, door):
+        self.door = door
+
+    def get_door(self):
+        return self.door

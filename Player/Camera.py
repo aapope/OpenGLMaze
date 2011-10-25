@@ -33,16 +33,18 @@ class Camera:
         self.keys["s"] = False
         self.keys["d"] = False
         self.aware = 5
-
-        #self.start_pos = RenderWorld()
-
+        self.points = 0
+        self.dead_timeout = 0
+        self.key_timeout = 0
+        self.treasure_timeout = 0
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
-        self.footSound.set_volume(0.1)
+        self.footSound.set_volume(1.0)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
+        self.treasureSound = self.soundboard.toSound("Sound/cash.wav")
         self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
         
     def renderCamera(self):
@@ -52,7 +54,8 @@ class Camera:
         glRotatef(-self.rot_Z , 0.0, 0.0, 1.0)
         glTranslatef(-self.pos_X, -self.pos_Y, -self.pos_Z)
 
-    def move(self):
+    def move(self, objects):
+        self.check_collisions(objects)
         if self.keys['a']:
             x, z = self.strafe(-self.SPEED)
             self.pos_Z += z
@@ -102,14 +105,15 @@ class Camera:
 
     def check_collisions(self, objects):
         '''Checks for objects within aware distance and performs a hit test upon them'''
-        #To play collision sound: self.chan2.play()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
-                pass
+                if obj.get_type()=='zombie':
+                    if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.5:
+                        self.zomSound.play()
 
     def project_move(self):
         tmp_X = self.pos_X
@@ -142,9 +146,30 @@ class Camera:
             tmp_x, tmp_y, tmp_z = obj.get_pos()
             if x < tmp_x + w/2 and x > tmp_x - w/2 and z < tmp_z + w/2 and z > tmp_z - w/2:
                 if obj.get_type()=='zombie':
-                    glTranslate(self.start_pos[0],self.start_pos[1],self.start_pos[2])
-                self.reverse_move()
-                self.collisionSound.play()
+                    # If a zombie is encountered, you are transported back to the start
+                    self.pos_X=self.start_pos[0]
+                    self.pos_Y=self.start_pos[1]
+                    self.pos_Z=self.start_pos[2]
+                    self.dead_timeout = 50
+                elif obj.get_type()=='key':
+                    if not obj.get_has(): 
+                        obj.get_key()
+                        self.key_timeout = 50
+                        self.pickSound.play()
+                        obj.get_door().open()
+                elif obj.get_type()=='door':
+                    if not obj.is_open():
+                        self.reverse_move()
+                        self.collisionSound.play()
+                elif obj.get_type()=='chest':
+                    if not obj.get_has():
+                        obj.get_chest()
+                        self.treasure_timeout = 50
+                        self.points += obj.get_points()
+                        self.treasureSound.play()
+                else:
+                    self.reverse_move()
+                    self.collisionSound.play()
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
@@ -182,7 +207,7 @@ class Camera:
             self.pos_Z += z
             self.pos_X += x
         if self.keys['s']:
-            x, z = self.walk(-self.SPEED-self.SPEED/5)
+            x, z = self.walk(-self.SPEED)
             self.pos_Z += z
             self.pos_X += x
     
