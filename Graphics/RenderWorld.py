@@ -152,11 +152,7 @@ class RenderWorld:
                     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
                     zomX, zomY, zomZ = obj.get_pos()
-                    currentTime =  time()
                     
-                    #if obj.get_dist(zomX, zomY, zomZ) < 8.0 and currentTime - self.zomstart > 3.0:
-#                    self.zomstart = time()
-#                    self.zomSound.play()
                     
                     self.makeobj(obj.get_type())
                 elif obj_type == 'chest':

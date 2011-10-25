@@ -107,7 +107,9 @@ class Camera:
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
-                pass
+                if obj.get_type()=='zombie':
+                    if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.5:
+                        self.zomSound.play()
 
     def project_move(self):
         tmp_X = self.pos_X
