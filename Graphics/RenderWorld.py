@@ -151,7 +151,7 @@ class RenderWorld:
                     zomX, zomY, zomZ = obj.get_pos()
                     currentTime =  time()
                     
-                    if obj.get_dist(zomX, zomY, zomZ) < 8 and currentTime - self.zomstart > 3:
+                    if obj.get_dist(zomX, zomY, zomZ) < 8.0 and currentTime - self.zomstart > 3.0:
                         self.zomstart = time()
                         self.zomSound.play()
                     
