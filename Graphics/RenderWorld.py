@@ -142,7 +142,7 @@ class RenderWorld:
                 glPopMatrix()
 
         glDisable(GL_BLEND)
-        Overlay.draw_overlay()
+        Overlay.draw_overlay(self.camera)
         
         glutSwapBuffers()
 
