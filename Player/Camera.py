@@ -45,7 +45,7 @@ class Camera:
         self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
         self.treasureSound = self.soundboard.toSound("Sound/cash.wav")
-        self.zomSound = self.soundboard.toSound("Sound/zombie.mp3")
+        self.zomSound = self.soundboard.toSound("Sound/zombie.wav")
         
     def renderCamera(self):
         '''Translates and rotates the camera to the correct position'''
@@ -112,8 +112,8 @@ class Camera:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
                 if obj.get_type()=='zombie':
-                    if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.5:
-                        self.zomSound.play()
+                        if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.2:
+                            self.zomSound.play() # Need a vector from the camera position to the zombie and check to see if there is an object in the way
 
     def project_move(self):
         tmp_X = self.pos_X
