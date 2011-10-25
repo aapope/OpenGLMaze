@@ -12,6 +12,7 @@ from WorldGeneration import LoadWorld
 from Sound import GameSounds
 import Image
 import math
+import Overlay
 from Obj2 import Model
 
 # TODO: Choosing only the ones you can see to actually render.
@@ -141,7 +142,8 @@ class RenderWorld:
                 glPopMatrix()
 
         glDisable(GL_BLEND)
-
+        Overlay.draw_overlay(self.camera)
+        
         glutSwapBuffers()
 
     def mouseMove(self, x, y):
