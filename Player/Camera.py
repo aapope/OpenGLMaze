@@ -39,7 +39,7 @@ class Camera:
         self.soundboard = GameSounds()
         
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
-        self.footSound.set_volume(0.1)
+        self.footSound.set_volume(1.0)
         self.collisionSound = self.soundboard.toSound("Sound/crashsound.wav")
         self.collisionSound.set_volume(1.5)
         self.pickSound = self.soundboard.toSound("Sound/picksound.wav")
@@ -102,7 +102,6 @@ class Camera:
 
     def check_collisions(self, objects):
         '''Checks for objects within aware distance and performs a hit test upon them'''
-        #To play collision sound: self.chan2.play()
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
