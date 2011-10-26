@@ -109,11 +109,12 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects
         based on the camera angle. Calls collision detection, handles
         the appropriate objects for keys, doors, etc.'''
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
         self.camera.move(self.objects)
-        #self.camera.check_collisions(self.objects)
+        self.camera.check_collisions(self.objects)
         self.camera.renderCamera()
         self.renderLightSource()
         self.makeFloor()
@@ -122,77 +123,75 @@ class RenderWorld:
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        self.sort_by_dist()
+        # Thou shalt not enable sort_by_dist.
 
-        to_draw = self.get_visible(self.objects)
-        self.sort_by_dist()
+        for obj in self.objects:
+            color = obj.get_color()
+            pos = obj.get_pos()
+            obj_type = obj.get_type()
 
-        for obj in to_draw:
-            if obj.dist < 15:
-                color = obj.get_color()
-                pos = obj.get_pos()
-                obj_type = obj.get_type()
+            glPushMatrix()
 
-                glPushMatrix()
+            # Set the objects shininess, ambient, diffuse, and
+            # specular reflections. The objects are slightly
+            # transparent. <- (nick: Why?)
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
+            glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .8])
 
-                # Set the objects shininess, ambient, diffuse, and
-                # specular reflections. The objects are slightly
-                # transparent. <- (nick: Why?)
+            glTranslate(pos[0], pos[1], pos[2])
+
+            if obj_type == 'block':
+                glutSolidCube(2)
+
+            elif obj_type == 'key' or obj_type == 'chest':
+                if not obj.get_has():
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                    self.makeobj(obj.get_type())
+
+            elif obj_type == 'zombie':
                 glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
                 glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .8])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                zomX, zomY, zomZ = pos # We already grabbed pos.
+                self.makeobj(obj.get_type())
 
-                glTranslate(pos[0], pos[1], pos[2])
+            elif obj_type == 'chest':
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                self.makeobj(obj.get_type())
 
-                if obj_type == 'block':
-                    glutSolidCube(2)
-
-                elif obj_type == 'key' or obj_type == 'chest':
-                    if not obj.get_has():
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
-                        self.makeobj(obj.get_type())
-
-                elif obj_type == 'zombie':
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
-                    self.makeobj(obj.get_type())
-
-                elif obj_type == 'chest':
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
-                    self.makeobj(obj.get_type())
-
-                elif obj_type == 'door':
-                    if obj.get_key().get_has():
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .2])
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .2])
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .2])
-                    else:
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
-                        glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
-                    glRotate(obj.get_rotation(), 0, 1, 0)
-                    self.makeobj(obj.get_type())
-
+            elif obj_type == 'door':
+                if obj.get_key().get_has():
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .2])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .2])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .2])
                 else:
-                    glutSolidSphere(2, 40, 40)
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
+                    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
+                glRotate(obj.get_rotation(), 0, 1, 0)
+                self.makeobj(obj.get_type())
 
-                glPopMatrix()
+            else:
+                glutSolidSphere(2, 40, 40)
+
+            glPopMatrix()
 
         glDisable(GL_BLEND)
 
         Overlay.draw_overlay(self.camera,
                              self.soundboard.paused)
 
+        
         if self.camera.key_timeout > 0:
             Overlay.draw_text("Got a key!")
             self.camera.key_timeout -= 1
@@ -202,7 +201,7 @@ class RenderWorld:
         if self.camera.treasure_timeout > 0:
             Overlay.draw_text("Got treasure!")
             self.camera.treasure_timeout -= 1
-
+            
         glutSwapBuffers()
 
     def mouseMove(self, x, y):
@@ -285,6 +284,7 @@ class RenderWorld:
 
     def makeobj(self, kind):
         '''Makes the desired object from the loaded obj file.'''
+        return
         if kind == 'key':
             self.key.rawDraw()
         elif kind == 'door':
@@ -294,12 +294,6 @@ class RenderWorld:
         elif kind == 'chest':
             self.chest.rawDraw()
 
-    def sort_by_dist(self):
-        '''Sorts the objects by distance, but also sets each object's
-        distance to the camera.'''
-        for obj in self.objects:
-            obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
-        self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
 
     def get_visible(self, lst):
         '''Only draws the objects sitting in front of the camera.
