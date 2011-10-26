@@ -14,7 +14,7 @@ class Camera:
     SPEED = 0
     WALK = .3
     SPRINT = 1
-    ROTATE = 1
+    ROTATE = 2
     WIDTH = .8
 
     def __init__(self, x=0, y=0, z=0):

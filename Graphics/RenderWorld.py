@@ -143,7 +143,7 @@ class RenderWorld:
 
             if obj_type == 'block':
                 glutSolidCube(2)
-
+            
             elif obj_type == 'key' or obj_type == 'chest':
                 if not obj.get_has():
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
@@ -206,9 +206,11 @@ class RenderWorld:
     def mouseMove(self, x, y):
         '''Called when the mouse is moved.'''
         factor = 1
-        padding = 50
+        padding = (self.WINDOW_WIDTH/2)-15
         tmp_x = (self.camera.mouse_x - x)/factor
         tmp_y = (self.camera.mouse_y - y)/factor
+        if tmp_x > self.camera.ROTATE:
+            tmp_x = self.camera.ROTATE
         self.camera.rotate(0, tmp_x, 0)
         if x <= 0 + padding or x >= self.WINDOW_WIDTH - padding:
             x = self.WINDOW_WIDTH/2
