@@ -11,8 +11,8 @@ __date__ = "October 25, 2011"
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-HEIGHT = 1000
-WIDTH = 1000
+HEIGHT = 250
+WIDTH = 250
 
 class AutoMap:
 
