@@ -1,0 +1,1 @@
+I found and implemented code for an .obj parser, as well as the obj files for the zombie. Creating the obj files themselves from the .3ds files involved using Blender and ensuring that when the obj file exported had the option that Triangulates faces. I attempted to have the object groups from the obj file be parsed as well, so colors or textures can be 
