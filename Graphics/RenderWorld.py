@@ -122,7 +122,7 @@ class RenderWorld:
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-        # Thou shalt not enable sort_by_dist.
+        self.sort_by_dist()
 
         for obj in self.objects:
             if obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z) < 15:
@@ -135,10 +135,10 @@ class RenderWorld:
             # Set the objects shininess, ambient, diffuse, and
             # specular reflections. The objects are slightly
             # transparent. <- (nick: Why?)
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 75)
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, 15)
                 glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
                 glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, 1])
-                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .8])
+                glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .5])
 
                 glTranslate(pos[0], pos[1], pos[2])
                 
@@ -233,10 +233,6 @@ class RenderWorld:
             self.camera.rotate(3,0,0)
         elif key == 'k':
             self.camera.rotate(-3,0,0)
-        elif key == ' ':
-            self.camera.height(.1)
-        elif key == 'c':
-            self.camera.height(-.1)
         elif key == 'm':
             if self.soundboard.paused:
                 self.soundboard.unpauseMusic()
@@ -297,7 +293,10 @@ class RenderWorld:
         elif kind == 'chest':
             self.chest.rawDraw()
 
-
+    def sort_by_dist(self):
+        for obj in self.objects:
+            obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
+        self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
 
     def get_visible(self, lst):
         '''Only draws the objects sitting in front of the camera.
