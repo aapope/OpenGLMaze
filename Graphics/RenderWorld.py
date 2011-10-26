@@ -284,6 +284,7 @@ class RenderWorld:
 
     def makeobj(self, kind):
         '''Makes the desired object from the loaded obj file.'''
+        return
         if kind == 'key':
             self.key.rawDraw()
         elif kind == 'door':
