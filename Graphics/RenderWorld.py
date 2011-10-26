@@ -206,18 +206,15 @@ class RenderWorld:
     def mouseMove(self, x, y):
         '''Called when the mouse is moved.'''
         factor = 1
-        padding = (self.WINDOW_WIDTH/2)-15
+        
         tmp_x = (self.camera.mouse_x - x)/factor
         tmp_y = (self.camera.mouse_y - y)/factor
         if tmp_x > self.camera.ROTATE:
             tmp_x = self.camera.ROTATE
         self.camera.rotate(0, tmp_x, 0)
-        if x <= 0 + padding or x >= self.WINDOW_WIDTH - padding:
-            x = self.WINDOW_WIDTH/2
-            glutWarpPointer(x, y)
-        if y <= 0 + padding or y >= self.WINDOW_HEIGHT - padding:
-            y = self.WINDOW_HEIGHT / 2
-            glutWarpPointer(x, y)
+        x = self.WINDOW_WIDTH/2
+        y = self.WINDOW_HEIGHT/2
+        glutWarpPointer(x, y)
         self.camera.mouse_x = x
         self.camera.mouse_y = y
         

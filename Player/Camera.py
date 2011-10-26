@@ -72,12 +72,13 @@ class Camera:
             self.pos_X = moved[1]
             self.pos_Y = moved[2]
             self.pos_Z = moved[3]
-            self.footSound.play()
         if self.check_collisions(objects):
             moved = self.move_by_keys(tmp_keys, -1)
             self.pos_X = moved[1]
             self.pos_Y = moved[2]
             self.pos_Z = moved[3]
+        elif moved[0]:
+            self.footSound.play()
 
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
