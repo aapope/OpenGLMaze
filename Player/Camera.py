@@ -11,9 +11,11 @@ class Camera:
     '''Stores and changes the camera position
     while detecting collision'''
 
-    SPEED = .7
+    SPEED = 0
+    WALK = .3
+    SPRINT = 1
     ROTATE = 1
-    WIDTH = 1
+    WIDTH = .8
 
     def __init__(self, x=0, y=0, z=0):
         '''Initializes everything, including sound'''
@@ -32,6 +34,7 @@ class Camera:
         self.keys["a"] = False
         self.keys["s"] = False
         self.keys["d"] = False
+        self.keys["shift"] = False
         self.aware = 5
         self.points = 0
         self.dead_timeout = 0
@@ -57,6 +60,13 @@ class Camera:
     def move(self, objects):
         '''Controls the movement of the player.'''
         tmp_keys = self.keys.copy()
+
+        #Check for sprint
+        if tmp_keys["shift"] == True:
+            self.SPEED = self.SPRINT
+        else:
+            self.SPEED = self.WALK
+
         moved = self.move_by_keys(tmp_keys, 1)
         if moved[0]:
             self.pos_X = moved[1]

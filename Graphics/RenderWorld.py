@@ -218,11 +218,13 @@ class RenderWorld:
             glutWarpPointer(x, y)
         self.camera.mouse_x = x
         self.camera.mouse_y = y
-
+        
     def keyPressed(self, key, x, y):
         '''Called when a key is pressed.'''
         if key.lower() in self.camera.keys:
-            self.camera.keys[key] = True
+            self.camera.keys[key.lower()] = True
+        if glutGetModifiers() == GLUT_ACTIVE_SHIFT:
+            self.camera.keys["shift"] = True
         if key == 'j':
             self.camera.rotate(0,3,0)
         elif key == 'l':
@@ -246,7 +248,9 @@ class RenderWorld:
     def keyUp(self, key, x, y):
         '''Called when a key is released.'''
         # Speed things up by not checking if the key is in the map
-        self.camera.keys[key] = False
+        self.camera.keys[key.lower()] = False
+        if not glutGetModifiers() == GLUT_ACTIVE_SHIFT:
+            self.camera.keys["shift"] = False
 
     def renderLightSource(self):
         '''Resets the light sources to the right position.'''
