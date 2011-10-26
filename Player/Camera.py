@@ -1,11 +1,10 @@
 '''Stores and changes the camera position'''
-__author__ = "Emily and Andrew"
-__date__ = "20 October 2011"
+__author__ = "Application Design Class"
+__date__ = "26 October 2011"
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from Sound import GameSounds
-#from Graphics import RenderWorld
 import math
 
 class Camera:
@@ -16,7 +15,7 @@ class Camera:
     WIDTH = 1
 
     def __init__(self, x=0, y=0, z=0):
-        '''Initializes everything to 0'''
+        '''Initializes everything, including sound'''
         self.pos_X = x
         self.pos_Y = y
         self.pos_Z = z
@@ -55,6 +54,7 @@ class Camera:
         glTranslatef(-self.pos_X, -self.pos_Y, -self.pos_Z)
 
     def move(self, objects):
+        '''Controls the movement of the player.'''
         self.check_collisions(objects)
         if self.keys['a']:
             x, z = self.strafe(-self.SPEED)
@@ -138,6 +138,7 @@ class Camera:
         return (tmp_X, tmp_Y, tmp_Z)
 
     def hitTest(self, obj, x, y, z):
+        '''Does a test for the type of object bumped into and the appropriate response.'''
         w = obj.width
         for i in range(1,5):
             x2, z2 = self.get_sides(i)
@@ -194,6 +195,7 @@ class Camera:
         #self.pos_Y += math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Z*math.pi/180)*amt
 
     def reverse_move(self):
+        '''moves the player in reverse.'''
         if self.keys['a']:
             x, z = self.strafe(self.SPEED)
             self.pos_Z += z
