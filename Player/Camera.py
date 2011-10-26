@@ -111,9 +111,10 @@ class Camera:
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 self.hitTest(obj, tmp_x, tmp_y, tmp_z)
             else:
-                if obj.get_type()=='zombie':
-                        if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.2:
-                            self.zomSound.play() # Need a vector from the camera position to the zombie and check to see if there is an object in the way
+                pass
+                #if obj.get_type()=='zombie':
+                #        if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.2:
+                #            self.zomSound.play() # Need a vector from the camera position to the zombie and check to see if there is an object in the way
 
     def project_move(self):
         tmp_X = self.pos_X
