@@ -11,8 +11,14 @@ class WorldObject:
     def __init__(self, position, color, obj_type = "generic"):
         '''Initializes an object's color and position. Takes two 3-tuples (xyz and rgb)'''
         
-        self.position = ObjectPosition((float(position[0]), float(position[1]), float(position[2])))
-        self.color = ObjectColor((float(color[0]), float(color[1]), float(color[2])))
+        #self.position = ObjectPosition((float(position[0]),
+        #float(position[1]), float(position[2])))
+        self.x = float(position[0])
+        self.y = float(position[1])
+        self.z = float(position[2])
+        self.r = float(color[0])
+        self.g = float(color[1])
+        self.b = float(color[2])
         self.dist = 0
         self.type = obj_type
         self.width = 1.1
@@ -20,40 +26,44 @@ class WorldObject:
     def get_pos(self):
         '''Returns a three-tuple: x, y, z
         '''
-        return self.position.get()
+        return (self.x, self.y, self.z)
 
     def set_pos(self, position):
         '''Sets the position with a three-tuple: x, y, z
         @type  position: 3-tuple
         @param position: The new position
         '''
-        self.position.set(position)
+        self.x = float(position[0])
+        self.y = float(position[1])
+        self.z = float(position[2])
 
     def get_color(self):
         '''Returns a three-tuple: r, g, b
         @return: A 3-tuple of the r,g,b values
         '''
-        return self.color.get()
+        return (self.r, self.g, self.b)
 
     def set_color(self, color):
         '''Sets the color with a three-tuple: r, g, b
         @type  color: 3-tuple
         @param color: The color in 3-tuple form (r, g, b)
         '''
-        self.color.set(color)
+        self.r = float(color[0])
+        self.g = float(color[1])
+        self.b = float(color[2])
         
     def __str__(self):
         '''Returns x y z r g b
         @return: String representation as x,y,z,r,g,b
         '''
-        return str(self.position)+' '+str(self.color)
+        return ' '.join([self.x, self.y, self.z,
+                         self.r, self.g, self.b])
 
     def get_type(self):
         return self.type
 
     def get_dist(self, x, y, z):
-        coords = self.position.get()
-        self.dist = math.sqrt((coords[0]-x)**2 + (coords[1]-y)**2 + (coords[2]-z)**2)
+        self.dist = math.sqrt((self.x-x)**2 + (self.y-y)**2 + (self.z-z)**2)
         return self.dist
 
     def width(self):
