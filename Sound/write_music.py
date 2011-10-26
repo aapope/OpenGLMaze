@@ -1,3 +1,6 @@
+__author__ = "Trisha Andrews, Colter Fatt, and Eddie Figueroa'''
+__date__ = "October 22, 2011"
+
 from Extended_Wave import Wave
 
 def write_part(notes):
@@ -11,7 +14,7 @@ def write_part(notes):
             start_time += i[2]
 
 def write_take_five(w):
-   
+   '''Generates Take Five for background music'''
     #Piano1
     notes = []
     #Letter A
@@ -1087,7 +1090,7 @@ def write_take_five(w):
     write_part(notes)
 
 def write_trumpet_fanfare(w):
-    
+    '''Writes the trumpet fanfare for winning'''
     #Trumpet 1
     notes = []
     
@@ -1156,7 +1159,7 @@ def write_trumpet_fanfare(w):
 
 
 def write_crashsound(w):
-    
+    '''Writes the sound for crashing into a wall'''
     notes = []
     
     notes.append(((1.0/6.0), 'B3'))
@@ -1170,7 +1173,7 @@ def write_crashsound(w):
     write_part(notes)
 
 def write_picksound(w):
-    
+    '''Writes the sound for picking up an object'''
     notes = []
 
     notes.append(((1.0/5.0), 'C5'))
@@ -1187,5 +1190,5 @@ def write_picksound(w):
 if __name__ == '__main__':
     '''Use this format!'''
     s = Wave()
-    write_crashsound(s)
+    write_take_five(s)
     s.save()

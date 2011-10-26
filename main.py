@@ -11,4 +11,4 @@ if __name__ == '__main__':
     try:
         RENDER = RenderWorld(sys.argv[1])
     except:
-        RENDER = RenderWorld('WorldGeneration/AUTOMAP.xml')
+        RENDER = RenderWorld('WorldGeneration/level1.xml')
