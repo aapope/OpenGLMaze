@@ -10,7 +10,7 @@ import math
 class Camera:
     '''Stores and changes the camera position'''
 
-    SPEED = .5
+    SPEED = .7
     ROTATE = 1
     WIDTH = 1
 
@@ -55,28 +55,18 @@ class Camera:
 
     def move(self, objects):
         '''Controls the movement of the player.'''
-        if self.keys['a']:
-            x, z = self.strafe(-self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
-            self.footSound.play()
-        if self.keys['d']:
-            x, z = self.strafe(self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
-            self.footSound.play()
-        if self.keys['w']:
-            x, z = self.walk(-self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
-            self.footSound.play()
-        if self.keys['s']:
-            x, z = self.walk(self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
+        tmp_keys = self.keys.copy()
+        moved = self.move_by_keys(tmp_keys, 1)
+        if moved[0]:
+            self.pos_X = moved[1]
+            self.pos_Y = moved[2]
+            self.pos_Z = moved[3]
             self.footSound.play()
         if self.check_collisions(objects):
-            self.reverse_move()
+            moved = self.move_by_keys(tmp_keys, -1)
+            self.pos_X = moved[1]
+            self.pos_Y = moved[2]
+            self.pos_Z = moved[3]
 
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
@@ -108,7 +98,7 @@ class Camera:
         '''Checks for objects within aware distance and performs a hit test upon them'''
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
-            tmp_x, tmp_y, tmp_z = self.project_move()
+            moved, tmp_x, tmp_y, tmp_z = self.move_by_keys(self.keys, 1)
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
                 if self.hitTest(obj, tmp_x, tmp_y, tmp_z):
                     return True
@@ -118,28 +108,6 @@ class Camera:
                 #if obj.get_type()=='zombie':
                 #        if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.2:
                 #            self.zomSound.play() # Need a vector from the camera position to the zombie and check to see if there is an object in the way
-
-    def project_move(self):
-        tmp_X = self.pos_X
-        tmp_Y = self.pos_Y
-        tmp_Z = self.pos_Z
-        if self.keys['a']:
-            x, z = self.strafe(-self.SPEED)
-            tmp_Z += z
-            tmp_X += x
-        if self.keys['d']:
-            x, z = self.strafe(self.SPEED)
-            tmp_Z += z
-            tmp_X += x
-        if self.keys['w']:
-            x, z = self.walk(-self.SPEED)
-            tmp_Z += z
-            tmp_X += x
-        if self.keys['s']:
-            x, z = self.walk(self.SPEED)
-            tmp_Z += z
-            tmp_X += x
-        return (tmp_X, tmp_Y, tmp_Z)
 
     def hitTest(self, obj, x, y, z):
         '''Does a test for the type of object bumped into and the appropriate response.'''
@@ -199,24 +167,33 @@ class Camera:
         #Use to allow for change in height based on angle
         #self.pos_Y += math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Z*math.pi/180)*amt
 
-    def reverse_move(self):
+    def move_by_keys(self, tmp_keys, direction):
         '''moves the player in reverse.'''
-        if self.keys['a']:
-            x, z = self.strafe(self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
-        if self.keys['d']:
-            x, z = self.strafe(-self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
-        if self.keys['w']:
-            x, z = self.walk(self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
-        if self.keys['s']:
-            x, z = self.walk(-self.SPEED)
-            self.pos_Z += z
-            self.pos_X += x
+        tmp_X = self.pos_X
+        tmp_Y = self.pos_Y
+        tmp_Z = self.pos_Z
+        moved = False
+        if tmp_keys['a']:
+            x, z = self.strafe(-self.SPEED*direction)
+            tmp_Z += z
+            tmp_X += x
+            moved = True
+        if tmp_keys['d']:
+            x, z = self.strafe(self.SPEED*direction)
+            tmp_Z += z
+            tmp_X += x
+            moved = True
+        if tmp_keys['w']:
+            x, z = self.walk(-self.SPEED*direction)
+            tmp_Z += z
+            tmp_X += x
+            moved = True
+        if tmp_keys['s']:
+            x, z = self.walk(self.SPEED*direction)
+            tmp_Z += z
+            tmp_X += x
+            moved = True
+        return (moved, tmp_X, tmp_Y, tmp_Z)
     
     def project_move_other(self):
         tmp_X = self.pos_X
