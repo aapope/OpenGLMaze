@@ -55,7 +55,6 @@ class Camera:
 
     def move(self, objects):
         '''Controls the movement of the player.'''
-        self.check_collisions(objects)
         if self.keys['a']:
             x, z = self.strafe(-self.SPEED)
             self.pos_Z += z
@@ -76,7 +75,9 @@ class Camera:
             self.pos_Z += z
             self.pos_X += x
             self.footSound.play()
-        
+        if self.check_collisions(objects):
+            self.reverse_move()
+
     def rotate(self, x, y, z):
         '''Rotates by x, y, and z'''
         self.rot_X += x
@@ -109,9 +110,11 @@ class Camera:
             x2, y2, z2 = obj.get_pos()
             tmp_x, tmp_y, tmp_z = self.project_move()
             if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < self.aware:
-                self.hitTest(obj, tmp_x, tmp_y, tmp_z)
+                if self.hitTest(obj, tmp_x, tmp_y, tmp_z):
+                    return True
             else:
                 pass
+        return False
                 #if obj.get_type()=='zombie':
                 #        if obj.get_dist(self.pos_X, self.pos_Y, self.pos_Z) < 5.2:
                 #            self.zomSound.play() # Need a vector from the camera position to the zombie and check to see if there is an object in the way
@@ -161,8 +164,8 @@ class Camera:
                         obj.get_door().open()
                 elif obj.get_type()=='door':
                     if not obj.is_open():
-                        self.reverse_move()
                         self.collisionSound.play()
+                        return True
                 elif obj.get_type()=='chest':
                     if not obj.get_has():
                         obj.get_chest()
@@ -170,8 +173,9 @@ class Camera:
                         self.points += obj.get_points()
                         self.treasureSound.play()
                 else:
-                    self.reverse_move()
                     self.collisionSound.play()
+                    return True
+        return False
                         
     def get_sides(self, side):
         '''Returns points of given side of bounding box'''
