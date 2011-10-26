@@ -109,7 +109,6 @@ class RenderWorld:
         '''Called for every refresh; redraws the floor and objects
         based on the camera angle. Calls collision detection, handles
         the appropriate objects for keys, doors, etc.'''
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
@@ -284,7 +283,7 @@ class RenderWorld:
 
     def makeobj(self, kind):
         '''Makes the desired object from the loaded obj file.'''
-        return
+
         if kind == 'key':
             self.key.rawDraw()
         elif kind == 'door':
@@ -293,6 +292,7 @@ class RenderWorld:
             self.zombie.rawDraw()
         elif kind == 'chest':
             self.chest.rawDraw()
+
 
 
     def get_visible(self, lst):
