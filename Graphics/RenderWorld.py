@@ -1,4 +1,4 @@
-'''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
+'''This is the class that renders maze). Camera angles are handled by another class'''
 __author__ = "Emily and Andrew"
 __date__ = "21 October 2011"
 from OpenGL.GL import *
@@ -16,17 +16,14 @@ import math
 import Overlay
 from Obj2 import Model
 
-# TODO: Choosing only the ones you can see to actually render.
-#       Speed up the rendering process so the game runs more smoothly
-#       Nicer ground? Reflections? Shadows?
 class RenderWorld:
-    '''This is the class that renders blocks (and the floor that they sit on). Camera angles are handled by another class'''
+    '''This is the class that renders maze). Camera angles are handled by another class'''
     WINDOW_WIDTH = 700
     WINDOW_HEIGHT = 700
     MAP_SIZE =100
 
     def __init__(self, file_name):
-        '''Sets everything up: camera, modes, lighting, and the list of blocks'''
+        '''Sets everything up: camera, modes, lighting, sounds,  and the list of objects'''
         self.set_up_graphics()
         self.makeLights()
         self.objects, self.player_loc = LoadWorld.load(file_name)
@@ -99,7 +96,7 @@ class RenderWorld:
 
     def display(self, x=0, y=0):
         '''Called for every refresh; redraws the floor and objects and
-        based on the camera angle'''
+        based on the camera angle. Calls collision detection, handles the appropriate objects for keys, doors, etc.'''
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
 
@@ -270,6 +267,7 @@ class RenderWorld:
         glDisable(GL_TEXTURE_2D)
 
     def makeobj(self, kind):
+        '''Makes the desired object from the loaded obj file'''
         if kind == 'key':
             self.key.rawDraw()
         elif kind == 'door':
@@ -280,11 +278,13 @@ class RenderWorld:
             self.chest.rawDraw()
 
     def sort_by_dist(self):
+        '''Sorts the objects by distance, but also sets each object's distance to the camera'''
         for obj in self.objects:
             obj.get_dist(self.camera.pos_X, self.camera.pos_Y, self.camera.pos_Z)
         self.objects = sorted(self.objects, key=lambda obj: obj.dist, reverse=True)
         
     def get_visible(self, lst):
+        '''Only draws the objects sitting in front of the camera. Everything behind it is left undrawn'''
         to_use = []
         for item in lst:
             c = item.dist
@@ -300,6 +300,3 @@ class RenderWorld:
             if angle > 90:
                 to_use.append(item)
         return to_use
-
-if __name__ == '__main__':
-    RENDER = RenderWorld('OpenGLMaze/WorldGeneration/keys.xml')
