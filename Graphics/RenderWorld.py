@@ -51,7 +51,7 @@ class RenderWorld:
         
         self.door = Model('Graphics/basicdoor.obj','door')
         self.key = Model('Graphics/Key.obj', 'key')
-        self.zombie = Model('Graphics/zombie.obj', 'zombie')
+        self.zombie = Model('Graphics/zombie.obj', 'zombie')#try zombie5.obj for fun sometime
         self.chest = Model('Graphics/treasure.obj', 'chest')
         self.soundboard = GameSounds()
         self.footSound = self.soundboard.toSound("Sound/footsteps.wav")
@@ -161,7 +161,6 @@ class RenderWorld:
                     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, [color[0], color[1], color[2], .5])
                     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, [.4, .4, .4, .7])
                     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, [.9, .9, .9, .6])
-                    zomX, zomY, zomZ = pos # We already grabbed pos.
                     self.makeobj(obj.get_type())
 
                 elif obj_type == 'chest':
@@ -207,7 +206,7 @@ class RenderWorld:
         glutSwapBuffers()
 
     def mouseMove(self, x, y):
-        '''Called when the mouse. is moved.'''
+        '''Called when the mouse is moved.'''
         factor = 1
         padding = 50
         tmp_x = (self.camera.mouse_x - x)/factor
