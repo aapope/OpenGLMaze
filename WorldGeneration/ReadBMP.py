@@ -192,4 +192,4 @@ class ReadBMP():
 
 
 if __name__ ==  "__main__":
-    rb = ReadBMP("AUTOMAP.bmp", "AUTOMAP.xml")
+    rb = ReadBMP("level1.bmp", "level1.xml")
