@@ -292,6 +292,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>2</X>
+		<Y>0</Y>
+		<Z>50</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>2</X>
 		<Y>0.5</Y>
@@ -512,6 +517,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>6</X>
+		<Y>0</Y>
+		<Z>26</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>6</X>
 		<Y>0.5</Y>
@@ -800,6 +810,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>10</X>
+		<Y>0</Y>
+		<Z>56</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>10</X>
 		<Y>0.5</Y>
@@ -988,27 +1003,27 @@
 		<X>14</X>
 		<Y>0.5</Y>
 		<Z>8</Z>
-		<RED>115</RED>
-		<GREEN>23</GREEN>
-		<BLUE>180</BLUE>
+		<RED>246</RED>
+		<GREEN>104</GREEN>
+		<BLUE>248</BLUE>
 		<ID>100</ID>
 	</DOOR>
 	<DOOR>
 		<X>14</X>
 		<Y>0.5</Y>
 		<Z>16</Z>
-		<RED>198</RED>
-		<GREEN>213</GREEN>
-		<BLUE>48</BLUE>
+		<RED>8</RED>
+		<GREEN>44</GREEN>
+		<BLUE>25</BLUE>
 		<ID>0</ID>
 	</DOOR>
 	<DOOR>
 		<X>14</X>
 		<Y>0.5</Y>
 		<Z>28</Z>
-		<RED>196</RED>
-		<GREEN>249</GREEN>
-		<BLUE>145</BLUE>
+		<RED>247</RED>
+		<GREEN>212</GREEN>
+		<BLUE>85</BLUE>
 		<ID>50</ID>
 	</DOOR>
 	<BLOCK>
@@ -1536,11 +1551,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
-		<X>22</X>
-		<Y>0</Y>
-		<Z>56</Z>
-	</CHEST>
 	<BLOCK>
 		<X>22</X>
 		<Y>0.5</Y>
@@ -1781,11 +1791,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
-		<X>26</X>
-		<Y>0</Y>
-		<Z>56</Z>
-	</CHEST>
 	<BLOCK>
 		<X>26</X>
 		<Y>0.5</Y>
@@ -1970,6 +1975,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>30</X>
+		<Y>0</Y>
+		<Z>2</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>30</X>
 		<Y>0.5</Y>
@@ -2203,9 +2213,9 @@
 		<X>32</X>
 		<Y>0.5</Y>
 		<Z>50</Z>
-		<RED>198</RED>
-		<GREEN>213</GREEN>
-		<BLUE>48</BLUE>
+		<RED>8</RED>
+		<GREEN>44</GREEN>
+		<BLUE>25</BLUE>
 		<ID>0</ID>
 	</KEY>
 	<BLOCK>
@@ -2296,6 +2306,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>34</X>
+		<Y>0</Y>
+		<Z>56</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>34</X>
 		<Y>0.5</Y>
@@ -2536,6 +2551,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>38</X>
+		<Y>0</Y>
+		<Z>44</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>38</X>
 		<Y>0.5</Y>
@@ -2548,9 +2568,9 @@
 		<X>38</X>
 		<Y>0.5</Y>
 		<Z>56</Z>
-		<RED>196</RED>
-		<GREEN>249</GREEN>
-		<BLUE>145</BLUE>
+		<RED>247</RED>
+		<GREEN>212</GREEN>
+		<BLUE>85</BLUE>
 		<ID>50</ID>
 	</KEY>
 	<BLOCK>
@@ -2753,11 +2773,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
+	<ZOMBIE>
 		<X>42</X>
 		<Y>0</Y>
-		<Z>50</Z>
-	</CHEST>
+		<Z>44</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>42</X>
 		<Y>0.5</Y>
@@ -2886,6 +2906,16 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<ZOMBIE>
+		<X>44</X>
+		<Y>0</Y>
+		<Z>38</Z>
+	</ZOMBIE>
+	<ZOMBIE>
+		<X>44</X>
+		<Y>0</Y>
+		<Z>42</Z>
+	</ZOMBIE>
 	<BLOCK>
 		<X>44</X>
 		<Y>0.5</Y>
@@ -2946,9 +2976,9 @@
 		<X>46</X>
 		<Y>0.5</Y>
 		<Z>18</Z>
-		<RED>115</RED>
-		<GREEN>23</GREEN>
-		<BLUE>180</BLUE>
+		<RED>246</RED>
+		<GREEN>104</GREEN>
+		<BLUE>248</BLUE>
 		<ID>100</ID>
 	</KEY>
 	<BLOCK>
@@ -2975,6 +3005,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<CHEST>
+		<X>46</X>
+		<Y>0</Y>
+		<Z>48</Z>
+	</CHEST>
 	<BLOCK>
 		<X>46</X>
 		<Y>0.5</Y>
@@ -3103,6 +3138,11 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
+	<CHEST>
+		<X>48</X>
+		<Y>0</Y>
+		<Z>46</Z>
+	</CHEST>
 	<BLOCK>
 		<X>48</X>
 		<Y>0.5</Y>
@@ -3183,11 +3223,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
-		<X>50</X>
-		<Y>0</Y>
-		<Z>50</Z>
-	</CHEST>
 	<BLOCK>
 		<X>50</X>
 		<Y>0.5</Y>
@@ -3356,11 +3391,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
-		<X>52</X>
-		<Y>0</Y>
-		<Z>44</Z>
-	</CHEST>
 	<BLOCK>
 		<X>52</X>
 		<Y>0.5</Y>
@@ -3449,11 +3479,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
-		<X>56</X>
-		<Y>0</Y>
-		<Z>2</Z>
-	</CHEST>
 	<BLOCK>
 		<X>56</X>
 		<Y>0.5</Y>
@@ -3496,11 +3521,6 @@
 		<GREEN>0</GREEN>
 		<BLUE>0</BLUE>
 	</BLOCK>
-	<CHEST>
-		<X>56</X>
-		<Y>0</Y>
-		<Z>18</Z>
-	</CHEST>
 	<BLOCK>
 		<X>56</X>
 		<Y>0.5</Y>
