@@ -8,7 +8,8 @@ from Sound import GameSounds
 import math
 
 class Camera:
-    '''Stores and changes the camera position'''
+    '''Stores and changes the camera position
+    while detecting collision'''
 
     SPEED = .7
     ROTATE = 1
@@ -95,7 +96,9 @@ class Camera:
         self.pos_Y += amt
 
     def check_collisions(self, objects):
-        '''Checks for objects within aware distance and performs a hit test upon them'''
+        '''Checks if object is within range of camera's aware variable.
+        If so, a hit test is performed upon the object.
+        Returns true upon detecting collision with any object'''
         for obj in objects:
             x2, y2, z2 = obj.get_pos()
             moved, tmp_x, tmp_y, tmp_z = self.move_by_keys(self.keys, 1)
@@ -110,7 +113,8 @@ class Camera:
                 #            self.zomSound.play() # Need a vector from the camera position to the zombie and check to see if there is an object in the way
 
     def hitTest(self, obj, x, y, z):
-        '''Does a test for the type of object bumped into and the appropriate response.'''
+        '''Checks the given x, y, and z coordinates against the bounding box of the object,
+        returns true if there is a collision'''
         w = obj.width
         for i in range(1,5):
             x2, z2 = self.get_sides(i)
@@ -168,7 +172,9 @@ class Camera:
         #self.pos_Y += math.cos(self.rot_X*math.pi/180)*math.sin(-self.rot_Z*math.pi/180)*amt
 
     def move_by_keys(self, tmp_keys, direction):
-        '''moves the player in reverse.'''
+        '''returns the projected coordinates of the player,
+        and takes a direction -- 1 = forward, 2 = reverse,
+        also returns true upon movement'''
         tmp_X = self.pos_X
         tmp_Y = self.pos_Y
         tmp_Z = self.pos_Z
@@ -195,14 +201,14 @@ class Camera:
             moved = True
         return (moved, tmp_X, tmp_Y, tmp_Z)
     
-    def project_move_other(self):
+    '''def project_move_other(self):
         tmp_X = self.pos_X
         tmp_Y = self.pos_Y
         tmp_Z = self.pos_Z
         x, z = self.walk(self.SPEED)
         tmp_Z += z
         tmp_X += x
-        return (tmp_X, tmp_Z)
+        return (tmp_X, tmp_Z)'''
 
     def get_camera_distance(self, x2, y2, z2):
         '''Returns the distance from given point'''
