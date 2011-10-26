@@ -18,10 +18,6 @@ import math
 import Overlay
 from Obj2 import Model
 
-# TODO: Choosing only the ones you can see to actually render.
-#       Speed up the rendering process so the game runs more smoothly
-#       Nicer ground? Reflections? Shadows?
-
 class RenderWorld:
     '''This is the class that renders maze.
     Camera angles are handled by Camera.py.
